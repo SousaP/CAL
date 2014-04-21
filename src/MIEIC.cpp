@@ -30,7 +30,7 @@ void MIEIC ::loadProjectos(){
 		getline(file,linha);
 		getline(file,linha2);
 		if(linha != "" && linha2 != "")
-			projectos.push_back(Projectos(atoi(linha.c_str()),atoi(linha2.c_str())));
+			projectos.push_back(Projectos(linha,atoi(linha2.c_str())));
 	}
 	file.close();
 
