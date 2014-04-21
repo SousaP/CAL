@@ -18,9 +18,7 @@ bool Projectos :: getSuperv() const{
 }
 
 bool Projectos :: operator == (const Projectos &P) const{
-	if(this->nome == P.nome && this->supervisor == P.supervisor)
-		return true;
-	else return false;
+   return (this->nome == P.nome && this->supervisor == P.supervisor);
 }
 
 ostream & operator << (ostream &os,const Projectos &P){

@@ -42,10 +42,7 @@ void Supervisores :: removeProj(Projectos p){
 }
 
 bool Supervisores :: operator == (const Supervisores &S) const{
-	if(this->nome == S.nome && this->maxProj == S.maxProj && this->projectos == S.projectos)
-		return true;
-	else
-		return false;
+	return (this->nome == S.nome && this->maxProj == S.maxProj && this->projectos == S.projectos);
 }
 
 ostream &operator << (ostream &os, Supervisores &S){

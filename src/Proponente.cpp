@@ -44,10 +44,7 @@ void Proponente ::removePref(Estudantes pref){
 }
 
 bool Proponente ::operator == (const Proponente &P) const{
-	if(this->nome == P.nome && this->Docente == P.Docente && this->PrefE == P.PrefE)
-		return true;
-	else
-		return false;
+	return (this->nome == P.nome && this->Docente == P.Docente && this->PrefE == P.PrefE);
 }
 
 ostream &operator << (ostream &os,const Proponente &P){

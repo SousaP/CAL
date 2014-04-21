@@ -48,10 +48,8 @@ void Estudantes :: removePref(Projectos pref){
 
 bool Estudantes :: operator == (const Estudantes &E) const{
 
-	if(this->nome == E.nome && this->preferencias == E.preferencias && this->projecto == E.projecto)
-		return true;
-	else
-		return false;
+	return (this->nome == E.nome && this->preferencias == E.preferencias && this->projecto == E.projecto);
+
 }
 
 
