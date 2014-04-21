@@ -1,4 +1,4 @@
-#include <Proponente.h>
+#include "Proponente.h"
 
 Proponente :: Proponente(string n, vector<Estudantes> pref,bool Docen){
 
@@ -43,15 +43,18 @@ void Proponente ::removePref(Estudantes pref){
 			}
 }
 
-bool &Proponente ::operator == (const Proponente &P) const{
-	return this->nome == P.nome && this->Docente = P.Docente && this->PrefE == P.PrefE;
+bool Proponente ::operator == (const Proponente &P) const{
+	if(this->nome == P.nome && this->Docente = P.Docente && this->PrefE == P.PrefE)
+		return true;
+	else
+		return false;
 }
 
-ostream &Proponente :: operator << (ostream &os, Proponente &P){
+ostream &operator << (ostream &os,const Proponente &P){
 	   os << "Nome: ";
-		os << P.nome;
+		os << P.getNome();
 		os << "Preferencias: ";
-		vector<string> temp = P.PrefE;
+		vector<Estudantes> temp = P.getPreferencias();
 		for (unsigned int i = 0; i < temp.size(); i++){
 			os << temp[i];
 			os << ", ";

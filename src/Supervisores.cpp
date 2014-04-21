@@ -1,4 +1,4 @@
-#include <Supervisores.h>
+#include "Supervisores.h"
 
 Supervisores :: Supervisores(string n, vector<Projectos>  proj,unsigned int nrmax){
 	nome = n;
@@ -41,15 +41,18 @@ void Supervisores :: removeProj(Projectos p){
 			}
 }
 
-bool &Supervisores :: operator == (const Supervisores &S) const{
-	return this->nome == S.nome && this->maxProj == S.maxProj && this->projectos == S.projectos;
+bool Supervisores :: operator == (const Supervisores &S) const{
+	if(this->nome == S.nome && this->maxProj == S.maxProj && this->projectos == S.projectos)
+		return true;
+	else
+		return false;
 }
 
-ostream &Supervisores :: operator << (ostream &os, Supervisores &S){
+ostream &operator << (ostream &os, Supervisores &S){
 	os << "Nome: ";
-		os << S.nome;
+		os << S.getNome();
 		os << "Supervisando: ";
-		vector<string> temp = S.projectos;
+		vector<Projectos> temp = S.getPreferencias();
 		for (unsigned int i = 0; i < temp.size(); i++){
 			os << temp[i];
 			os << ", ";

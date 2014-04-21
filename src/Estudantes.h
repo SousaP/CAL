@@ -5,7 +5,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
-#include <Projectos.h>
+#include "Projectos.h"
 
 using namespace std;
 
@@ -23,8 +23,8 @@ public:
 	void addPref(Projectos novaPref);
 	void setProj();
 	void removePref(Projectos pref);
-	bool &operator == (const Estudantes &E) const;
-	ostream & operator << (ostream &os, Estudantes &E);
+	bool operator == (const Estudantes &E) const;
+	friend ostream &operator << (ostream &os,const Estudantes &E);
 };
 
 

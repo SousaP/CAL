@@ -16,8 +16,8 @@ public:
 	void setNome(string nome);
 	string getNome() const;
 	bool getSuperv() const;
-	bool &operator == (const Projectos &P) const;
-	ostream & operator << (ostream &os, const Projectos &P);
+	bool operator == (const Projectos &P) const;
+	friend ostream & operator << (ostream &os, const Projectos &P);
 };
 
 

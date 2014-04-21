@@ -95,11 +95,6 @@ int Graph<T>::getNumVertex() const {
 	return vertexSet.size();
 }
 
-template<class T>
-int Graph<T>::getNumVertex() const {
-	return vertexSet.size();
-}
-
 
 template<class T>
 vector<Vertex<T> *> Graph<T>::getVertexSet() const {

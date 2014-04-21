@@ -5,11 +5,11 @@
 #include <string>
 #include <iostream>
 #include <vector>
-#include <Projectos.h>
-#include <Proponente.h>
-#include <Estudantes.h>
-#include <Supervisores.h>
-#include <Graph.h>
+#include "Projectos.h"
+#include "Proponente.h"
+#include "Estudantes.h"
+#include "Supervisores.h"
+#include "Graph.h"
 
 
 class MIEIC {

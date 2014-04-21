@@ -1,4 +1,4 @@
-#include <MIEIC.h>
+#include "MIEIC.h"
 
 #include <sstream>
 #include <fstream>
@@ -19,7 +19,7 @@ MIEIC :: MIEIC(unsigned int ano){
 void MIEIC ::loadProjectos(){
 	string temp = "Projectos";
 	temp += ano;
-	temp +- ".txt";
+	temp += ".txt";
 	ifstream file (temp.c_str());
 	if (!file.is_open())
 		return;
@@ -39,7 +39,7 @@ void MIEIC ::loadProjectos(){
 void MIEIC ::loadEstudantes(){
 	string temp = "Estudantes";
 	temp += ano;
-	temp +- ".txt";
+	temp += ".txt";
 	ifstream file (temp.c_str());
 	if (!file.is_open())
 		return;
@@ -50,16 +50,15 @@ void MIEIC ::loadEstudantes(){
 	while (!file.eof()) {
 		getline(file,linha);
 		getline(file,linha2);
-		getline(file,linha3);
 
 
-		if(linha != "" && linha2 != ""&& linha3 != "")
+		if(linha != "" && linha2 != "")
 		{
 
 			string indice;
 			vector<Projectos> temp;
 			do{
-				istringstream ss(linha3);
+				istringstream ss(linha2);
 				getline(ss,indice,',');
 
 				temp.push_back(projectos[atoi(indice.c_str())]);
@@ -68,7 +67,7 @@ void MIEIC ::loadEstudantes(){
 			}while(indice != "");
 
 
-			estudantes.push_back(Estudantes(linha,temp,atoi(linha2.c_str())));
+			estudantes.push_back(Estudantes(linha,temp));
 
 
 		}
@@ -82,7 +81,7 @@ void MIEIC ::loadEstudantes(){
 void MIEIC ::loadProponentes(){
 	string temp = "Proponentes";
 	temp += ano;
-	temp +- ".txt";
+	temp += ".txt";
 	ifstream file (temp.c_str());
 	if (!file.is_open())
 		return;
@@ -123,7 +122,7 @@ void MIEIC ::loadProponentes(){
 void MIEIC ::loadSupervisores(){
 	string temp = "Supervisores";
 	temp += ano;
-	temp +- ".txt";
+	temp += ".txt";
 	ifstream file (temp.c_str());
 	if (!file.is_open())
 		return;

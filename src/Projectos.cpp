@@ -17,11 +17,13 @@ bool Projectos :: getSuperv() const{
 	return supervisor;
 }
 
-bool &Projectos :: operator == (const Projectos &P) const{
-return this->nome == P.nome && this->supervisor == P.supervisor;
+bool Projectos :: operator == (const Projectos &P) const{
+	if(this->nome == P.nome && this->supervisor == P.supervisor)
+		return true;
+	else return false;
 }
 
-ostream &Projectos :: operator << (ostream &os,const Projectos &P){
-	os << "Projecto: " << nome << endl;
+ostream & operator << (ostream &os,const Projectos &P){
+	os << "Projecto: " << P.getSuperv() << endl;
 	return os;
 }

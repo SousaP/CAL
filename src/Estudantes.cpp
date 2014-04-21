@@ -46,17 +46,20 @@ void Estudantes :: removePref(Projectos pref){
 
 }
 
-bool& Estudantes ::  operator == (const Estudantes &E) const{
+bool Estudantes :: operator == (const Estudantes &E) const{
 
-	return this->nome == E.nome && this->preferencias == E.preferencias && this->projecto == E.projecto;
+	if(this->nome == E.nome && this->preferencias == E.preferencias && this->projecto == E.projecto)
+		return true;
+	else
+		return false;
 }
 
 
-ostream &Estudantes ::operator << (ostream &os, Estudantes &E){
+ostream & operator << (ostream &os,const Estudantes &E){
 	os << "Nome: ";
-	os << E.nome;
+	os << E.getNome();
 	os << "Preferencias: ";
-	vector<string> temp = E.preferencias;
+	vector<Projectos> temp = E.getPreferencias();
 	for (unsigned int i = 0; i < temp.size(); i++){
 		os << temp[i];
 		os << ", ";

@@ -4,7 +4,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
-#include <Projectos.h>
+#include "Projectos.h"
 
 class Supervisores {
 	string nome;
@@ -20,8 +20,8 @@ public:
 	void addProj(Projectos novaPref);
 	void setnrMAX(unsigned int nrmax);
 	void removeProj(Projectos p);
-	bool &operator == (const Supervisores &S) const;
-	ostream & operator << (ostream &os, Supervisores &S);
+	bool operator == (const Supervisores &S) const;
+	friend ostream & operator << (ostream &os, Supervisores &S);
 };
 
 

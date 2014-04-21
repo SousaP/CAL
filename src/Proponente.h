@@ -4,7 +4,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
-#include <Estudantes.h>
+#include "Estudantes.h"
 
 
 class Proponente {
@@ -21,8 +21,8 @@ public:
 	void addPref(Estudantes novaPref);
 	void setDocente(bool newDocente);
 	void removePref(Estudantes pref);
-	bool &operator == (const Proponente &P) const;
-	ostream & operator << (ostream &os, Proponente &P);
+	bool operator == (const Proponente &P) const;
+	friend ostream & operator << (ostream &os,const Proponente &P);
 };
 
 
