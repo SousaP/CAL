@@ -1,11 +1,9 @@
 #include "Proponente.h"
 
-Proponente :: Proponente(string n,vector<Estudante> pref,bool Docen,Projecto g){
+Proponente :: Proponente(string n,vector<Estudante> pref,bool Docen,Projecto g)
+: guia(g) , nome(n), PrefE(pref) , Docente(Docen)
+{
 
-	guia = g;
-	nome = n;
-	PrefE = pref;
-	Docente = Docen;
 }
 
 

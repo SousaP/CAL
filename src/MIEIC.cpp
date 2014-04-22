@@ -159,6 +159,15 @@ void MIEIC ::loadSupervisores(){
 
 }
 
+void MIEIC :: Listagem(){
+
+}
+
+
+void MIEIC :: PrimeiraFase(){
+
+
+}
 
 void MIEIC :: Menu(){
 
