@@ -1,11 +1,15 @@
 #include "Supervisor.h"
 
 Supervisor :: Supervisor(string n, unsigned int nrmax)
-:nome(n), maxProj(nrmax){}
+:nome(n), maxProj(nrmax), ID(iD){
+	incID();
+}
 
 
 Supervisor :: Supervisor(string n, vector<Projecto>  proj,unsigned int nrmax)
-: nome(n), Projectos(proj), maxProj(nrmax){}
+: nome(n), Projectos(proj), maxProj(nrmax), ID(iD){
+	incID();
+}
 
 void Supervisor :: setNome(string nome){
 	this->nome = nome;

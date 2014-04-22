@@ -9,12 +9,13 @@ using namespace std;
 
 
 MIEIC :: MIEIC(unsigned int ano){
-
+	priFaseOk = false;
 	this->ano = ano;
-	void loadProjectos();
-	void loadEstudantes();
-	void loadProponentes();
-	void loadSupervisores();
+	loadProjectos();
+	loadEstudantes();
+	loadProponentes();
+	loadSupervisores();
+	StartPriFase();
 }
 
 void MIEIC ::loadProjectos(){
@@ -159,7 +160,7 @@ void MIEIC ::loadSupervisores(){
 
 }
 
-void MIEIC :: ListPorjs(){
+void MIEIC :: ListProjs(){
 
 	cout << "\n||||| LISTAGEM PROJETOS  |||||\n";
 
@@ -209,7 +210,7 @@ void MIEIC :: ListSupervs(){
 bool MIEIC :: Listagem(string pessoa){
 
 	if(pessoa == "Projectos" || pessoa == "projectos")
-		ListPorjs();
+		ListProjs();
 	else if(pessoa == "Proponentes" || pessoa == "proponentes")
 		ListPropos();
 	else if(pessoa == "Estudantes" || pessoa == "estudantes" )
@@ -222,18 +223,68 @@ bool MIEIC :: Listagem(string pessoa){
 
 }
 
+
+void MIEIC :: addEdge(int iDFont, int iDDist, int peso){
+
+}
+
+
+void MIEIC :: EstudantesPref(){
+
+	vector<Estudante> temp;
+
+	for(int i = 0; i < Estudantes.size(); i++)
+		if(!Estudantes[i].nrPref())
+			temp.push_back(Estudantes[i]);
+
+
+	for(int a = 0; a < temp.size(); a++)
+	{
+		cout << a << ". " << temp[a] << endl;
+	}
+
+
+
+
+
+}
+
+void MIEIC :: ProponentesPref(){
+
+}
+
+void MIEIC :: SupervisoresPref(){
+
+}
+
+void MIEIC :: StartPriFase(){
+
+	Pessoa* P;
+	for(int i = 0; i < Estudantes.size(); i++)
+	{
+		P = &Estudantes[i];
+		PriFase.addVertex(P);
+	}
+}
+
 void MIEIC :: PrimeiraFase(){
 	string escolha = "";
 
+	while(escolha != "Sair" && escolha != "sair" && escolha != "4"){
 	cout << "1. Escolhas dos Estudantes\n";
 	cout << "2. Escolhas dos Proponentes\n";
 	cout << "3. Atribuir Projectos\n";
-	cin >> escolha;
+	cout << "4. Sair";
+	getline(cin,escolha);
 
+	if(escolha == "1" || escolha == "Estudantes" || escolha == "estudantes")
+		EstudantesPref();
+	else if(escolha == "2" || escolha == "Proponentes" || escolha == "proponentes")
+		ProponentesPref();
+	else if(escolha == "3" || escolha == "Projectos" || escolha == "projectos")
+		SupervisoresPref();
 
-
-
-
+	}
 }
 
 void MIEIC :: SegundaFase(){
@@ -276,6 +327,9 @@ void MIEIC :: Criar(){
 		getline(cin,nomeE);
 
 		Estudantes.push_back(Estudante(nomeE));
+		Pessoa* P = &Estudantes[Estudantes.size()-1];
+		PriFase.addVertex(P);
+
 	}
 	else if(escolha == "3" || escolha == "Proponente" || escolha == "proponente")
 	{
@@ -326,10 +380,10 @@ void MIEIC :: Menu(){
 	cout << "\n1. Criar elementos\n2. Listagem\n3. Primeira fase.\n4. Segunda Fase.\n5. Sair\n";
 	cin >> escolha;
 
-	if(escolha == "Criar" && escolha == "criar" &&escolha == "1")
+	if(escolha == "Criar" || escolha == "criar" || escolha == "1")
 		Criar();
 
-	else if(escolha == "Listagem" && escolha == "listagem" &&escolha == "2")
+	else if(escolha == "Listagem" || escolha == "listagem" || escolha == "2")
 	{
 		string list;
 		do{
@@ -342,13 +396,11 @@ void MIEIC :: Menu(){
 
 	}
 
-	else if(escolha == "Primeira" && escolha == "primeira" &&escolha == "3")
+	else if(escolha == "Primeira" || escolha == "primeira" || escolha == "3")
 	PrimeiraFase();
 
-	else if(escolha == "Segunda" && escolha == "segunda" &&escolha == "4")
+	else if(escolha == "Segunda" || escolha == "segunda" || escolha == "4")
 		SegundaFase();
-	else if(escolha == "Sair" && escolha == "sair" &&escolha == "5")
-		return;
 
 	}
 

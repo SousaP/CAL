@@ -1,3 +1,5 @@
+
+/*
 void AtribuicaoDeProjetos::loadEstudantes() {
 	string filename = "Estudantes.txt";
 	ifstream myfile(filename.c_str());
@@ -116,3 +118,5 @@ void AtribuicaoDeProjetos::loadSupervisores() {
 	myfile.close();
 
 }
+
+*/

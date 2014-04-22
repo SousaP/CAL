@@ -31,13 +31,17 @@ public:
 	bool Listagem(string pessoa);
 	void PrimeiraFase();
 	void SegundaFase();
-	void ListPorjs();
+	void ListProjs();
 	void ListPropos();
 	void ListEstuds();
 	void ListSupervs();
 	bool FirstFaseComplete();
 	void Criar();
-
+	void EstudantesPref();
+	void ProponentesPref();
+	void SupervisoresPref();
+	void StartPriFase();
+	void addEdge(int iDFont, int iDDist, int peso);
 };
 
 

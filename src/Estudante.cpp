@@ -2,10 +2,13 @@
 
 
 Estudante :: Estudante(string n, vector<Projecto> pref)
-: nome(n), preferencias(pref),projecto(false){}
+: nome(n), preferencias(pref),projecto(false), ID(iD){
+	incID();
+}
 
 Estudante :: Estudante(string n)
-: nome(n){
+: nome(n), ID(iD){
+	incID();
 	projecto = false;
 }
 
