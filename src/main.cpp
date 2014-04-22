@@ -9,10 +9,13 @@ do{
 
 	cin >> ano;
 
-}while(atoi(ano.c_str()) > 1994 && atoi(ano.c_str()) <= 2014);
+}while(atoi(ano.c_str()) < 1994 && atoi(ano.c_str()) > 2014);
 
 
-MIEIC MIEIC2013(atoi(ano.c_str()));
+MIEIC MIEIC(atoi(ano.c_str()));
+
+MIEIC.Menu();
+
 
 	return 0;
 }

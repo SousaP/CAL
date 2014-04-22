@@ -159,18 +159,14 @@ void MIEIC ::loadSupervisores(){
 
 }
 
-
-
-
-
 void MIEIC :: ListPorjs(){
 
 	cout << "\n||||| LISTAGEM PROJETOS  |||||\n";
 
 	vector<Projecto>::iterator it = Projectos.begin();
 
-	for(; it != Projectos.end(); it++)
-		cout << (*it) << endl;
+	for(int i = 1; it != Projectos.end(); it++, i++)
+		cout << i << ".  " << (*it) << endl;
 
 	cout << "----------------------------------";
 }
@@ -180,8 +176,8 @@ void MIEIC :: ListPropos(){
 	cout << "\n||||| LISTAGEM PROPONENTES  |||||\n";
 	vector<Proponente> ::iterator it = Proponentes.begin();
 
-	for(; it != Proponentes.end(); it++)
-			cout << (*it) << endl;
+	for(int i = 1; it != Proponentes.end(); it++, i++)
+			cout << i << ".  " << (*it) << endl;
 
 	cout << "----------------------------------";
 }
@@ -191,8 +187,8 @@ void MIEIC :: ListEstuds(){
 	cout << "\n||||| LISTAGEM ESTUDANTES |||||\n";
 		vector<Estudante> ::iterator it = Estudantes.begin();
 
-		for(; it != Estudantes.end(); it++)
-				cout << (*it) << endl;
+		for(int i = 1; it != Estudantes.end(); it++, i++)
+			cout << i << ".  " << (*it) << endl;
 
 		cout << "----------------------------------";
 
@@ -203,25 +199,28 @@ void MIEIC :: ListSupervs(){
 	cout << "\n||||| LISTAGEM SUPERVISORES |||||\n";
 	vector<Supervisor> ::iterator it = Supervisores.begin();
 
-	for(; it != Supervisores.end(); it++)
-		cout << (*it) << endl;
+	for(int i = 1; it != Supervisores.end(); it++, i++)
+		cout << i << ".  " << (*it) << endl;
 
 	cout << "----------------------------------";
 
 }
 
-void MIEIC :: Listagem(string pessoa){
+bool MIEIC :: Listagem(string pessoa){
 
-	if(pessoa == "Projectos")
+	if(pessoa == "Projectos" || pessoa == "projectos")
 		ListPorjs();
-	else if(pessoa == "Proponentes")
+	else if(pessoa == "Proponentes" || pessoa == "proponentes")
 		ListPropos();
-	else if(pessoa == "Estudantes")
+	else if(pessoa == "Estudantes" || pessoa == "estudantes" )
 		ListEstuds();
-	else if(pessoa == "Supervisores")
+	else if(pessoa == "Supervisores" || pessoa == "supervisores")
 		ListSupervs();
-}
+	else return false;
 
+	return true;
+
+}
 
 void MIEIC :: PrimeiraFase(){
 	string escolha = "";
@@ -233,12 +232,90 @@ void MIEIC :: PrimeiraFase(){
 
 
 
+
+
 }
 
 void MIEIC :: SegundaFase(){
 
 }
 
+bool MIEIC :: FirstFaseComplete(){
+
+	vector<Vertex<Pessoa*> *> temp =  PriFase.getVertexSet();
+
+	vector<Vertex<Pessoa*> *>::iterator it = temp.begin();
+
+	for(; it != temp.end(); it++)
+		if((*(*it)->getInfo()).nrPref())
+			return false;
+
+	return true;
+}
+
+void MIEIC :: Criar(){
+
+	string escolha;
+
+	do{
+	cout << "\n1. Projecto\n2. Estudante\n3. Proponente 4. Supervisor\n5. Sair \n";
+	cin >> escolha;
+
+	if(escolha == "1" || escolha == "Projecto" || escolha == "projecto")
+	{
+		string nomeP;
+		cout << "\nNome: ";
+		getline(cin,nomeP);
+
+		Projectos.push_back(Projecto(nomeP,false));
+	}
+	else if(escolha == "2" || escolha == "Estudante" || escolha == "estudante")
+	{
+		string nomeE;
+		cout << "\nNome: ";
+		getline(cin,nomeE);
+
+		Estudantes.push_back(Estudante(nomeE));
+	}
+	else if(escolha == "3" || escolha == "Proponente" || escolha == "proponente")
+	{
+		string nomeP;
+		cout << "\nNome: ";
+		getline(cin,nomeP);
+
+		string superv;
+		bool sup;
+		do{
+		cout << "Precisa de um Docente para supervisionar?(S/N) ";
+
+
+		getline(cin,superv);
+		}while(superv != "S" && superv != "s" && superv != "n" && superv != "N");
+
+		if(superv != "S" || superv != "s")
+			sup = true;
+		else
+			sup = false;
+
+		Proponentes.push_back(Proponente(nomeP,sup));
+	}
+	else if(escolha == "4" || escolha == "Supervisor" || escolha == "supervisor")
+	{
+		string nomeS;
+		cout << "\nNome: ";
+		getline(cin,nomeS);
+
+		string nrmax;
+		do{
+		cout << "Numero Maximo de Projectos: ";
+		getline(cin,nrmax);
+		}while(atoi(nrmax.c_str()) > 0);
+
+		Supervisores.push_back(Supervisor(nomeS,atoi(nrmax.c_str())));
+	}
+
+	}while(escolha != "Sair" && escolha != "sair" && escolha != "5");
+}
 
 void MIEIC :: Menu(){
 
@@ -246,21 +323,31 @@ void MIEIC :: Menu(){
 
 	while(escolha != "Sair" && escolha != "sair" &&escolha != "4"){
 
-	cout << "1. Listagem\n2. Primeira fase.\n3. Segunda Fase.\n4. Sair";
+	cout << "\n1. Criar elementos\n2. Listagem\n3. Primeira fase.\n4. Segunda Fase.\n5. Sair\n";
 	cin >> escolha;
 
-	if(escolha != "Listagem" && escolha != "listagem" &&escolha != "1")
-	{
+	if(escolha == "Criar" && escolha == "criar" &&escolha == "1")
+		Criar();
 
+	else if(escolha == "Listagem" && escolha == "listagem" &&escolha == "2")
+	{
+		string list;
+		do{
+
+			cout << "\nListagem de: Projecto? Estudante? Proponente? Supervisor? Sair \n";
+			getline(cin,list);
+
+
+		}while(!Listagem(list) && (list != "Sair" || list != "sair"));
 
 	}
 
-	else if(escolha != "Primeira" && escolha != "primeira" &&escolha != "2")
+	else if(escolha == "Primeira" && escolha == "primeira" &&escolha == "3")
 	PrimeiraFase();
 
-	else if(escolha != "Segunda" && escolha != "segunda" &&escolha != "3")
+	else if(escolha == "Segunda" && escolha == "segunda" &&escolha == "4")
 		SegundaFase();
-	else if(escolha != "Sair" && escolha != "sair" &&escolha != "4")
+	else if(escolha == "Sair" && escolha == "sair" &&escolha == "5")
 		return;
 
 	}

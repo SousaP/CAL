@@ -17,6 +17,7 @@ class Estudante: public Pessoa {
 
 public:
 	Estudante(string n, vector<Projecto> pref);
+	Estudante(string n);
 	void setNome(string nome);
 	string getNome() const;
 	vector<Projecto> getPreferencias() const;
@@ -26,6 +27,7 @@ public:
 	void removePref(Projecto pref);
 	bool operator == (const Estudante &E) const;
 	friend ostream &operator << (ostream &os,const Estudante &E);
+	bool nrPref();
 };
 
 

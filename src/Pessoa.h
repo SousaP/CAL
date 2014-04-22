@@ -5,7 +5,11 @@
 
 class Pessoa {
 
-
+public:
+	Pessoa(){}
+	bool nrPref(){
+		// retorna se tem preferencias ou nao
+	}
 
 };
 

@@ -1,11 +1,11 @@
 #include "Proponente.h"
 
+Proponente :: Proponente(string n,bool Docen)
+: nome(n) , Docente(Docen){}
+
 Proponente :: Proponente(string n,vector<Estudante> pref,bool Docen,Projecto g)
 : guia(g) , nome(n), PrefE(pref) , Docente(Docen)
-{
-
-}
-
+{}
 
 void Proponente ::setNome(string nome){
  this->nome = nome;
@@ -56,4 +56,12 @@ ostream &operator << (ostream &os,const Proponente &P){
 			os << ", ";
 		}
 		return os;
+}
+
+
+bool Proponente :: nrPref(){
+
+	if(PrefE.size() == 0)
+		return false;
+	else return true;
 }

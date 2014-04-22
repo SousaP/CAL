@@ -2,10 +2,11 @@
 
 
 Estudante :: Estudante(string n, vector<Projecto> pref)
-{
-nome = n;
-preferencias = pref;
-projecto = false;
+: nome(n), preferencias(pref),projecto(false){}
+
+Estudante :: Estudante(string n)
+: nome(n){
+	projecto = false;
 }
 
 
@@ -64,3 +65,12 @@ ostream & operator << (ostream &os,const Estudante &E){
 	}
 	return os;
 }
+
+
+bool  Estudante:: nrPref(){
+
+	if(preferencias.size() == 0)
+		return false;
+	else return true;
+}
+

@@ -12,6 +12,7 @@ class Supervisor :public Pessoa{
 	vector<Projecto> Projectos;
 
 public:
+	Supervisor(string n, unsigned int nrmax);
 	Supervisor(string n, vector<Projecto>  proj,unsigned int nrmax);
 	void setNome(string nome);
 	string getNome() const;

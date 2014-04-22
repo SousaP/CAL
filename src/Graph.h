@@ -28,7 +28,15 @@ class Vertex {
 public:
 	Vertex(T pess);
 	friend class Graph<T> ;
+	T getInfo();
 };
+
+
+
+template<class T>
+T Vertex<T>::getInfo(){
+	return info;
+}
 
 
 template<class T>
