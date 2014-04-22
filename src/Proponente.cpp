@@ -1,7 +1,8 @@
 #include "Proponente.h"
 
-Proponente :: Proponente(string n, vector<Estudantes> pref,bool Docen){
+Proponente :: Proponente(string n,vector<Estudante> pref,bool Docen,Projecto g){
 
+	guia = g;
 	nome = n;
 	PrefE = pref;
 	Docente = Docen;
@@ -16,15 +17,15 @@ string Proponente ::getNome() const{
 	return nome;
 }
 
-vector<Estudantes> Proponente ::getPreferencias() const{
+vector<Estudante> Proponente ::getPreferencias() const{
 	return PrefE;
 }
 
-void Proponente ::setPref(const vector<Estudantes> pref){
+void Proponente ::setPref(const vector<Estudante> pref){
 	PrefE = pref;
 }
 
-void Proponente ::addPref(Estudantes novaPref){
+void Proponente ::addPref(Estudante novaPref){
 	PrefE.push_back(novaPref);
 }
 
@@ -32,8 +33,8 @@ void Proponente ::setDocente(bool newDocente){
 	Docente = newDocente;
 }
 
-void Proponente ::removePref(Estudantes pref){
-	vector<Estudantes>::iterator it = PrefE.begin();
+void Proponente ::removePref(Estudante pref){
+	vector<Estudante>::iterator it = PrefE.begin();
 
 			for (; it != PrefE.end(); it++) {
 				if ((*it) == pref) {
@@ -51,7 +52,7 @@ ostream &operator << (ostream &os,const Proponente &P){
 	   os << "Nome: ";
 		os << P.getNome();
 		os << "Preferencias: ";
-		vector<Estudantes> temp = P.getPreferencias();
+		vector<Estudante> temp = P.getPreferencias();
 		for (unsigned int i = 0; i < temp.size(); i++){
 			os << temp[i];
 			os << ", ";

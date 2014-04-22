@@ -9,6 +9,7 @@ using namespace std;
 
 
 MIEIC :: MIEIC(unsigned int ano){
+
 	this->ano = ano;
 	void loadProjectos();
 	void loadEstudantes();
@@ -30,7 +31,7 @@ void MIEIC ::loadProjectos(){
 		getline(file,linha);
 		getline(file,linha2);
 		if(linha != "" && linha2 != "")
-			projectos.push_back(Projectos(linha,atoi(linha2.c_str())));
+			Projectos.push_back(Projecto(linha,atoi(linha2.c_str())));
 	}
 	file.close();
 
@@ -56,18 +57,18 @@ void MIEIC ::loadEstudantes(){
 		{
 
 			string indice;
-			vector<Projectos> temp;
+			vector<Projecto> temp;
 			do{
 				istringstream ss(linha2);
 				getline(ss,indice,',');
 
-				temp.push_back(projectos[atoi(indice.c_str())]);
+				//temp.push_back(Projectos[atoi(indice.c_str())]);
 
 
 			}while(indice != "");
 
 
-			estudantes.push_back(Estudantes(linha,temp));
+			//Estudantes.push_back(Estudantes(linha,temp));
 
 
 		}
@@ -75,8 +76,6 @@ void MIEIC ::loadEstudantes(){
 	file.close();
 
 }
-
-
 
 void MIEIC ::loadProponentes(){
 	string temp = "Proponentes";
@@ -99,18 +98,18 @@ void MIEIC ::loadProponentes(){
 		{
 
 			string indice;
-			vector<Estudantes> temp;
+			vector<Estudante> temp;
 			do{
 				istringstream ss(linha3);
 				getline(ss,indice,',');
 
-				temp.push_back(estudantes[atoi(indice.c_str())]);
+				//temp.push_back(Estudantes[atoi(indice.c_str())]);
 
 
 			}while(indice != "");
 
 
-			proponentes.push_back(Proponente(linha,temp,atoi(linha2.c_str())));
+			//proponentes.push_back(Proponente(linha,temp,atoi(linha2.c_str())));
 
 
 		}
@@ -140,22 +139,49 @@ void MIEIC ::loadSupervisores(){
 		{
 
 			string indice;
-			vector<Projectos> temp;
+			vector<Projecto> temp;
 			do{
 				istringstream ss(linha3);
 				getline(ss,indice,',');
 
-				temp.push_back(projectos[atoi(indice.c_str())]);
+				//temp.push_back(projectos[atoi(indice.c_str())]);
 
 
 			}while(indice != "");
 
 
-			supervisores.push_back(Supervisores(linha,temp,atoi(linha2.c_str())));
+//			supervisores.push_back(Supervisores(linha,temp,atoi(linha2.c_str())));
 
 
 		}
 	}
 	file.close();
+
+}
+
+
+void MIEIC :: Menu(){
+
+	string escolha = "";
+
+	while(escolha != "Sair" && escolha != "sair" &&escolha != "4"){
+
+	cout << "1. Listagem\n2. Primeira fase.\n3. Segunda Fase.\n4. Sair";
+	cin >> escolha;
+
+	if(escolha != "Listagem" && escolha != "listagem" &&escolha != "1")
+	{
+
+
+	}
+
+	if(escolha != "Primeira" && escolha != "primeira" &&escolha != "2")
+	{
+
+	}
+
+
+	}
+
 
 }

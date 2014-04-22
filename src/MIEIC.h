@@ -5,26 +5,31 @@
 #include <string>
 #include <iostream>
 #include <vector>
-#include "Projectos.h"
+#include "Projecto.h"
 #include "Proponente.h"
-#include "Estudantes.h"
-#include "Supervisores.h"
+#include "Estudante.h"
+#include "Supervisor.h"
 #include "Graph.h"
+#include "Pessoa.h"
 
 
 class MIEIC {
-
+	Graph<Pessoa*> PriFase;
+	bool priFaseOk;
 	unsigned int ano;
-	vector<Projectos> projectos;
-	vector<Proponente> proponentes;
-	vector<Estudantes> estudantes;
-	vector<Supervisores> supervisores;
+	vector<Projecto> Projectos;
+	vector<Proponente> Proponentes;
+	vector<Estudante> Estudantes;
+	vector<Supervisor> Supervisores;
 public:
 	MIEIC(unsigned int ano);
 	void loadProjectos();
 	void loadProponentes();
 	void loadEstudantes();
 	void loadSupervisores();
+	void Menu();
+	void Listagem();
+	void PrimeiraFase();
 
 };
 
