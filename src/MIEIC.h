@@ -28,8 +28,13 @@ public:
 	void loadEstudantes();
 	void loadSupervisores();
 	void Menu();
-	void Listagem();
+	void Listagem(string pessoa);
 	void PrimeiraFase();
+	void SegundaFase();
+	void ListPorjs();
+	void ListPropos();
+	void ListEstuds();
+	void ListSupervs();
 
 };
 

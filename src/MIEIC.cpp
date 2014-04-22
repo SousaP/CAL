@@ -159,15 +159,86 @@ void MIEIC ::loadSupervisores(){
 
 }
 
-void MIEIC :: Listagem(){
 
+
+
+
+void MIEIC :: ListPorjs(){
+
+	cout << "\n||||| LISTAGEM PROJETOS  |||||\n";
+
+	vector<Projecto>::iterator it = Projectos.begin();
+
+	for(; it != Projectos.end(); it++)
+		cout << (*it) << endl;
+
+	cout << "----------------------------------";
+}
+
+void MIEIC :: ListPropos(){
+
+	cout << "\n||||| LISTAGEM PROPONENTES  |||||\n";
+	vector<Proponente> ::iterator it = Proponentes.begin();
+
+	for(; it != Proponentes.end(); it++)
+			cout << (*it) << endl;
+
+	cout << "----------------------------------";
+}
+
+void MIEIC :: ListEstuds(){
+
+	cout << "\n||||| LISTAGEM ESTUDANTES |||||\n";
+		vector<Estudante> ::iterator it = Estudantes.begin();
+
+		for(; it != Estudantes.end(); it++)
+				cout << (*it) << endl;
+
+		cout << "----------------------------------";
+
+}
+
+void MIEIC :: ListSupervs(){
+
+	cout << "\n||||| LISTAGEM SUPERVISORES |||||\n";
+	vector<Supervisor> ::iterator it = Supervisores.begin();
+
+	for(; it != Supervisores.end(); it++)
+		cout << (*it) << endl;
+
+	cout << "----------------------------------";
+
+}
+
+void MIEIC :: Listagem(string pessoa){
+
+	if(pessoa == "Projectos")
+		ListPorjs();
+	else if(pessoa == "Proponentes")
+		ListPropos();
+	else if(pessoa == "Estudantes")
+		ListEstuds();
+	else if(pessoa == "Supervisores")
+		ListSupervs();
 }
 
 
 void MIEIC :: PrimeiraFase(){
+	string escolha = "";
+
+	cout << "1. Escolhas dos Estudantes\n";
+	cout << "2. Escolhas dos Proponentes\n";
+	cout << "3. Atribuir Projectos\n";
+	cin >> escolha;
+
 
 
 }
+
+void MIEIC :: SegundaFase(){
+
+}
+
 
 void MIEIC :: Menu(){
 
@@ -184,11 +255,13 @@ void MIEIC :: Menu(){
 
 	}
 
-	if(escolha != "Primeira" && escolha != "primeira" &&escolha != "2")
-	{
+	else if(escolha != "Primeira" && escolha != "primeira" &&escolha != "2")
+	PrimeiraFase();
 
-	}
-
+	else if(escolha != "Segunda" && escolha != "segunda" &&escolha != "3")
+		SegundaFase();
+	else if(escolha != "Sair" && escolha != "sair" &&escolha != "4")
+		return;
 
 	}
 
