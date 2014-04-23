@@ -4,6 +4,8 @@
 #include <fstream>
 #include <cstring>
 #include <stdlib.h>
+
+typedef unsigned int unint;
 using namespace std;
 
 MIEIC::MIEIC(unsigned int ano) {
