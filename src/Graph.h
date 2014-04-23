@@ -29,7 +29,14 @@ public:
 	Vertex(T pess);
 	friend class Graph<T> ;
 	T getInfo();
+	vector<Edge<T> > getEdges();
 };
+
+template <class T>
+vector<Edge<T> > Vertex<T>:: getEdges(){
+	return adj;
+}
+
 
 template <class T>
 Vertex<T>::Vertex(T pess): info(pess), visited(false) {
@@ -76,12 +83,19 @@ public:
 	Edge(Vertex<T> *d, double w);
 	friend class Graph<T> ;
 	friend class Vertex<T> ;
+	T getDest();
 };
 
 template<class T>
 Edge<T>::Edge(Vertex<T> *d, double w) :
 		dest(d), weight(w) {
 }
+
+template<class T>
+T Edge<T>::getDest(){
+	return dest->getInfo();
+}
+
 
 
 
