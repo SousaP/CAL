@@ -6,7 +6,7 @@
 #include <vector>
 #include "Projecto.h"
 
-class Supervisor :public Pessoa{
+class Supervisor : public Pessoa{
 	unsigned int maxProj;
 	vector<Projecto> Projectos;
 
