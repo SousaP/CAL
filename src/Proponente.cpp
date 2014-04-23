@@ -1,6 +1,6 @@
 #include "Proponente.h"
 
-Proponente :: Proponente(string n,bool Docen)
+Proponente :: Proponente(string n, bool Docen)
 : nome(n) , Docente(Docen), Pessoa(iD){
 	incID();
 }
