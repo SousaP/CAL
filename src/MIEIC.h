@@ -17,9 +17,9 @@ class MIEIC {
 	Graph<Pessoa*> PriFase;
 	bool priFaseOk;
 	unsigned int ano;
-	vector<Proponente> Proponentes;
-	vector<Estudante> Estudantes;
-	vector<Supervisor> Supervisores;
+	vector<Proponente*> Proponentes;
+	vector<Estudante*> Estudantes;
+	vector<Supervisor*> Supervisores;
 public:
 	MIEIC(unsigned int ano);
 	void loadProjectos();

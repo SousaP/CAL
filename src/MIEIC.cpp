@@ -488,20 +488,28 @@ bool MIEIC::comparePropPref(Estudante e, Proponente p) {
 
 bool MIEIC::checkIfAllMarried() {
 
+	vector<Estudante*>::const_iterator itE = Estudantes.begin();
+	for (; itE != Estudantes.end(); itE++) {
+		if(!(*itE)->isMarried()) {
+			return false;
+		}
+	}
+	return true;
 }
 
 void MIEIC::Marry() {
 
-	vector<Estudante>::iterator itE = Estudantes.begin();
+	vector<Estudante*>::const_iterator itE = Estudantes.begin();
 
 	while (!checkIfAllMarried()) {
-		vector<Proponente>::iterator itP = Proponentes.begin();
-		if (!itE->isMarried()) {
+		vector<Proponente*>::const_iterator itP = Proponentes.begin();
+		if (!(*itE)->isMarried()) {
 			for (; itP != Proponentes.end(); itP++) {
-				if (!itE->isMarried()) {
+				if (!(*itP)->isMarried() && verificaPref((*itE)->getID(), (*itP)->getID())) {
 					//marry
+					//actualize itP->getMarry to E
 				} else {
-					if (comparePropPref((*itE), (*itP))) {
+					if (comparePropPref(*(*itE), *(*itP))) {
 						//marry E and P
 						//make itP->getMarry single
 						//actualize itP->getMarry to E
