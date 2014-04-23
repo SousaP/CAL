@@ -13,7 +13,9 @@ protected:
 
 public:
 
-	Pessoa(unsigned int n){nrP = n;}
+	Pessoa(unsigned int n, string nome){
+		this->nome = nome;
+		nrP = n;}
 	static unsigned int iD;
 	unsigned int nrP;
 	bool nrPref(){

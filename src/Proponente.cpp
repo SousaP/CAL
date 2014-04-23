@@ -1,12 +1,12 @@
 #include "Proponente.h"
 
 Proponente :: Proponente(string n, bool Docen)
-: nome(n) , Docente(Docen), Pessoa(iD){
+: Docente(Docen), Pessoa(iD, n){
 	incID();
 }
 
 Proponente :: Proponente(string n,vector<Estudante> pref,bool Docen,Projecto g)
-: guia(g) , nome(n), PrefE(pref) , Docente(Docen), Pessoa(iD)
+: guia(g), PrefE(pref) , Docente(Docen), Pessoa(iD, n)
 {incID();}
 
 void Proponente ::setNome(string nome){

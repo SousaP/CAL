@@ -2,13 +2,13 @@
 
 
 Supervisor :: Supervisor(string n, unsigned int nrmax)
-:nome(n), maxProj(nrmax), Pessoa(iD){
+:maxProj(nrmax), Pessoa(iD, n){
 	incID();
 }
 
 
 Supervisor :: Supervisor(string n, vector<Projecto>  proj,unsigned int nrmax)
-: nome(n), Projectos(proj), maxProj(nrmax), Pessoa(iD){
+:Projectos(proj), maxProj(nrmax), Pessoa(iD, n){
 	incID();
 }
 
