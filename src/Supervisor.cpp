@@ -7,7 +7,7 @@ Supervisor :: Supervisor(string n, unsigned int nrmax)
 }
 
 
-Supervisor :: Supervisor(string n, vector<Projecto>  proj,unsigned int nrmax)
+Supervisor :: Supervisor(string n, vector<Proponente*>  proj,unsigned int nrmax)
 :Projectos(proj), maxProj(nrmax), Pessoa(iD, n){
 	incID();
 }
@@ -20,15 +20,15 @@ string Supervisor :: getNome() const{
 	return nome;
 }
 
-vector<Projecto> Supervisor ::getPreferencias() const{
+vector<Proponente*> Supervisor ::getPreferencias() const{
 	return Projectos;
 }
 
-void Supervisor :: setProj(const vector<Projecto> p){
+void Supervisor :: setProj(const vector<Proponente*> p){
 	Projectos = p;
 }
 
-void Supervisor :: addProj(Projecto novaPref){
+void Supervisor :: addProj(Proponente* novaPref){
 	Projectos.push_back(novaPref);
 }
 
@@ -36,11 +36,11 @@ void Supervisor :: setnrMAX(unsigned int nrmax){
 	maxProj = nrmax;
 }
 
-void Supervisor :: removeProj(Projecto p){
-	vector<Projecto>::iterator it = Projectos.begin();
+void Supervisor :: removeProj(Proponente* p){
+	vector<Proponente*>::const_iterator it = Projectos.begin();
 
 			for (; it != Projectos.end(); it++) {
-				if ((*it) == p) {
+				if ((*(*it)) == (*p)) {
 					Projectos.erase(it);
 					return;
 				}
@@ -66,4 +66,8 @@ ostream &operator << (ostream &os, Supervisor &S){
 void Supervisor :: gettingmarried(Pessoa* p){
 	(*this->p) = (*p);
 	married = true;
+}
+
+bool Supervisor :: fullProj(){
+	return (maxProj == Projectos.size());
 }

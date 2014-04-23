@@ -47,6 +47,11 @@ public:
 	void Marry();
 	bool checkIfAllMarried();
 	void solteirar(unint id);
+	void MarrySuperv();
+	void StartSecFase();
+	void setpropofree();
+	bool checkIfAllMarried2();
+	void tryMarrySuperv(Supervisor* s);
 };
 
 

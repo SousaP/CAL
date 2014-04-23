@@ -78,3 +78,7 @@ void Proponente :: gettingmarried(Pessoa* p){
 	married = true;
 }
 
+bool Proponente :: getDocente(){
+return Docente;
+}
+

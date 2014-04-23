@@ -16,6 +16,7 @@ MIEIC::MIEIC(unsigned int ano) {
 	loadProponentes();
 	loadSupervisores();
 	StartPriFase();
+	StartSecFase();
 }
 
 void MIEIC::loadEstudantes() {
@@ -391,6 +392,15 @@ void MIEIC::StartPriFase() {
 	}
 }
 
+void MIEIC::StartSecFase() {
+
+	Pessoa* P;
+	for (int i = 0; i < Supervisores.size(); i++) {
+		(*P) = (*Supervisores[i]);
+		SecFase.addVertex(P);
+	}
+}
+
 void MIEIC::PrimeiraFase() {
 	string escolha = "";
 
@@ -415,6 +425,9 @@ void MIEIC::PrimeiraFase() {
 }
 
 void MIEIC::SegundaFase() {
+	if(!priFaseOk){
+		cout << "\n Primeira fase nao completa";
+		return;}
 	string escolha = "";
 
 		while (escolha != "Sair" && escolha != "sair" && escolha != "4") {
@@ -583,7 +596,6 @@ bool MIEIC::checkIfAllMarried() {
 	return true;
 }
 
-
 void MIEIC :: solteirar(unint id){
 
 	vector<Vertex<Pessoa*> *> temp = PriFase.getVertexSet();
@@ -593,7 +605,6 @@ void MIEIC :: solteirar(unint id){
 
 
 }
-
 
 void MIEIC::Marry() {
 
@@ -606,7 +617,7 @@ void MIEIC::Marry() {
 				if (!(*itP)->isMarried() && verificaPref((*itE)->getID(), (*itP)->getID())) {
 					//marry
 					//actualize itP->getMarry to E
-					//confirma cera que era o que querias:
+					//confirma cera se era o que querias:
 					(*itP)->gettingmarried((*itE));
 					(*itE)->gettingmarried((*itP));
 
@@ -627,3 +638,101 @@ void MIEIC::Marry() {
 		}
 	}
 }
+
+void MIEIC:: setpropofree(){
+	for (int i = 0; i < Supervisores.size(); i++) {
+			Supervisores[i]->gettingsigle();
+		}
+}
+
+bool MIEIC::checkIfAllMarried2() {
+/*
+ * Este check faz check se os proponentes tem todos relaçao e se os Supervisores ja estao todos com as vagas preenchidas
+ * */
+
+	bool prop = true;
+	vector<Proponente*>::const_iterator itP = Proponentes.begin();
+	for (; itP != Proponentes.end(); itP++) {
+		if((*itP)->getDocente() && !(*itP)->isMarried()) {
+			prop = false;
+			break;
+		}
+	}
+
+	bool Super = true;
+	vector<Supervisor*>::const_iterator itS = Supervisores.begin();
+		for (; itS != Supervisores.end(); itS++) {
+			if(!(*itS)->isMarried() || !(*itS)->fullProj()) {
+				Super = false;
+				break;
+			}
+		}
+
+	return (prop  && Super);
+}
+
+
+void MIEIC :: tryMarrySuperv(Supervisor* s){
+
+	vector<Vertex<Pessoa*> *> temp =  SecFase.getVertexSet();
+
+	vector<Edge<Pessoa*> > Sedges;
+
+	for(unint i = 0; i < temp.size(); i++)
+	{
+		if(temp[i]->getInfo()->getID() == s->getID())
+			Sedges = temp[i]->getEdges();
+	}
+
+	Pessoa* tryM;
+	for(unint c = 0; c < Sedges.size(); c++)
+	{
+		if(!Sedges[c].getDest()->isMarried())
+		{
+			tryM = Sedges[c].getDest();
+
+			s->gettingmarried(tryM);
+			tryM->gettingmarried(s);
+
+		}
+	}
+
+
+}
+
+
+void MIEIC :: MarrySuperv(){
+
+	vector<Supervisor*>::const_iterator itS = Supervisores.begin();
+
+	//por os proponentes solteiros porque vieram da primeira fase
+	setpropofree();
+
+
+	while (!checkIfAllMarried2()) {
+		tryMarrySuperv((*itS));
+
+		itS++;
+
+		if(itS == Supervisores.end())
+			itS = Supervisores.begin();
+
+	}
+
+
+
+}
+/*
+ Ha um problema.
+ ou se calhar nao, mas temos de coordenar o codigo conforme isso
+ entao tipo, nos temos o grafo, com a pessoa
+ e a pessoa imagine-mos é estudante (so por exemplo)
+ se e no grafo o as preferencias estao representadas,
+ é preciso ter um membro na funçao estudante a dizer quais as preferencias?
+ talvez nao... ou talvez sim?
+
+ este projeto tem erros no supervisor, nao percebo porque, mas agora estou cansado,
+ amanha de manha tento-os resolver,
+ Pedro o Sousa
+
+ */
