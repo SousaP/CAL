@@ -26,7 +26,7 @@ public:
 	}
 	unsigned int getID(){return nrP;}
 	bool isMarried() {return married;}
-	virtual void gettingmarried(Pessoa* p);
+	virtual void gettingmarried(Pessoa* p){}
 	void gettingsigle(){married = false;}
 
 };
