@@ -7,7 +7,6 @@
 #include "Projecto.h"
 
 class Supervisor :public Pessoa{
-	string nome;
 	unsigned int maxProj;
 	vector<Projecto> Projectos;
 

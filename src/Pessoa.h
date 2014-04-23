@@ -1,11 +1,14 @@
 #ifndef PESSOA_H_
 #define PESSOA_H_
 
+#include "string"
+using namespace std;
 
 
 class Pessoa {
-
+	string nome;
 public:
+
 	Pessoa(unsigned int n){nrP = n;}
 	static unsigned int iD;
 	unsigned int nrP;

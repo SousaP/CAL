@@ -10,7 +10,6 @@
 using namespace std;
 
 class Estudante: public Pessoa {
-	string nome;
 	vector<Projecto> preferencias;
 	bool projecto;
 

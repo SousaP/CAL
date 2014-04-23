@@ -8,7 +8,6 @@
 #include "Projecto.h"
 
 class Proponente : public Pessoa {
-	string nome;
 	bool Docente;
 	Projecto guia;
 	vector<Estudante> PrefE;
