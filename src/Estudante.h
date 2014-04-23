@@ -28,6 +28,7 @@ public:
 	friend ostream &operator << (ostream &os,const Estudante &E);
 	bool nrPref();
 	Pessoa* getMarry(){return p;}
+	void gettingmarried(Pessoa* p);
 };
 
 

@@ -11,10 +11,11 @@
 #include "Supervisor.h"
 #include "Graph.h"
 #include "Pessoa.h"
-
+typedef unsigned int unint;
 
 class MIEIC {
 	Graph<Pessoa*> PriFase;
+	Graph<Pessoa*> SecFase;
 	bool priFaseOk;
 	unsigned int ano;
 	vector<Proponente*> Proponentes;
@@ -45,6 +46,7 @@ public:
 	bool comparePropPref(Estudante e, Proponente p);
 	void Marry();
 	bool checkIfAllMarried();
+	void solteirar(unint id);
 };
 
 

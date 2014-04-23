@@ -28,6 +28,7 @@ public:
 	bool nrPref();
 	string getProj();
 	Pessoa* getMarry(){return p;}
+	void gettingmarried(Pessoa* p);
 };
 
 

@@ -7,7 +7,7 @@
 #include "Projecto.h"
 
 class Supervisor : public Pessoa{
-
+	Pessoa* p;
 	unsigned int maxProj;
 	vector<Projecto> Projectos;
 
@@ -23,6 +23,9 @@ public:
 	void removeProj(Projecto p);
 	bool operator == (const Supervisor &S) const;
 	friend ostream & operator << (ostream &os, Supervisor &S);
+	Pessoa* getMarry(){return p;}
+	void gettingmarried(Pessoa* p);
+
 };
 
 

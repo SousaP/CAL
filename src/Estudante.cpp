@@ -76,3 +76,8 @@ bool  Estudante:: nrPref(){
 	else return true;
 }
 
+void Estudante :: gettingmarried(Pessoa* p){
+	(*this->p) = (*p);
+	married = true;
+}
+

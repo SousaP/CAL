@@ -14,11 +14,10 @@ protected:
 
 public:
 
-	Pessoa(unsigned int n, string nome){
-		this->nome = nome;
-		nrP = n;}
+	Pessoa(unsigned int n, string nome);
 	static unsigned int iD;
 	unsigned int nrP;
+
 	virtual bool nrPref(){
 		// retorna se tem preferencias ou nao
 	}
@@ -27,6 +26,8 @@ public:
 	}
 	unsigned int getID(){return nrP;}
 	bool isMarried() {return married;}
+	virtual void gettingmarried(Pessoa* p);
+	void gettingsigle(){married = false;}
 
 };
 

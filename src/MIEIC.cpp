@@ -5,7 +5,7 @@
 #include <cstring>
 #include <stdlib.h>
 
-typedef unsigned int unint;
+
 using namespace std;
 
 MIEIC::MIEIC(unsigned int ano) {
@@ -409,13 +409,28 @@ void MIEIC::PrimeiraFase() {
 			ProponentesPref();
 		else if (escolha == "3" || escolha == "Projectos"
 				|| escolha == "projectos")
-			SupervisoresPref();
+			;
 
 	}
 }
 
 void MIEIC::SegundaFase() {
+	string escolha = "";
 
+		while (escolha != "Sair" && escolha != "sair" && escolha != "4") {
+			cout << "1. Escolhas dos Supervisores\n";
+			cout << "2. Atribuir Projectos\n";
+			cout << "3. Sair";
+			getline(cin, escolha);
+
+			if (escolha == "1" || escolha == "Supervisores"
+					|| escolha == "supervisores")
+				SupervisoresPref();
+			else if(escolha == "2" || escolha == "Atribuir"
+					|| escolha == "atribuir")
+				;
+
+		}
 }
 
 bool MIEIC::FirstFaseComplete() {
@@ -437,7 +452,7 @@ void MIEIC::Criar() {
 
 	do {
 		cout
-				<< "\n1. Projecto\n2. Estudante\n3. Proponente 4. Supervisor\n5. Sair \n";
+				<< "\n2. Estudante\n3. Proponente 4. Supervisor\n5. Sair \n";
 		cin >> escolha;
 
 		if (escolha == "2" || escolha == "Estudante"
@@ -568,6 +583,18 @@ bool MIEIC::checkIfAllMarried() {
 	return true;
 }
 
+
+void MIEIC :: solteirar(unint id){
+
+	vector<Vertex<Pessoa*> *> temp = PriFase.getVertexSet();
+	for(unint i = 0; i < temp.size(); i++)
+		if((*temp[i]).getInfo()->getID() == id)
+			(*temp[i]).getInfo()->gettingsigle();
+
+
+}
+
+
 void MIEIC::Marry() {
 
 	vector<Estudante*>::const_iterator itE = Estudantes.begin();
@@ -579,11 +606,21 @@ void MIEIC::Marry() {
 				if (!(*itP)->isMarried() && verificaPref((*itE)->getID(), (*itP)->getID())) {
 					//marry
 					//actualize itP->getMarry to E
+					//confirma cera que era o que querias:
+					(*itP)->gettingmarried((*itE));
+					(*itE)->gettingmarried((*itP));
+
 				} else {
 					if (comparePropPref(*(*itE), *(*itP))) {
 						//marry E and P
 						//make itP->getMarry single
 						//actualize itP->getMarry to E
+						solteirar((*itP)->getMarry()->getID());
+						(*itP)->gettingmarried((*itE));
+						(*itE)->gettingmarried((*itP));
+
+
+
 					}
 				}
 			}

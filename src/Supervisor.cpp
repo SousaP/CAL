@@ -62,3 +62,8 @@ ostream &operator << (ostream &os, Supervisor &S){
 		}
 		return os;
 }
+
+void Supervisor :: gettingmarried(Pessoa* p){
+	(*this->p) = (*p);
+	married = true;
+}

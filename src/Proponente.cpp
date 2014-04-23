@@ -73,3 +73,8 @@ string Proponente :: getProj(){
 	string retorno = "Projecto: ";
 	retorno += guia.getNome();
 }
+void Proponente :: gettingmarried(Pessoa* p){
+	(*this->p) = (*p);
+	married = true;
+}
+
