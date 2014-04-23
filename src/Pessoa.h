@@ -10,6 +10,7 @@ class Pessoa {
 protected:
 
 	string nome;
+	bool married;
 
 public:
 
@@ -25,6 +26,7 @@ public:
 		iD++;
 	}
 	unsigned int getID(){return nrP;}
+	bool isMarried() {return married;}
 
 };
 

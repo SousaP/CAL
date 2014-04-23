@@ -189,37 +189,35 @@ void MIEIC::addEdge(int iDFont, int iDDist, int peso) {
 	Pessoa* font;
 	Pessoa* dest;
 
-	for(; it != temp.end(); it++)
-	{
-		if((*it)->getInfo()->getID() == iDFont)
+	for (; it != temp.end(); it++) {
+		if ((*it)->getInfo()->getID() == iDFont)
 			font = (*it)->getInfo();
 
-		else if((*it)->getInfo()->getID() == iDDist)
+		else if ((*it)->getInfo()->getID() == iDDist)
 			dest = (*it)->getInfo();
 	}
 
-	PriFase.addEdge(font,dest,peso);
+	PriFase.addEdge(font, dest, peso);
 }
 
 bool MIEIC::verificaPref(int idFont, int idDist) {
 
 	vector<Vertex<Pessoa*> *> temp = PriFase.getVertexSet();
 
-		vector<Vertex<Pessoa*> *>::iterator it = temp.begin();
+	vector<Vertex<Pessoa*> *>::iterator it = temp.begin();
 
-		for (; it != temp.end(); it++)
-			if ((*(*it)->getInfo()).getID() == idFont)
-				break;
+	for (; it != temp.end(); it++)
+		if ((*(*it)->getInfo()).getID() == idFont)
+			break;
 
-		vector<Edge<Pessoa*> > edges = (*it)->getEdges();
+	vector<Edge<Pessoa*> > edges = (*it)->getEdges();
 
-		for(int i = 0; i < edges.size(); i++)
-		{
-			if(edges[i].getDest()->getID() == idDist)
-				return true;
-		}
+	for (int i = 0; i < edges.size(); i++) {
+		if (edges[i].getDest()->getID() == idDist)
+			return true;
+	}
 
-		return false;
+	return false;
 }
 
 void MIEIC::EstudantesPref() {
@@ -259,14 +257,12 @@ void MIEIC::EstudantesPref() {
 							Proponentes[novaPrefn].getID())) {
 
 						addEdge(Estudantes[IDpref].getID(),
-								Proponentes[novaPrefn].getID(),peso);
-
+								Proponentes[novaPrefn].getID(), peso);
 
 						peso++;
 					}
 
 				}
-
 
 			} while (novaPref != "parar");
 
@@ -425,6 +421,45 @@ void MIEIC::Menu() {
 			SegundaFase();
 
 	}
+}
 
+bool MIEIC::comparePropPref(Estudante e, Proponente p) {
 
+	vector<Estudante> prefTemp = p.getPreferencias();
+	vector<Estudante>::iterator itP = prefTemp.begin();
+
+	for (; itP != prefTemp.end(); itP++) {
+		if (itP->getMarry()->getID() == e.getID())
+			return true;
+		if (itP->getID() == itP->getMarry()->getID()) {
+			return false;
+		}
+	}
+	return false;
+}
+
+bool MIEIC::checkIfAllMarried() {
+
+}
+
+void MIEIC::Marry() {
+
+	vector<Estudante>::iterator itE = Estudantes.begin();
+
+	while (!checkIfAllMarried()) {
+		vector<Proponente>::iterator itP = Proponentes.begin();
+		if (!itE->isMarried()) {
+			for (; itP != Proponentes.end(); itP++) {
+				if (!itE->isMarried()) {
+					//marry
+				} else {
+					if (comparePropPref((*itE), (*itP))) {
+						//marry E and P
+						//make itP->getMarry single
+						//actualize itP->getMarry to E
+					}
+				}
+			}
+		}
+	}
 }

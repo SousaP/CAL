@@ -8,6 +8,7 @@
 #include "Projecto.h"
 
 class Proponente : public Pessoa {
+	Pessoa* p;
 	bool Docente;
 	Projecto guia;
 	vector<Estudante> PrefE;
@@ -26,6 +27,7 @@ public:
 	friend ostream & operator << (ostream &os,const Proponente &P);
 	bool nrPref();
 	string getProj();
+	Pessoa* getMarry(){return p;}
 };
 
 

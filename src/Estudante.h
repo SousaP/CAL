@@ -10,6 +10,7 @@
 using namespace std;
 
 class Estudante: public Pessoa {
+	Pessoa* p = NULL;
 	vector<Projecto> preferencias;
 	bool projecto;
 
@@ -26,6 +27,7 @@ public:
 	bool operator == (const Estudante &E) const;
 	friend ostream &operator << (ostream &os,const Estudante &E);
 	bool nrPref();
+	Pessoa* getMarry(){return p;}
 };
 
 
