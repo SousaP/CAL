@@ -4,7 +4,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
-#include "Projecto.h"
+#include "Proponente.h"
 
 class Supervisor : public Pessoa{
 	Pessoa* p;

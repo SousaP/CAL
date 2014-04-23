@@ -37,7 +37,7 @@ void Supervisor :: setnrMAX(unsigned int nrmax){
 }
 
 void Supervisor :: removeProj(Proponente* p){
-	vector<Proponente*>::const_iterator it = Projectos.begin();
+	vector<Proponente*>::iterator it = Projectos.begin();
 
 			for (; it != Projectos.end(); it++) {
 				if ((*(*it)) == (*p)) {
@@ -55,7 +55,7 @@ ostream &operator << (ostream &os, Supervisor &S){
 	os << "Nome: ";
 		os << S.getNome();
 		os << "Supervisando: ";
-		vector<Projecto> temp = S.getPreferencias();
+		vector<Proponente*> temp = S.getPreferencias();
 		for (unsigned int i = 0; i < temp.size(); i++){
 			os << temp[i];
 			os << ", ";
