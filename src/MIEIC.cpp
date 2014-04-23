@@ -134,10 +134,10 @@ void MIEIC::ListProjs() {
 void MIEIC::ListPropos() {
 
 	cout << "\n||||| LISTAGEM PROPONENTES  |||||\n";
-	vector<Proponente>::iterator it = Proponentes.begin();
+	vector<Proponente*>::const_iterator it = Proponentes.begin();
 
 	for (int i = 1; it != Proponentes.end(); it++, i++)
-		cout << i << ".  " << (*it) << endl;
+		cout << i << ".  " << (*(*it)) << endl;
 
 	cout << "----------------------------------";
 }
@@ -145,10 +145,10 @@ void MIEIC::ListPropos() {
 void MIEIC::ListEstuds() {
 
 	cout << "\n||||| LISTAGEM ESTUDANTES |||||\n";
-	vector<Estudante>::iterator it = Estudantes.begin();
+	vector<Estudante*>::const_iterator it = Estudantes.begin();
 
 	for (int i = 1; it != Estudantes.end(); it++, i++)
-		cout << i << ".  " << (*it) << endl;
+		cout << i << ".  " << (*(*it)) << endl;
 
 	cout << "----------------------------------";
 
@@ -157,10 +157,10 @@ void MIEIC::ListEstuds() {
 void MIEIC::ListSupervs() {
 
 	cout << "\n||||| LISTAGEM SUPERVISORES |||||\n";
-	vector<Supervisor>::iterator it = Supervisores.begin();
+	vector<Supervisor*>::const_iterator it = Supervisores.begin();
 
 	for (int i = 1; it != Supervisores.end(); it++, i++)
-		cout << i << ".  " << (*it) << endl;
+		cout << i << ".  " << (*(*it)) << endl;
 
 	cout << "----------------------------------";
 
@@ -227,8 +227,10 @@ void MIEIC::EstudantesPref() {
 	vector<Estudante> temp;
 
 	for (int i = 0; i < Estudantes.size(); i++)
-		if (!Estudantes[i].nrPref())
-			temp.push_back(Estudantes[i]);
+		if (!(*Estudantes[i]).nrPref())
+		{
+			temp.push_back((*Estudantes[i]));
+		}
 
 	for (int a = 0; a < temp.size(); a++) {
 		cout << a << ". " << temp[a] << endl;
@@ -246,7 +248,7 @@ void MIEIC::EstudantesPref() {
 					<< "Projecto [nr] para pref por ordem? \"parar\" para terminar ";
 			string novaPref;
 			for (int c = 0; c < Proponentes.size(); c++)
-				cout << c << ". " << Proponentes[c].getProj() << endl;
+				cout << c << ". " << Proponentes[c]->getProj() << endl;
 
 			int peso = 1;
 			do {
@@ -255,11 +257,11 @@ void MIEIC::EstudantesPref() {
 				int novaPrefn = atoi(novaPref.c_str());
 				novaPrefn--;
 				if (novaPrefn >= 0 && novaPrefn < Proponentes.size()) {
-					if (!verificaPref(Estudantes[IDpref].getID(),
-							Proponentes[novaPrefn].getID())) {
+					if (!verificaPref(Estudantes[IDpref]->getID(),
+							Proponentes[novaPrefn]->getID())) {
 
-						addEdge(Estudantes[IDpref].getID(),
-								Proponentes[novaPrefn].getID(), peso);
+						addEdge(Estudantes[IDpref]->getID(),
+								Proponentes[novaPrefn]->getID(), peso);
 
 						peso++;
 					}
@@ -276,7 +278,7 @@ void MIEIC::EstudantesPref() {
 
 void MIEIC::ProponentesPref() {
 	vector<Proponente> temp;
-
+/*
 		for (int i = 0; i < Estudantes.size(); i++)
 			if (!Estudantes[i].nrPref())
 				temp.push_back(Proponente[i]);
@@ -322,6 +324,7 @@ void MIEIC::ProponentesPref() {
 			}
 
 		}
+		*/
 }
 
 void MIEIC::SupervisoresPref() {
@@ -332,7 +335,7 @@ void MIEIC::StartPriFase() {
 
 	Pessoa* P;
 	for (int i = 0; i < Estudantes.size(); i++) {
-		P = &Estudantes[i];
+		(*P) = (*Estudantes[i]);
 		PriFase.addVertex(P);
 	}
 }
@@ -392,9 +395,12 @@ void MIEIC::Criar() {
 			cout << "\nNome: ";
 			getline(cin, nomeE);
 
-			Estudantes.push_back(Estudante(nomeE));
-			Pessoa* P = &Estudantes[Estudantes.size() - 1];
-			PriFase.addVertex(P);
+			Estudante* Ep;
+			(*Ep) = Estudante(nomeE);
+			Estudantes.push_back(Ep);
+			Pessoa *p;
+			(*p) = (*Ep);
+			PriFase.addVertex(p);
 
 		} else if (escolha == "3" || escolha == "Proponente"
 				|| escolha == "proponente") {
@@ -416,7 +422,14 @@ void MIEIC::Criar() {
 			else
 				sup = false;
 
-			Proponentes.push_back(Proponente(nomeP, sup));
+
+
+			Proponente* Pp;
+			(*Pp) = Proponente(nomeP, sup);
+			Proponentes.push_back(Pp);
+			Pessoa *p;
+			(*p) = (*Pp);
+			PriFase.addVertex(p);
 		} else if (escolha == "4" || escolha == "Supervisor"
 				|| escolha == "supervisor") {
 			string nomeS;
@@ -429,7 +442,14 @@ void MIEIC::Criar() {
 				getline(cin, nrmax);
 			} while (atoi(nrmax.c_str()) > 0);
 
-			Supervisores.push_back(Supervisor(nomeS, atoi(nrmax.c_str())));
+
+
+			Supervisor* Sp;
+			(*Sp) = Supervisor(nomeS, atoi(nrmax.c_str()));
+			Pessoa *p;
+			(*p) = (*Sp);
+			PriFase.addVertex(p);
+			Supervisores.push_back(Sp);
 		}
 
 	} while (escolha != "Sair" && escolha != "sair" && escolha != "5");
