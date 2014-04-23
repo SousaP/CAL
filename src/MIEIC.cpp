@@ -296,7 +296,7 @@ void MIEIC::ProponentesPref() {
 
 			if (IDpref >= 0 && IDpref < temp.size()) {
 				cout
-						<< "Projecto [nr] para pref por ordem? \"parar\" para terminar ";
+						<< "Estudantes [nr] para pref por ordem? \"parar\" para terminar ";
 				string novaPref;
 				for (int c = 0; c < Estudantes.size(); c++)
 					cout << c << ". " << (*Estudantes[c])<< endl;
@@ -328,6 +328,57 @@ void MIEIC::ProponentesPref() {
 }
 
 void MIEIC::SupervisoresPref() {
+
+
+	vector<Supervisor> temp;
+
+	for (int i = 0; i < Supervisores.size(); i++)
+		if (!(*Supervisores[i]).nrPref())
+		{
+			temp.push_back((*Supervisores[i]));
+		}
+
+	for (int a = 0; a < temp.size(); a++) {
+		cout << a << ". " << temp[a] << endl;
+	}
+
+	string escolha;
+	while (temp.size() > 0 && escolha != "sair") {
+		cout << "Supervisor [nr] a escolher preferencias? ";
+		getline(cin, escolha);
+		unsigned int IDpref = atoi(escolha.c_str());
+		IDpref--;
+
+		if (IDpref >= 0 && IDpref < temp.size()) {
+			cout
+					<< "Projecto [nr] para pref por ordem? \"parar\" para terminar ";
+			string novaPref;
+			for (int c = 0; c < Proponentes.size(); c++)
+				cout << c << ". " << Proponentes[c]->getProj() << endl;
+
+			int peso = 1;
+			do {
+
+				getline(cin, novaPref);
+				int novaPrefn = atoi(novaPref.c_str());
+				novaPrefn--;
+				if (novaPrefn >= 0 && novaPrefn < Proponentes.size()) {
+					if (!verificaPref(Supervisores[IDpref]->getID(),
+							Proponentes[novaPrefn]->getID())) {
+
+						addEdge(Supervisores[IDpref]->getID(),
+								Proponentes[novaPrefn]->getID(), peso);
+
+						peso++;
+					}
+
+				}
+
+			} while (novaPref != "parar");
+
+		}
+
+	}
 
 }
 
