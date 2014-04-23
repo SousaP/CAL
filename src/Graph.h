@@ -31,6 +31,10 @@ public:
 	T getInfo();
 };
 
+template <class T>
+Vertex<T>::Vertex(T pess): info(pess), visited(false) {
+}
+
 
 
 template<class T>

@@ -6,8 +6,6 @@
 #include <stdlib.h>
 using namespace std;
 
-
-
 MIEIC :: MIEIC(unsigned int ano){
 	priFaseOk = false;
 	this->ano = ano;
