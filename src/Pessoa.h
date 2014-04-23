@@ -6,20 +6,20 @@
 class Pessoa {
 
 public:
+	Pessoa(unsigned int n){nrP = n;}
 	static unsigned int iD;
-	unsigned int ID;
-	Pessoa(){}
+	unsigned int nrP;
 	bool nrPref(){
 		// retorna se tem preferencias ou nao
 	}
 	static void incID(){
 		iD++;
 	}
-	unsigned int getID(){return ID;}
+	unsigned int getID(){return nrP;}
 
 };
 
-unsigned int Pessoa :: iD = 1;
+
 
 
 #endif /* PESSOA_H_ */

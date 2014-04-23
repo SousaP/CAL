@@ -11,31 +11,11 @@ using namespace std;
 MIEIC :: MIEIC(unsigned int ano){
 	priFaseOk = false;
 	this->ano = ano;
-	loadProjectos();
+	//loadProjectos();
 	loadEstudantes();
 	loadProponentes();
 	loadSupervisores();
 	StartPriFase();
-}
-
-void MIEIC ::loadProjectos(){
-	string temp = "Projectos";
-	temp += ano;
-	temp += ".txt";
-	ifstream file (temp.c_str());
-	if (!file.is_open())
-		return;
-
-	string linha;
-	string linha2;
-	while (!file.eof()) {
-		getline(file,linha);
-		getline(file,linha2);
-		if(linha != "" && linha2 != "")
-			Projectos.push_back(Projecto(linha,atoi(linha2.c_str())));
-	}
-	file.close();
-
 }
 
 void MIEIC ::loadEstudantes(){
@@ -162,14 +142,8 @@ void MIEIC ::loadSupervisores(){
 
 void MIEIC :: ListProjs(){
 
-	cout << "\n||||| LISTAGEM PROJETOS  |||||\n";
+	cout << "\n||||| sem LISTAGEM PROJETOS  |||||\n";
 
-	vector<Projecto>::iterator it = Projectos.begin();
-
-	for(int i = 1; it != Projectos.end(); it++, i++)
-		cout << i << ".  " << (*it) << endl;
-
-	cout << "----------------------------------";
 }
 
 void MIEIC :: ListPropos(){
@@ -229,6 +203,8 @@ void MIEIC :: addEdge(int iDFont, int iDDist, int peso){
 }
 
 
+
+
 void MIEIC :: EstudantesPref(){
 
 	vector<Estudante> temp;
@@ -243,6 +219,23 @@ void MIEIC :: EstudantesPref(){
 		cout << a << ". " << temp[a] << endl;
 	}
 
+	string escolha;
+	while(temp.size() > 0 && escolha != "sair"){
+		cout << "Estudante [nr] a escolher preferencias? ";
+		getline(cin,escolha);
+
+		if(atoi(escolha.c_str()) > 0  && atoi(escolha.c_str()) < temp.size())
+		{
+			for(int c = 0; c < Proponentes.size(); c++)
+				//if()
+				cout << Proponentes[c].getProj() << endl;
+
+			cout << "Projecto [nr] para pref por ordem? \"parar\" para terminar ";
+
+
+		}
+
+	}
 
 
 
@@ -312,15 +305,8 @@ void MIEIC :: Criar(){
 	cout << "\n1. Projecto\n2. Estudante\n3. Proponente 4. Supervisor\n5. Sair \n";
 	cin >> escolha;
 
-	if(escolha == "1" || escolha == "Projecto" || escolha == "projecto")
-	{
-		string nomeP;
-		cout << "\nNome: ";
-		getline(cin,nomeP);
 
-		Projectos.push_back(Projecto(nomeP,false));
-	}
-	else if(escolha == "2" || escolha == "Estudante" || escolha == "estudante")
+	if(escolha == "2" || escolha == "Estudante" || escolha == "estudante")
 	{
 		string nomeE;
 		cout << "\nNome: ";

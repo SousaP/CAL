@@ -5,7 +5,6 @@
 #include <iostream>
 #include <vector>
 #include "Estudante.h"
-#include "Pessoa.h"
 #include "Projecto.h"
 
 class Proponente : public Pessoa {
@@ -27,6 +26,7 @@ public:
 	bool operator == (const Proponente &P) const;
 	friend ostream & operator << (ostream &os,const Proponente &P);
 	bool nrPref();
+	string getProj();
 };
 
 

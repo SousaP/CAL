@@ -1,13 +1,12 @@
 #include "Estudante.h"
 
-
 Estudante :: Estudante(string n, vector<Projecto> pref)
-: nome(n), preferencias(pref),projecto(false), ID(iD){
+: nome(n), preferencias(pref),projecto(false), Pessoa(iD){
 	incID();
 }
 
 Estudante :: Estudante(string n)
-: nome(n), ID(iD){
+: nome(n), Pessoa(iD){
 	incID();
 	projecto = false;
 }

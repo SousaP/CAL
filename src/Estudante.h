@@ -6,7 +6,6 @@
 #include <iostream>
 #include <vector>
 #include "Projecto.h"
-#include "Pessoa.h"
 
 using namespace std;
 

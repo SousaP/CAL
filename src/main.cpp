@@ -2,6 +2,7 @@
 #include <stdlib.h>
 int main ()  {
 
+
 	string ano = "";
 
 do{

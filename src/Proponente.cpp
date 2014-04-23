@@ -1,12 +1,12 @@
 #include "Proponente.h"
 
 Proponente :: Proponente(string n,bool Docen)
-: nome(n) , Docente(Docen), ID(iD){
+: nome(n) , Docente(Docen), Pessoa(iD){
 	incID();
 }
 
 Proponente :: Proponente(string n,vector<Estudante> pref,bool Docen,Projecto g)
-: guia(g) , nome(n), PrefE(pref) , Docente(Docen), ID(iD)
+: guia(g) , nome(n), PrefE(pref) , Docente(Docen), Pessoa(iD)
 {incID();}
 
 void Proponente ::setNome(string nome){
@@ -66,4 +66,10 @@ bool Proponente :: nrPref(){
 	if(PrefE.size() == 0)
 		return false;
 	else return true;
+}
+
+
+string Proponente :: getProj(){
+	string retorno = "Projecto: ";
+	retorno += guia.getNome();
 }
