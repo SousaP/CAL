@@ -18,7 +18,7 @@ public:
 		nrP = n;}
 	static unsigned int iD;
 	unsigned int nrP;
-	bool nrPref(){
+	virtual bool nrPref(){
 		// retorna se tem preferencias ou nao
 	}
 	static void incID(){
