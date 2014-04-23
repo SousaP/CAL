@@ -275,7 +275,53 @@ void MIEIC::EstudantesPref() {
 }
 
 void MIEIC::ProponentesPref() {
+	vector<Proponente> temp;
 
+		for (int i = 0; i < Estudantes.size(); i++)
+			if (!Estudantes[i].nrPref())
+				temp.push_back(Proponente[i]);
+
+		for (int a = 0; a < temp.size(); a++) {
+			cout << a << ". " << temp[a] << endl;
+		}
+
+		string escolha;
+		while (temp.size() > 0 && escolha != "sair") {
+			cout << "Estudante [nr] a escolher preferencias? ";
+			getline(cin, escolha);
+			unsigned int IDpref = atoi(escolha.c_str());
+			IDpref--;
+
+			if (IDpref >= 0 && IDpref < temp.size()) {
+				cout
+						<< "Projecto [nr] para pref por ordem? \"parar\" para terminar ";
+				string novaPref;
+				for (int c = 0; c < Proponentes.size(); c++)
+					cout << c << ". " << Proponentes[c].getProj() << endl;
+
+				int peso = 1;
+				do {
+
+					getline(cin, novaPref);
+					int novaPrefn = atoi(novaPref.c_str());
+					novaPrefn--;
+					if (novaPrefn >= 0 && novaPrefn < Proponentes.size()) {
+						if (!verificaPref(Estudantes[IDpref].getID(),
+								Proponentes[novaPrefn].getID())) {
+
+							addEdge(Estudantes[IDpref].getID(),
+									Proponentes[novaPrefn].getID(), peso);
+
+							peso++;
+						}
+
+					}
+
+				} while (novaPref != "parar");
+
+			}
+
+		}
 }
 
 void MIEIC::SupervisoresPref() {
