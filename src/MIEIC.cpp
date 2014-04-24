@@ -131,6 +131,8 @@ bool MIEIC::verificaPref(int idFont, int idDist) {
 
 void MIEIC::EstudantesPref() {
 
+	cout << "\n PREFERENCIAS DOS ESTUDANTES \n";
+
 	vector<Estudante> temp;
 
 	for (unsigned int i = 0; i < Estudantes.size(); i++)
