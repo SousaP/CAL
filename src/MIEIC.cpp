@@ -530,7 +530,6 @@ void MIEIC::Marry() {
 						solteirar((*itP)->getMarry()->getID());
 						(*itP)->gettingmarried((*itE));
 						(*itE)->gettingmarried((*itP));
-
 					}
 				}
 			}
