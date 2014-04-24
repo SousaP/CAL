@@ -143,6 +143,7 @@ void MIEIC::EstudantesPref() {
 	}
 
 	string escolha;
+	string novaPref;
 	while (temp.size() > 0 && escolha != "sair") {
 		cout << "Estudante [nr] a escolher preferencias? ";
 		getline(cin, escolha);
@@ -152,7 +153,7 @@ void MIEIC::EstudantesPref() {
 		if (IDpref >= 0 && IDpref < temp.size()) {
 			cout
 					<< "Projecto [nr] para pref por ordem? \"parar\" para terminar ";
-			string novaPref;
+
 			for (unsigned int c = 0; c < Proponentes.size(); c++)
 				cout << c << ". " << Proponentes[c]->getProj() << endl;
 
@@ -181,7 +182,7 @@ void MIEIC::EstudantesPref() {
 				}
 
 			} while (novaPref != "parar");
-
+			return;
 		}
 
 	}
@@ -237,6 +238,7 @@ void MIEIC::ProponentesPref() {
 				}
 
 			} while (novaPref != "parar");
+			return;
 
 		}
 
