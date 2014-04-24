@@ -23,7 +23,7 @@ void MIEIC::ListProjs() {
 	cout << "\n||||| sem LISTAGEM PROJETOS  |||||\n";
 	vector<Projecto*>::const_iterator it = Projectos.begin();
 
-	for(unsigned int i = 1; it != Projectos.end(); it++, i++)
+	for (unsigned int i = 1; it != Projectos.end(); it++, i++)
 		cout << i << ".  " << (*(*it)) << endl;
 
 	cout << "----------------------------------";
@@ -35,7 +35,7 @@ void MIEIC::ListPropos() {
 	cout << "\n||||| LISTAGEM PROPONENTES  |||||\n";
 	vector<Proponente*>::const_iterator it = Proponentes.begin();
 
-	for(unsigned int i = 1; it != Proponentes.end(); it++, i++)
+	for (unsigned int i = 1; it != Proponentes.end(); it++, i++)
 		cout << i << ".  " << (*(*it)) << endl;
 
 	cout << "----------------------------------";
@@ -46,7 +46,7 @@ void MIEIC::ListEstuds() {
 	cout << "\n||||| LISTAGEM ESTUDANTES |||||\n";
 	vector<Estudante*>::const_iterator it = Estudantes.begin();
 
-	for(unsigned int i = 1; it != Estudantes.end(); it++, i++)
+	for (unsigned int i = 1; it != Estudantes.end(); it++, i++)
 		cout << i << ".  " << (*(*it)) << endl;
 
 	cout << "----------------------------------";
@@ -58,7 +58,7 @@ void MIEIC::ListSupervs() {
 	cout << "\n||||| LISTAGEM SUPERVISORES |||||\n";
 	vector<Supervisor*>::const_iterator it = Supervisores.begin();
 
-	for(unsigned int i = 1; it != Supervisores.end(); it++, i++)
+	for (unsigned int i = 1; it != Supervisores.end(); it++, i++)
 		cout << i << ".  " << (*(*it)) << endl;
 
 	cout << "----------------------------------";
@@ -113,7 +113,7 @@ bool MIEIC::verificaPref(int idFont, int idDist) {
 
 	vector<Edge<Pessoa*> > edges = (*it)->getEdges();
 
-	for(unsigned int i = 0; i < edges.size(); i++) {
+	for (unsigned int i = 0; i < edges.size(); i++) {
 		if (edges[i].getDest()->getID() == (unsigned int) idDist)
 			return true;
 	}
@@ -125,7 +125,7 @@ void MIEIC::EstudantesPref() {
 
 	vector<Estudante> temp;
 
-	for(unsigned int i = 0; i < Estudantes.size(); i++)
+	for (unsigned int i = 0; i < Estudantes.size(); i++)
 		if (!(*Estudantes[i]).nrPref()) {
 			temp.push_back((*Estudantes[i]));
 		}
@@ -154,7 +154,8 @@ void MIEIC::EstudantesPref() {
 				getline(cin, novaPref);
 				int novaPrefn = atoi(novaPref.c_str());
 				novaPrefn--;
-				if ((unsigned int) novaPrefn >= 0 && (unsigned int) novaPrefn < Proponentes.size()) {
+				if ((unsigned int) novaPrefn >= 0
+						&& (unsigned int) novaPrefn < Proponentes.size()) {
 					if (!verificaPref(Estudantes[IDpref]->getID(),
 							Proponentes[novaPrefn]->getID())) {
 
@@ -210,7 +211,8 @@ void MIEIC::ProponentesPref() {
 				getline(cin, novaPref);
 				int novaPrefn = atoi(novaPref.c_str());
 				novaPrefn--;
-				if ((unsigned int) novaPrefn >= 0 && (unsigned int) novaPrefn < Proponentes.size()) {
+				if ((unsigned int) novaPrefn >= 0
+						&& (unsigned int) novaPrefn < Proponentes.size()) {
 					if (!verificaPref(Proponentes[IDpref]->getID(),
 							Proponentes[novaPrefn]->getID())) {
 
@@ -238,7 +240,7 @@ void MIEIC::SupervisoresPref() {
 
 	vector<Supervisor> temp;
 
-	for(unsigned int i = 0; i < Supervisores.size(); i++)
+	for (unsigned int i = 0; i < Supervisores.size(); i++)
 		if (!(*Supervisores[i]).nrPref()) {
 			temp.push_back((*Supervisores[i]));
 		}
@@ -267,7 +269,8 @@ void MIEIC::SupervisoresPref() {
 				getline(cin, novaPref);
 				int novaPrefn = atoi(novaPref.c_str());
 				novaPrefn--;
-				if ((unsigned int) novaPrefn >= 0 && (unsigned int) novaPrefn < Proponentes.size()) {
+				if ((unsigned int) novaPrefn >= 0
+						&& (unsigned int) novaPrefn < Proponentes.size()) {
 					if (!verificaPref(Supervisores[IDpref]->getID(),
 							Proponentes[novaPrefn]->getID())) {
 
@@ -294,7 +297,7 @@ void MIEIC::SupervisoresPref() {
 void MIEIC::StartPriFase() {
 
 	Pessoa* P;
-	for(unsigned int i = 0; i < Estudantes.size(); i++) {
+	for (unsigned int i = 0; i < Estudantes.size(); i++) {
 		(*P) = (*Estudantes[i]);
 		PriFase.addVertex(P);
 	}
@@ -303,7 +306,7 @@ void MIEIC::StartPriFase() {
 void MIEIC::StartSecFase() {
 
 	Pessoa* P;
-	for(unsigned int i = 0; i < Supervisores.size(); i++) {
+	for (unsigned int i = 0; i < Supervisores.size(); i++) {
 		(*P) = (*Supervisores[i]);
 		SecFase.addVertex(P);
 	}
@@ -448,7 +451,8 @@ void MIEIC::Menu() {
 
 		cout
 				<< "\n1. Criar elementos\n2. Listagem\n3. Primeira fase.\n4. Segunda Fase.\n5. Sair\n";
-		cin >> escolha;
+		cin.ignore();
+		getline(cin,escolha);
 
 		if (escolha == "Criar" || escolha == "criar" || escolha == "1")
 			Criar();
@@ -459,7 +463,7 @@ void MIEIC::Menu() {
 			do {
 
 				cout
-						<< "\nListagem de: Projecto? Estudante? Proponente? Supervisor? Sair \n";
+						<< "\nListagem de: Projectos? Estudantes? Proponentes? Supervisors? Sair \n";
 				cin.ignore();
 				getline(cin, list);
 
@@ -538,7 +542,7 @@ void MIEIC::Marry() {
 }
 
 void MIEIC::setpropofree() {
-	for(unsigned int i = 0; i < Supervisores.size(); i++) {
+	for (unsigned int i = 0; i < Supervisores.size(); i++) {
 		Supervisores[i]->gettingsigle();
 	}
 }
@@ -759,7 +763,7 @@ void MIEIC::loadProponentes() {
 					break;
 				} else {
 					preferencia = recebido;
-					for(unsigned int i = 0; i < Estudantes.size(); i++) {
+					for (unsigned int i = 0; i < Estudantes.size(); i++) {
 						if (Estudantes[i]->getNome() == preferencia) {
 							preferencias.push_back(Estudantes[i]);
 							break;
@@ -806,7 +810,7 @@ void MIEIC::loadSupervisores() {
 					break;
 				} else {
 					preferencia = recebido;
-					for(unsigned int i = 0; i < Projectos.size(); i++) {
+					for (unsigned int i = 0; i < Projectos.size(); i++) {
 						if (Proponentes[i]->getNome() == preferencia) {
 							preferencias.push_back(Proponentes[i]);
 							break;

@@ -53,7 +53,7 @@ bool Supervisor::operator ==(const Supervisor &S) const {
 ostream &operator <<(ostream &os, Supervisor &S) {
 	os << "Nome: ";
 	os << S.getNome();
-	os << "Supervisando: ";
+	os << "  Supervisando: ";
 	vector<Proponente*> temp = S.getPreferencias();
 	for (unsigned int i = 0; i < temp.size(); i++) {
 		os << (*temp[i]);
