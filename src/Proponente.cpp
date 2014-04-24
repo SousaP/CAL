@@ -54,7 +54,7 @@ bool Proponente::operator ==(const Proponente &P) const {
 ostream &operator <<(ostream &os, const Proponente &P) {
 	os << "Nome: ";
 	os << P.getNome();
-	os << "Preferencias: ";
+	os << "  Preferencias: ";
 	vector<Estudante*> temp = P.getPreferencias();
 	for (unsigned int i = 0; i < temp.size(); i++) {
 		os << (*temp[i]);

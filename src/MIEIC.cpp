@@ -451,7 +451,8 @@ void MIEIC::Menu() {
 
 		cout
 				<< "\n1. Criar elementos\n2. Listagem\n3. Primeira fase.\n4. Segunda Fase.\n5. Sair\n";
-		cin >> escolha;
+		cin.ignore();
+		getline(cin,escolha);
 
 		if (escolha == "Criar" || escolha == "criar" || escolha == "1")
 			Criar();
@@ -462,7 +463,7 @@ void MIEIC::Menu() {
 			do {
 
 				cout
-						<< "\nListagem de: Projecto? Estudante? Proponente? Supervisor? Sair \n";
+						<< "\nListagem de: Projectos? Estudantes? Proponentes? Supervisors? Sair \n";
 				cin.ignore();
 				getline(cin, list);
 

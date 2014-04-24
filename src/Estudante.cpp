@@ -58,7 +58,7 @@ bool Estudante::operator ==(const Estudante &E) const {
 ostream & operator <<(ostream &os, const Estudante &E) {
 	os << "Nome: ";
 	os << E.getNome();
-	os << "Preferencias: ";
+	os << "  Preferencias: ";
 	vector<Projecto*> temp = E.getPreferencias();
 	for (unsigned int i = 0; i < temp.size(); i++) {
 		os << (*temp[i]);
