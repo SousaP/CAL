@@ -20,15 +20,15 @@ string Estudante :: getNome() const{
 return nome;
 }
 
-vector<Projecto> Estudante :: getPreferencias() const{
+vector<Projecto*> Estudante :: getPreferencias() const{
 	return preferencias;
 }
 
-void  Estudante :: setPref(const vector<Projecto> pref){
+void  Estudante :: setPref(const vector<Projecto*> pref){
 	preferencias = pref;
 }
 
-void Estudante :: addPref(Projecto novaPref){
+void Estudante :: addPref(Projecto* novaPref){
 	preferencias.push_back(novaPref);
 }
 
@@ -36,12 +36,12 @@ void  Estudante :: setProj(){
 	projecto = true;
 }
 
-void Estudante :: removePref(Projecto pref){
+void Estudante :: removePref(Projecto* pref){
 
-	vector<Projecto>::iterator it = preferencias.begin();
+	vector<Projecto*>::iterator it = preferencias.begin();
 
 		for (; it != preferencias.end(); it++) {
-			if ((*it) == pref) {
+			if ((*(*it)) == (*pref)) {
 				preferencias.erase(it);
 				return;
 			}
@@ -60,9 +60,9 @@ ostream & operator << (ostream &os,const Estudante &E){
 	os << "Nome: ";
 	os << E.getNome();
 	os << "Preferencias: ";
-	vector<Projecto> temp = E.getPreferencias();
+	vector<Projecto*> temp = E.getPreferencias();
 	for (unsigned int i = 0; i < temp.size(); i++){
-		os << temp[i];
+		os << (*temp[i]);
 		os << ", ";
 	}
 	return os;
