@@ -5,7 +5,6 @@
 #include <cstring>
 #include <stdlib.h>
 
-
 using namespace std;
 
 MIEIC::MIEIC(unsigned int ano) {
@@ -129,6 +128,12 @@ void MIEIC::loadSupervisores() {
 void MIEIC::ListProjs() {
 
 	cout << "\n||||| sem LISTAGEM PROJETOS  |||||\n";
+	vector<Projecto*>::const_iterator it = Projectos.begin();
+
+		for (int i = 1; it != Projectos.end(); it++, i++)
+			cout << i << ".  " << (*(*it)) << endl;
+
+		cout << "----------------------------------";
 
 }
 
@@ -228,8 +233,7 @@ void MIEIC::EstudantesPref() {
 	vector<Estudante> temp;
 
 	for (int i = 0; i < Estudantes.size(); i++)
-		if (!(*Estudantes[i]).nrPref())
-		{
+		if (!(*Estudantes[i]).nrPref()) {
 			temp.push_back((*Estudantes[i]));
 		}
 
@@ -280,62 +284,60 @@ void MIEIC::EstudantesPref() {
 void MIEIC::ProponentesPref() {
 	vector<Proponente*> temp;
 
-		for (unint i = 0; i < Proponentes.size(); i++)
-			if (!Proponentes[i]->nrPref())
-				temp.push_back(Proponentes[i]);
+	for (unint i = 0; i < Proponentes.size(); i++)
+		if (!Proponentes[i]->nrPref())
+			temp.push_back(Proponentes[i]);
 
-		for (unint a = 0; a < temp.size(); a++) {
-			cout << a << ". " << (*temp[a]) << endl;
-		}
+	for (unint a = 0; a < temp.size(); a++) {
+		cout << a << ". " << (*temp[a]) << endl;
+	}
 
-		string escolha;
-		while (temp.size() > 0 && escolha != "sair") {
-			cout << "Proponente [nr] a escolher preferencias? ";
-			getline(cin, escolha);
-			unsigned int IDpref = atoi(escolha.c_str());
-			IDpref--;
+	string escolha;
+	while (temp.size() > 0 && escolha != "sair") {
+		cout << "Proponente [nr] a escolher preferencias? ";
+		getline(cin, escolha);
+		unsigned int IDpref = atoi(escolha.c_str());
+		IDpref--;
 
-			if (IDpref >= 0 && IDpref < temp.size()) {
-				cout
-						<< "Estudantes [nr] para pref por ordem? \"parar\" para terminar ";
-				string novaPref;
-				for (int c = 0; c < Estudantes.size(); c++)
-					cout << c << ". " << (*Estudantes[c])<< endl;
+		if (IDpref >= 0 && IDpref < temp.size()) {
+			cout
+					<< "Estudantes [nr] para pref por ordem? \"parar\" para terminar ";
+			string novaPref;
+			for (int c = 0; c < Estudantes.size(); c++)
+				cout << c << ". " << (*Estudantes[c]) << endl;
 
-				int peso = 1;
-				do {
+			int peso = 1;
+			do {
 
-					getline(cin, novaPref);
-					int novaPrefn = atoi(novaPref.c_str());
-					novaPrefn--;
-					if (novaPrefn >= 0 && novaPrefn < Proponentes.size()) {
-						if (!verificaPref(Proponentes[IDpref]->getID(),
-								Proponentes[novaPrefn]->getID())) {
+				getline(cin, novaPref);
+				int novaPrefn = atoi(novaPref.c_str());
+				novaPrefn--;
+				if (novaPrefn >= 0 && novaPrefn < Proponentes.size()) {
+					if (!verificaPref(Proponentes[IDpref]->getID(),
+							Proponentes[novaPrefn]->getID())) {
 
-							addEdge(Proponentes[IDpref]->getID(),
-									Estudantes[novaPrefn]->getID(), peso);
+						addEdge(Proponentes[IDpref]->getID(),
+								Estudantes[novaPrefn]->getID(), peso);
 
-							peso++;
-						}
-
+						peso++;
 					}
 
-				} while (novaPref != "parar");
+				}
 
-			}
+			} while (novaPref != "parar");
 
 		}
+
+	}
 
 }
 
 void MIEIC::SupervisoresPref() {
 
-
 	vector<Supervisor> temp;
 
 	for (int i = 0; i < Supervisores.size(); i++)
-		if (!(*Supervisores[i]).nrPref())
-		{
+		if (!(*Supervisores[i]).nrPref()) {
 			temp.push_back((*Supervisores[i]));
 		}
 
@@ -425,25 +427,26 @@ void MIEIC::PrimeiraFase() {
 }
 
 void MIEIC::SegundaFase() {
-	if(!priFaseOk){
+	if (!priFaseOk) {
 		cout << "\n Primeira fase nao completa";
-		return;}
+		return;
+	}
 	string escolha = "";
 
-		while (escolha != "Sair" && escolha != "sair" && escolha != "4") {
-			cout << "1. Escolhas dos Supervisores\n";
-			cout << "2. Atribuir Projectos\n";
-			cout << "3. Sair";
-			getline(cin, escolha);
+	while (escolha != "Sair" && escolha != "sair" && escolha != "4") {
+		cout << "1. Escolhas dos Supervisores\n";
+		cout << "2. Atribuir Projectos\n";
+		cout << "3. Sair";
+		getline(cin, escolha);
 
-			if (escolha == "1" || escolha == "Supervisores"
-					|| escolha == "supervisores")
-				SupervisoresPref();
-			else if(escolha == "2" || escolha == "Atribuir"
-					|| escolha == "atribuir")
-				;
+		if (escolha == "1" || escolha == "Supervisores"
+				|| escolha == "supervisores")
+			SupervisoresPref();
+		else if (escolha == "2" || escolha == "Atribuir"
+				|| escolha == "atribuir")
+			;
 
-		}
+	}
 }
 
 bool MIEIC::FirstFaseComplete() {
@@ -464,8 +467,7 @@ void MIEIC::Criar() {
 	string escolha;
 
 	do {
-		cout
-				<< "\n2. Estudante\n3. Proponente 4. Supervisor\n5. Sair \n";
+		cout << "\n2. Estudante\n3. Proponente 4. Supervisor\n5. Sair \n";
 		cin >> escolha;
 
 		if (escolha == "2" || escolha == "Estudante"
@@ -501,8 +503,6 @@ void MIEIC::Criar() {
 			else
 				sup = false;
 
-
-
 			Proponente* Pp;
 			(*Pp) = Proponente(nomeP, sup);
 			Proponentes.push_back(Pp);
@@ -520,8 +520,6 @@ void MIEIC::Criar() {
 				cout << "Numero Maximo de Projectos: ";
 				getline(cin, nrmax);
 			} while (atoi(nrmax.c_str()) > 0);
-
-
 
 			Supervisor* Sp;
 			(*Sp) = Supervisor(nomeS, atoi(nrmax.c_str()));
@@ -589,20 +587,19 @@ bool MIEIC::checkIfAllMarried() {
 
 	vector<Estudante*>::const_iterator itE = Estudantes.begin();
 	for (; itE != Estudantes.end(); itE++) {
-		if(!(*itE)->isMarried()) {
+		if (!(*itE)->isMarried()) {
 			return false;
 		}
 	}
 	return true;
 }
 
-void MIEIC :: solteirar(unint id){
+void MIEIC::solteirar(unint id) {
 
 	vector<Vertex<Pessoa*> *> temp = PriFase.getVertexSet();
-	for(unint i = 0; i < temp.size(); i++)
-		if((*temp[i]).getInfo()->getID() == id)
+	for (unint i = 0; i < temp.size(); i++)
+		if ((*temp[i]).getInfo()->getID() == id)
 			(*temp[i]).getInfo()->gettingsigle();
-
 
 }
 
@@ -614,7 +611,8 @@ void MIEIC::Marry() {
 		vector<Proponente*>::const_iterator itP = Proponentes.begin();
 		if (!(*itE)->isMarried()) {
 			for (; itP != Proponentes.end(); itP++) {
-				if (!(*itP)->isMarried() && verificaPref((*itE)->getID(), (*itP)->getID())) {
+				if (!(*itP)->isMarried()
+						&& verificaPref((*itE)->getID(), (*itP)->getID())) {
 					//marry
 					//actualize itP->getMarry to E
 					//confirma cera se era o que querias:
@@ -630,8 +628,6 @@ void MIEIC::Marry() {
 						(*itP)->gettingmarried((*itE));
 						(*itE)->gettingmarried((*itP));
 
-
-
 					}
 				}
 			}
@@ -639,21 +635,21 @@ void MIEIC::Marry() {
 	}
 }
 
-void MIEIC:: setpropofree(){
+void MIEIC::setpropofree() {
 	for (int i = 0; i < Supervisores.size(); i++) {
-			Supervisores[i]->gettingsigle();
-		}
+		Supervisores[i]->gettingsigle();
+	}
 }
 
 bool MIEIC::checkIfAllMarried2() {
-/*
- * Este check faz check se os proponentes tem todos relaçao e se os Supervisores ja estao todos com as vagas preenchidas
- * */
+	/*
+	 * Este check faz check se os proponentes tem todos relaçao e se os Supervisores ja estao todos com as vagas preenchidas
+	 * */
 
 	bool prop = true;
 	vector<Proponente*>::const_iterator itP = Proponentes.begin();
 	for (; itP != Proponentes.end(); itP++) {
-		if((*itP)->getDocente() && !(*itP)->isMarried()) {
+		if ((*itP)->getDocente() && !(*itP)->isMarried()) {
 			prop = false;
 			break;
 		}
@@ -661,34 +657,30 @@ bool MIEIC::checkIfAllMarried2() {
 
 	bool Super = true;
 	vector<Supervisor*>::const_iterator itS = Supervisores.begin();
-		for (; itS != Supervisores.end(); itS++) {
-			if(!(*itS)->isMarried() || !(*itS)->fullProj()) {
-				Super = false;
-				break;
-			}
+	for (; itS != Supervisores.end(); itS++) {
+		if (!(*itS)->isMarried() || !(*itS)->fullProj()) {
+			Super = false;
+			break;
 		}
+	}
 
-	return (prop  && Super);
+	return (prop && Super);
 }
 
+void MIEIC::tryMarrySuperv(Supervisor* s) {
 
-void MIEIC :: tryMarrySuperv(Supervisor* s){
-
-	vector<Vertex<Pessoa*> *> temp =  SecFase.getVertexSet();
+	vector<Vertex<Pessoa*> *> temp = SecFase.getVertexSet();
 
 	vector<Edge<Pessoa*> > Sedges;
 
-	for(unint i = 0; i < temp.size(); i++)
-	{
-		if(temp[i]->getInfo()->getID() == s->getID())
+	for (unint i = 0; i < temp.size(); i++) {
+		if (temp[i]->getInfo()->getID() == s->getID())
 			Sedges = temp[i]->getEdges();
 	}
 
 	Pessoa* tryM;
-	for(unint c = 0; c < Sedges.size(); c++)
-	{
-		if(!Sedges[c].getDest()->isMarried())
-		{
+	for (unint c = 0; c < Sedges.size(); c++) {
+		if (!Sedges[c].getDest()->isMarried()) {
 			tryM = Sedges[c].getDest();
 
 			s->gettingmarried(tryM);
@@ -697,29 +689,24 @@ void MIEIC :: tryMarrySuperv(Supervisor* s){
 		}
 	}
 
-
 }
 
-
-void MIEIC :: MarrySuperv(){
+void MIEIC::MarrySuperv() {
 
 	vector<Supervisor*>::const_iterator itS = Supervisores.begin();
 
 	//por os proponentes solteiros porque vieram da primeira fase
 	setpropofree();
 
-
 	while (!checkIfAllMarried2()) {
 		tryMarrySuperv((*itS));
 
 		itS++;
 
-		if(itS == Supervisores.end())
+		if (itS == Supervisores.end())
 			itS = Supervisores.begin();
 
 	}
-
-
 
 }
 /*
@@ -733,6 +720,18 @@ void MIEIC :: MarrySuperv(){
 
  este projeto tem erros no supervisor, nao percebo porque, mas agora estou cansado,
  amanha de manha tento-os resolver,
+
+ depois agora vi um problema, tinhamos um vector de projetos no estudante
+ mas depois nos queremos é ligar um proponente ao estudante, e nao um projeto
+
+ mas o problema tambem é que nao da para ter um vector de proponentes no estudante
+ e no proponentes um vetor de estudante, porque depois da montes de erros de inception
+
+ estou agora a tentar rever o codigo e por tudo conforme o que agora esta, a adicionar as preferencias
+ no estudante a partir do projeto mas a associar um proponente
+
+
+
  Pedro o Sousa
 
  */

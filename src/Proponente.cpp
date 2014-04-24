@@ -82,3 +82,8 @@ bool Proponente :: getDocente(){
 return Docente;
 }
 
+
+Projecto* Proponente ::getProj(){
+	return p;
+}
+

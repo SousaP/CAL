@@ -30,6 +30,7 @@ public:
 	Pessoa* getMarry(){return p;}
 	void gettingmarried(Pessoa* p);
 	bool getDocente();
+	Projecto* getProj();
 };
 
 

@@ -57,7 +57,7 @@ ostream &operator << (ostream &os, Supervisor &S){
 		os << "Supervisando: ";
 		vector<Proponente*> temp = S.getPreferencias();
 		for (unsigned int i = 0; i < temp.size(); i++){
-			os << temp[i];
+			os << (*temp[i]);
 			os << ", ";
 		}
 		return os;

@@ -1,6 +1,6 @@
 #include "Estudante.h"
 
-Estudante :: Estudante(string n, vector<Projecto> pref)
+Estudante :: Estudante(string n, vector<Projecto*> pref)
 : preferencias(pref),projecto(false), Pessoa(iD, n){
 	incID();
 }
