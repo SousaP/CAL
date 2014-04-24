@@ -129,6 +129,12 @@ MIEIC::MIEIC(unsigned int ano) {
 void MIEIC::ListProjs() {
 
 	cout << "\n||||| sem LISTAGEM PROJETOS  |||||\n";
+	vector<Projecto*>::const_iterator it = Projectos.begin();
+
+		for (int i = 1; it != Projectos.end(); it++, i++)
+			cout << i << ".  " << (*(*it)) << endl;
+
+		cout << "----------------------------------";
 
 }
 
@@ -715,6 +721,18 @@ void MIEIC::MarrySuperv() {
 
  este projeto tem erros no supervisor, nao percebo porque, mas agora estou cansado,
  amanha de manha tento-os resolver,
+
+ depois agora vi um problema, tinhamos um vector de projetos no estudante
+ mas depois nos queremos é ligar um proponente ao estudante, e nao um projeto
+
+ mas o problema tambem é que nao da para ter um vector de proponentes no estudante
+ e no proponentes um vetor de estudante, porque depois da montes de erros de inception
+
+ estou agora a tentar rever o codigo e por tudo conforme o que agora esta, a adicionar as preferencias
+ no estudante a partir do projeto mas a associar um proponente
+
+
+
  Pedro o Sousa
 
  */
