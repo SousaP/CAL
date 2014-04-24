@@ -8,19 +8,20 @@
 
 using namespace std;
 
-class Projecto{
+class Projecto {
 	string nome;
 	bool supervisor;
 
 public:
-	Projecto(){};
+	Projecto() {
+	}
+	;
 	Projecto(string n, bool superv);
 	void setNome(string nome);
 	string getNome() const;
 	bool getSuperv() const;
-	bool operator == (const Projecto &P) const;
-	friend ostream & operator << (ostream &os, const Projecto &P);
+	bool operator ==(const Projecto &P) const;
+	friend ostream & operator <<(ostream &os, const Projecto &P);
 };
-
 
 #endif /* Projecto_H_ */

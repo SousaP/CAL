@@ -6,14 +6,14 @@
 #include <vector>
 #include "Proponente.h"
 
-class Supervisor : public Pessoa{
+class Supervisor: public Pessoa {
 	Pessoa* p;
 	unsigned int maxProj;
 	vector<Proponente*> Projectos;
 
 public:
 	Supervisor(string n, unsigned int nrmax);
-	Supervisor(string n, vector<Proponente*>  proj,unsigned int nrmax);
+	Supervisor(string n, vector<Proponente*> proj, unsigned int nrmax);
 	void setNome(string nome);
 	string getNome() const;
 	vector<Proponente*> getPreferencias() const;
@@ -21,17 +21,15 @@ public:
 	void addProj(Proponente* novaPref);
 	void setnrMAX(unsigned int nrmax);
 	void removeProj(Proponente* p);
-	bool operator == (const Supervisor &S) const;
-	friend ostream & operator << (ostream &os, Supervisor &S);
-	Pessoa* getMarry(){return p;}
+	bool operator ==(const Supervisor &S) const;
+	friend ostream & operator <<(ostream &os, Supervisor &S);
+	Pessoa* getMarry() {
+		return p;
+	}
 	void gettingmarried(Pessoa* p);
 	bool fullProj();
+	bool nasPrefs(Pessoa* p);
 
 };
-
-
-
-
-
 
 #endif /* SUPERVISORES_H_ */

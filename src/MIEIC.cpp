@@ -131,10 +131,10 @@ void MIEIC::ListProjs() {
 	cout << "\n||||| sem LISTAGEM PROJETOS  |||||\n";
 	vector<Projecto*>::const_iterator it = Projectos.begin();
 
-		for (int i = 1; it != Projectos.end(); it++, i++)
-			cout << i << ".  " << (*(*it)) << endl;
+	for(unsigned int i = 1; it != Projectos.end(); it++, i++)
+		cout << i << ".  " << (*(*it)) << endl;
 
-		cout << "----------------------------------";
+	cout << "----------------------------------";
 
 }
 
@@ -143,7 +143,7 @@ void MIEIC::ListPropos() {
 	cout << "\n||||| LISTAGEM PROPONENTES  |||||\n";
 	vector<Proponente*>::const_iterator it = Proponentes.begin();
 
-	for (int i = 1; it != Proponentes.end(); it++, i++)
+	for(unsigned int i = 1; it != Proponentes.end(); it++, i++)
 		cout << i << ".  " << (*(*it)) << endl;
 
 	cout << "----------------------------------";
@@ -154,7 +154,7 @@ void MIEIC::ListEstuds() {
 	cout << "\n||||| LISTAGEM ESTUDANTES |||||\n";
 	vector<Estudante*>::const_iterator it = Estudantes.begin();
 
-	for (int i = 1; it != Estudantes.end(); it++, i++)
+	for(unsigned int i = 1; it != Estudantes.end(); it++, i++)
 		cout << i << ".  " << (*(*it)) << endl;
 
 	cout << "----------------------------------";
@@ -166,7 +166,7 @@ void MIEIC::ListSupervs() {
 	cout << "\n||||| LISTAGEM SUPERVISORES |||||\n";
 	vector<Supervisor*>::const_iterator it = Supervisores.begin();
 
-	for (int i = 1; it != Supervisores.end(); it++, i++)
+	for(unsigned int i = 1; it != Supervisores.end(); it++, i++)
 		cout << i << ".  " << (*(*it)) << endl;
 
 	cout << "----------------------------------";
@@ -199,10 +199,10 @@ void MIEIC::addEdge(int iDFont, int iDDist, int peso) {
 	Pessoa* dest;
 
 	for (; it != temp.end(); it++) {
-		if ((*it)->getInfo()->getID() == iDFont)
+		if ((*it)->getInfo()->getID() == (unsigned int) iDFont)
 			font = (*it)->getInfo();
 
-		else if ((*it)->getInfo()->getID() == iDDist)
+		else if ((*it)->getInfo()->getID() == (unsigned int) iDDist)
 			dest = (*it)->getInfo();
 	}
 
@@ -216,13 +216,13 @@ bool MIEIC::verificaPref(int idFont, int idDist) {
 	vector<Vertex<Pessoa*> *>::iterator it = temp.begin();
 
 	for (; it != temp.end(); it++)
-		if ((*(*it)->getInfo()).getID() == idFont)
+		if ((*(*it)->getInfo()).getID() == (unsigned int) idFont)
 			break;
 
 	vector<Edge<Pessoa*> > edges = (*it)->getEdges();
 
-	for (int i = 0; i < edges.size(); i++) {
-		if (edges[i].getDest()->getID() == idDist)
+	for(unsigned int i = 0; i < edges.size(); i++) {
+		if (edges[i].getDest()->getID() == (unsigned int) idDist)
 			return true;
 	}
 
@@ -233,12 +233,12 @@ void MIEIC::EstudantesPref() {
 
 	vector<Estudante> temp;
 
-	for (int i = 0; i < Estudantes.size(); i++)
+	for(unsigned int i = 0; i < Estudantes.size(); i++)
 		if (!(*Estudantes[i]).nrPref()) {
 			temp.push_back((*Estudantes[i]));
 		}
 
-	for (int a = 0; a < temp.size(); a++) {
+	for (unsigned int a = 0; a < temp.size(); a++) {
 		cout << a << ". " << temp[a] << endl;
 	}
 
@@ -253,7 +253,7 @@ void MIEIC::EstudantesPref() {
 			cout
 					<< "Projecto [nr] para pref por ordem? \"parar\" para terminar ";
 			string novaPref;
-			for (int c = 0; c < Proponentes.size(); c++)
+			for (unsigned int c = 0; c < Proponentes.size(); c++)
 				cout << c << ". " << Proponentes[c]->getProj() << endl;
 
 			int peso = 1;
@@ -262,14 +262,19 @@ void MIEIC::EstudantesPref() {
 				getline(cin, novaPref);
 				int novaPrefn = atoi(novaPref.c_str());
 				novaPrefn--;
-				if (novaPrefn >= 0 && novaPrefn < Proponentes.size()) {
+				if ((unsigned int) novaPrefn >= 0 && (unsigned int) novaPrefn < Proponentes.size()) {
 					if (!verificaPref(Estudantes[IDpref]->getID(),
 							Proponentes[novaPrefn]->getID())) {
 
 						addEdge(Estudantes[IDpref]->getID(),
 								Proponentes[novaPrefn]->getID(), peso);
 
-						peso++;
+						if (Estudantes[IDpref]->nasPrefs(
+								Proponentes[novaPrefn])) {
+							Estudantes[IDpref]->addPref(
+									Proponentes[novaPrefn]->getProjP());
+							peso++;
+						}
 					}
 
 				}
@@ -304,7 +309,7 @@ void MIEIC::ProponentesPref() {
 			cout
 					<< "Estudantes [nr] para pref por ordem? \"parar\" para terminar ";
 			string novaPref;
-			for (int c = 0; c < Estudantes.size(); c++)
+			for (unsigned int c = 0; c < Estudantes.size(); c++)
 				cout << c << ". " << (*Estudantes[c]) << endl;
 
 			int peso = 1;
@@ -313,14 +318,18 @@ void MIEIC::ProponentesPref() {
 				getline(cin, novaPref);
 				int novaPrefn = atoi(novaPref.c_str());
 				novaPrefn--;
-				if (novaPrefn >= 0 && novaPrefn < Proponentes.size()) {
+				if ((unsigned int) novaPrefn >= 0 && (unsigned int) novaPrefn < Proponentes.size()) {
 					if (!verificaPref(Proponentes[IDpref]->getID(),
 							Proponentes[novaPrefn]->getID())) {
 
 						addEdge(Proponentes[IDpref]->getID(),
 								Estudantes[novaPrefn]->getID(), peso);
 
-						peso++;
+						Estudante E = (*Estudantes[novaPrefn]);
+						if (Proponentes[IDpref]->nasPrefs(&E)) {
+							Proponentes[IDpref]->addPref(&E);
+							peso++;
+						}
 					}
 
 				}
@@ -337,12 +346,12 @@ void MIEIC::SupervisoresPref() {
 
 	vector<Supervisor> temp;
 
-	for (int i = 0; i < Supervisores.size(); i++)
+	for(unsigned int i = 0; i < Supervisores.size(); i++)
 		if (!(*Supervisores[i]).nrPref()) {
 			temp.push_back((*Supervisores[i]));
 		}
 
-	for (int a = 0; a < temp.size(); a++) {
+	for (unsigned int a = 0; a < temp.size(); a++) {
 		cout << a << ". " << temp[a] << endl;
 	}
 
@@ -357,7 +366,7 @@ void MIEIC::SupervisoresPref() {
 			cout
 					<< "Projecto [nr] para pref por ordem? \"parar\" para terminar ";
 			string novaPref;
-			for (int c = 0; c < Proponentes.size(); c++)
+			for (unsigned int c = 0; c < Proponentes.size(); c++)
 				cout << c << ". " << Proponentes[c]->getProj() << endl;
 
 			int peso = 1;
@@ -366,14 +375,18 @@ void MIEIC::SupervisoresPref() {
 				getline(cin, novaPref);
 				int novaPrefn = atoi(novaPref.c_str());
 				novaPrefn--;
-				if (novaPrefn >= 0 && novaPrefn < Proponentes.size()) {
+				if ((unsigned int) novaPrefn >= 0 && (unsigned int) novaPrefn < Proponentes.size()) {
 					if (!verificaPref(Supervisores[IDpref]->getID(),
 							Proponentes[novaPrefn]->getID())) {
 
 						addEdge(Supervisores[IDpref]->getID(),
 								Proponentes[novaPrefn]->getID(), peso);
 
-						peso++;
+						Proponente P = (*Proponentes[novaPrefn]);
+						if (Supervisores[IDpref]->nasPrefs(&P)) {
+							Supervisores[IDpref]->addProj(&P);
+							peso++;
+						}
 					}
 
 				}
@@ -389,7 +402,7 @@ void MIEIC::SupervisoresPref() {
 void MIEIC::StartPriFase() {
 
 	Pessoa* P;
-	for (int i = 0; i < Estudantes.size(); i++) {
+	for(unsigned int i = 0; i < Estudantes.size(); i++) {
 		(*P) = (*Estudantes[i]);
 		PriFase.addVertex(P);
 	}
@@ -398,7 +411,7 @@ void MIEIC::StartPriFase() {
 void MIEIC::StartSecFase() {
 
 	Pessoa* P;
-	for (int i = 0; i < Supervisores.size(); i++) {
+	for(unsigned int i = 0; i < Supervisores.size(); i++) {
 		(*P) = (*Supervisores[i]);
 		SecFase.addVertex(P);
 	}
@@ -421,8 +434,9 @@ void MIEIC::PrimeiraFase() {
 				|| escolha == "proponentes")
 			ProponentesPref();
 		else if (escolha == "3" || escolha == "Projectos"
-				|| escolha == "projectos")
-			;
+				|| escolha == "projectos") {
+
+		}
 
 	}
 }
@@ -444,8 +458,9 @@ void MIEIC::SegundaFase() {
 				|| escolha == "supervisores")
 			SupervisoresPref();
 		else if (escolha == "2" || escolha == "Atribuir"
-				|| escolha == "atribuir")
-			;
+				|| escolha == "atribuir") {
+
+		}
 
 	}
 }
@@ -571,13 +586,13 @@ void MIEIC::Menu() {
 
 bool MIEIC::comparePropPref(Estudante e, Proponente p) {
 
-	vector<Estudante> prefTemp = p.getPreferencias();
-	vector<Estudante>::iterator itP = prefTemp.begin();
+	vector<Estudante*> prefTemp = p.getPreferencias();
+	vector<Estudante*>::const_iterator itP = prefTemp.begin();
 
 	for (; itP != prefTemp.end(); itP++) {
-		if (itP->getMarry()->getID() == e.getID())
+		if ((*itP)->getMarry()->getID() == e.getID())
 			return true;
-		if (itP->getID() == itP->getMarry()->getID()) {
+		if ((*itP)->getID() == (*itP)->getMarry()->getID()) {
 			return false;
 		}
 	}
@@ -637,7 +652,7 @@ void MIEIC::Marry() {
 }
 
 void MIEIC::setpropofree() {
-	for (int i = 0; i < Supervisores.size(); i++) {
+	for(unsigned int i = 0; i < Supervisores.size(); i++) {
 		Supervisores[i]->gettingsigle();
 	}
 }
@@ -764,7 +779,6 @@ void MIEIC::loadProjectos() {
 
 		Projecto temp = Projecto(nome, sup);
 		Projectos.push_back(&temp);
-
 	}
 	myfile.close();
 }
@@ -776,7 +790,7 @@ void MIEIC::loadEstudantes() {
 	ifstream myfile(filename.c_str());
 
 	string nome, preferencia, recebido;
-	vector<Projecto> preferencias;
+	vector<Projecto*> preferencias;
 
 	while (myfile.good()) {
 
@@ -794,7 +808,7 @@ void MIEIC::loadEstudantes() {
 					preferencia = recebido;
 					for (int i = 0; i < Projectos.size(); i++) {
 						if (Projectos[i]->getNome() == preferencia) {
-							preferencias.push_back(*Projectos[i]);
+							preferencias.push_back(Projectos[i]);
 							break;
 						}
 					}
@@ -818,7 +832,7 @@ void MIEIC::loadProponentes() {
 	string nomeprop, tipo, nomeproj, preferencia, recebido, boolean;
 	bool doc, sup;
 	Projecto temp;
-	vector<Estudante> preferencias;
+	vector<Estudante*> preferencias;
 
 	while (myfile.good()) {
 
@@ -859,9 +873,9 @@ void MIEIC::loadProponentes() {
 					break;
 				} else {
 					preferencia = recebido;
-					for (int i = 0; i < Estudantes.size(); i++) {
+					for(unsigned int i = 0; i < Estudantes.size(); i++) {
 						if (Estudantes[i]->getNome() == preferencia) {
-							preferencias.push_back(*Estudantes[i]);
+							preferencias.push_back(Estudantes[i]);
 							break;
 						}
 					}
@@ -870,7 +884,7 @@ void MIEIC::loadProponentes() {
 
 			}
 		}
-		Proponente temp = Proponente(nomeprop, preferencias, doc, proj);
+		Proponente temp = Proponente(nomeprop, preferencias, doc, &proj);
 		Proponentes.push_back(&temp);
 	}
 	myfile.close();
@@ -906,7 +920,7 @@ void MIEIC::loadSupervisores() {
 					break;
 				} else {
 					preferencia = recebido;
-					for (int i = 0; i < Projectos.size(); i++) {
+					for(unsigned int i = 0; i < Projectos.size(); i++) {
 						if (Proponentes[i]->getNome() == preferencia) {
 							preferencias.push_back(Proponentes[i]);
 							break;

@@ -12,7 +12,6 @@ using namespace std;
 template<class T> class Edge;
 template<class T> class Graph;
 
-
 /*
  * ================================================================================================
  * Vertice
@@ -32,23 +31,20 @@ public:
 	vector<Edge<T> > getEdges();
 };
 
-template <class T>
-vector<Edge<T> > Vertex<T>:: getEdges(){
+template<class T>
+vector<Edge<T> > Vertex<T>::getEdges() {
 	return adj;
 }
 
-
-template <class T>
-Vertex<T>::Vertex(T pess): info(pess), visited(false) {
+template<class T>
+Vertex<T>::Vertex(T pess) :
+		info(pess), visited(false) {
 }
-
-
 
 template<class T>
-T Vertex<T>::getInfo(){
+T Vertex<T>::getInfo() {
 	return info;
 }
-
 
 template<class T>
 void Vertex<T>::addEdge(Vertex<T> *dest, double w) {
@@ -92,12 +88,9 @@ Edge<T>::Edge(Vertex<T> *d, double w) :
 }
 
 template<class T>
-T Edge<T>::getDest(){
+T Edge<T>::getDest() {
 	return dest->getInfo();
 }
-
-
-
 
 /*
  * ================================================================================================
@@ -121,12 +114,10 @@ int Graph<T>::getNumVertex() const {
 	return vertexSet.size();
 }
 
-
 template<class T>
 vector<Vertex<T> *> Graph<T>::getVertexSet() const {
 	return vertexSet;
 }
-
 
 template<class T>
 bool Graph<T>::addVertex(const T &in) {
@@ -139,7 +130,6 @@ bool Graph<T>::addVertex(const T &in) {
 	vertexSet.push_back(v1);
 	return true;
 }
-
 
 template<class T>
 bool Graph<T>::removeVertex(const T &in) {
@@ -160,7 +150,6 @@ bool Graph<T>::removeVertex(const T &in) {
 	}
 	return false;
 }
-
 
 template<class T>
 bool Graph<T>::addEdge(const T &sourc, const T &dest, double w) {
