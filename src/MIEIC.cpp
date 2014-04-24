@@ -131,6 +131,8 @@ bool MIEIC::verificaPref(int idFont, int idDist) {
 
 void MIEIC::EstudantesPref() {
 
+	cout << "\n PREFERENCIAS DOS ESTUDANTES \n";
+
 	vector<Estudante> temp;
 
 	for (unsigned int i = 0; i < Estudantes.size(); i++)
@@ -139,7 +141,7 @@ void MIEIC::EstudantesPref() {
 		}
 
 	for (unsigned int a = 0; a < temp.size(); a++) {
-		cout << a << ". " << temp[a] << endl;
+		cout << a+1 << ". " << temp[a] << endl;
 	}
 
 	string escolha;
@@ -155,7 +157,7 @@ void MIEIC::EstudantesPref() {
 					<< "Projecto [nr] para pref por ordem? \"parar\" para terminar ";
 
 			for (unsigned int c = 0; c < Proponentes.size(); c++)
-				cout << c << ". " << Proponentes[c]->getProj() << endl;
+				cout << c+1 << ". " << Proponentes[c]->getProj() << endl;
 
 			int peso = 1;
 			do {
@@ -190,6 +192,8 @@ void MIEIC::EstudantesPref() {
 }
 
 void MIEIC::ProponentesPref() {
+
+	cout << "\n PREFERENCIAS DOS PROPONENTES \n";
 	vector<Proponente*> temp;
 
 	for (unsigned int i = 0; i < Proponentes.size(); i++)
@@ -197,7 +201,7 @@ void MIEIC::ProponentesPref() {
 			temp.push_back(Proponentes[i]);
 
 	for (unsigned int a = 0; a < temp.size(); a++) {
-		cout << a << ". " << (*temp[a]) << endl;
+		cout << a+1 << ". " << (*temp[a]) << endl;
 	}
 
 	string escolha;
@@ -209,10 +213,10 @@ void MIEIC::ProponentesPref() {
 
 		if (IDpref >= 0 && IDpref < temp.size()) {
 			cout
-					<< "Estudantes [nr] para pref por ordem? \"parar\" para terminar ";
+					<< "Estudantes [nr] para pref por ordem? \"parar\" para terminar\n";
 			string novaPref;
 			for (unsigned int c = 0; c < Estudantes.size(); c++)
-				cout << c << ". " << (*Estudantes[c]) << endl;
+				cout << c+1 << ". " << (*Estudantes[c]) << endl;
 
 			int peso = 1;
 			do {
@@ -341,9 +345,15 @@ void MIEIC::PrimeiraFase() {
 				|| escolha == "proponentes")
 			ProponentesPref();
 		else if (escolha == "3" || escolha == "Projectos"
-				|| escolha == "projectos") {
+				|| escolha == "projectos")
+			if(!FirstFaseComplete())
+				cout << "Sem preferencias necessarias\n";
+			else
+			{
 
-		}
+			}
+
+
 
 	}
 }
@@ -631,32 +641,6 @@ void MIEIC::MarrySuperv() {
 	}
 
 }
-/*
- Ha um problema.
- ou se calhar nao, mas temos de coordenar o codigo conforme isso
- entao tipo, nos temos o grafo, com a pessoa
- e a pessoa imagine-mos é estudante (so por exemplo)
- se e no grafo o as preferencias estao representadas,
- é preciso ter um membro na funçao estudante a dizer quais as preferencias?
- talvez nao... ou talvez sim?
-
- este projeto tem erros no supervisor, nao percebo porque, mas agora estou cansado,
- amanha de manha tento-os resolver,
-
- depois agora vi um problema, tinhamos um vector de projetos no estudante
- mas depois nos queremos é ligar um proponente ao estudante, e nao um projeto
-
- mas o problema tambem é que nao da para ter um vector de proponentes no estudante
- e no proponentes um vetor de estudante, porque depois da montes de erros de inception
-
- estou agora a tentar rever o codigo e por tudo conforme o que agora esta, a adicionar as preferencias
- no estudante a partir do projeto mas a associar um proponente
-
-
-
- Pedro o Sousa
-
- */
 
 void MIEIC::loadProjectos() {
 	string filename = "Projectos";

@@ -15,10 +15,6 @@ void Estudante::setNome(string nome) {
 	this->nome = nome;
 }
 
-string Estudante::getNome() const {
-	return nome;
-}
-
 vector<Projecto*> Estudante::getPreferencias() const {
 	return preferencias;
 }

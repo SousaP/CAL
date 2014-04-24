@@ -17,7 +17,6 @@ public:
 	Estudante(string n, vector<Projecto*> pref);
 	Estudante(string n);
 	void setNome(string nome);
-	string getNome() const;
 	vector<Projecto*> getPreferencias() const;
 	void setPref(const vector<Projecto*> pref);
 	void addPref(Projecto* novaPref);

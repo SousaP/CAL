@@ -14,10 +14,6 @@ void Supervisor::setNome(string nome) {
 	this->nome = nome;
 }
 
-string Supervisor::getNome() const {
-	return nome;
-}
-
 vector<Proponente*> Supervisor::getPreferencias() const {
 	return Projectos;
 }
