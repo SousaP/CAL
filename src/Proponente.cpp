@@ -1,98 +1,98 @@
 #include "Proponente.h"
 
-Proponente :: Proponente(string n, bool Docen)
-: Docente(Docen), Pessoa(iD, n){
+Proponente::Proponente(string n, bool Docen) :
+		Docente(Docen), Pessoa(iD, n) {
 	incID();
 }
 
-Proponente :: Proponente(string n,vector<Estudante*> pref,bool Docen,Projecto* g)
-: guia(g), PrefE(pref) , Docente(Docen), Pessoa(iD, n)
-{incID();}
-
-void Proponente ::setNome(string nome){
- this->nome = nome;
+Proponente::Proponente(string n, vector<Estudante*> pref, bool Docen,
+		Projecto* g) :
+		guia(g), PrefE(pref), Docente(Docen), Pessoa(iD, n) {
+	incID();
 }
 
-string Proponente ::getNome() const{
+void Proponente::setNome(string nome) {
+	this->nome = nome;
+}
+
+string Proponente::getNome() const {
 	return nome;
 }
 
-vector<Estudante*> Proponente ::getPreferencias() const{
+vector<Estudante*> Proponente::getPreferencias() const {
 	return PrefE;
 }
 
-void Proponente ::setPref(const vector<Estudante*> pref){
+void Proponente::setPref(const vector<Estudante*> pref) {
 	PrefE = pref;
 }
 
-void Proponente ::addPref(Estudante* novaPref){
+void Proponente::addPref(Estudante* novaPref) {
 	PrefE.push_back(novaPref);
 }
 
-void Proponente ::setDocente(bool newDocente){
+void Proponente::setDocente(bool newDocente) {
 	Docente = newDocente;
 }
 
-void Proponente ::removePref(Estudante* pref){
+void Proponente::removePref(Estudante* pref) {
 	vector<Estudante*>::iterator it = PrefE.begin();
 
-			for (; it != PrefE.end(); it++) {
-				if ((*(*it)) == (*pref)) {
-					PrefE.erase(it);
-					return;
-				}
-			}
-}
-
-bool Proponente ::operator == (const Proponente &P) const{
-	return (this->nome == P.nome && this->Docente == P.Docente && this->PrefE == P.PrefE);
-}
-
-ostream &operator << (ostream &os,const Proponente &P){
-	   os << "Nome: ";
-		os << P.getNome();
-		os << "Preferencias: ";
-		vector<Estudante*> temp = P.getPreferencias();
-		for (unsigned int i = 0; i < temp.size(); i++){
-			os << (*temp[i]);
-			os << ", ";
+	for (; it != PrefE.end(); it++) {
+		if ((*(*it)) == (*pref)) {
+			PrefE.erase(it);
+			return;
 		}
-		return os;
+	}
 }
 
+bool Proponente::operator ==(const Proponente &P) const {
+	return (this->nome == P.nome && this->Docente == P.Docente
+			&& this->PrefE == P.PrefE);
+}
 
-bool Proponente :: nrPref(){
+ostream &operator <<(ostream &os, const Proponente &P) {
+	os << "Nome: ";
+	os << P.getNome();
+	os << "Preferencias: ";
+	vector<Estudante*> temp = P.getPreferencias();
+	for (unsigned int i = 0; i < temp.size(); i++) {
+		os << (*temp[i]);
+		os << ", ";
+	}
+	return os;
+}
 
-	if(PrefE.size() == 0)
+bool Proponente::nrPref() {
+
+	if (PrefE.size() == 0)
 		return false;
-	else return true;
+	else
+		return true;
 }
 
-
-string Proponente :: getProj(){
+string Proponente::getProj() {
 	string retorno = "Projecto: ";
 	retorno += guia->getNome();
 }
-void Proponente :: gettingmarried(Pessoa* p){
+void Proponente::gettingmarried(Pessoa* p) {
 	(*this->p) = (*p);
 	married = true;
 }
 
-bool Proponente :: getDocente(){
-return Docente;
+bool Proponente::getDocente() {
+	return Docente;
 }
 
-
-Projecto* Proponente ::getProjP(){
+Projecto* Proponente::getProjP() {
 	return guia;
 }
 
-bool Proponente ::nasPrefs(Pessoa* p){
-	for(int i = 0; i < PrefE.size(); i++)
-		if(PrefE[i]->getNome() == p->getNome())
+bool Proponente::nasPrefs(Pessoa* p) {
+	for (int i = 0; i < PrefE.size(); i++)
+		if (PrefE[i]->getNome() == p->getNome())
 			return true;
 
-
-		return false;
+	return false;
 }
 

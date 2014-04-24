@@ -1,7 +1,6 @@
 #ifndef MIEIC_H_
 #define MIEIC_H_
 
-
 #include <string>
 #include <iostream>
 #include <vector>
@@ -55,6 +54,5 @@ public:
 	bool checkIfAllMarried2();
 	void tryMarrySuperv(Supervisor* s);
 };
-
 
 #endif /* MIEIC_H_ */

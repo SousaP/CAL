@@ -7,15 +7,15 @@
 #include "Estudante.h"
 #include "Projecto.h"
 
-class Proponente : public Pessoa {
+class Proponente: public Pessoa {
 	Pessoa* p;
 	bool Docente;
 	Projecto* guia;
 	vector<Estudante*> PrefE;
 
 public:
-	Proponente(string n,vector<Estudante*> pref,bool Docen,Projecto* g);
-	Proponente(string n,bool Docen);
+	Proponente(string n, vector<Estudante*> pref, bool Docen, Projecto* g);
+	Proponente(string n, bool Docen);
 	void setNome(string nome);
 	string getNome() const;
 	vector<Estudante*> getPreferencias() const;
@@ -23,17 +23,17 @@ public:
 	void addPref(Estudante* novaPref);
 	void setDocente(bool newDocente);
 	void removePref(Estudante* pref);
-	bool operator == (const Proponente &P) const;
-	friend ostream & operator << (ostream &os,const Proponente &P);
+	bool operator ==(const Proponente &P) const;
+	friend ostream & operator <<(ostream &os, const Proponente &P);
 	bool nrPref();
 	string getProj();
-	Pessoa* getMarry(){return p;}
+	Pessoa* getMarry() {
+		return p;
+	}
 	void gettingmarried(Pessoa* p);
 	bool getDocente();
 	Projecto* getProjP();
 	bool nasPrefs(Pessoa* p);
 };
-
-
 
 #endif /* PROPONENTE_H_ */

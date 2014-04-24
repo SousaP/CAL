@@ -4,7 +4,6 @@
 #include "string"
 using namespace std;
 
-
 class Pessoa {
 
 protected:
@@ -18,22 +17,29 @@ public:
 	static unsigned int iD;
 	unsigned int nrP;
 
-	virtual bool nrPref(){
+	virtual bool nrPref() {
 		// retorna se tem preferencias ou nao
 	}
-	static void incID(){
+	static void incID() {
 		iD++;
 	}
-	unsigned int getID(){return nrP;}
-	bool isMarried() {return married;}
-	virtual void gettingmarried(Pessoa* p){}
-	void gettingsigle(){married = false;}
-	virtual bool nasPrefs(Pessoa* p){/* ve se ja esta nas preferencias*/}
-	virtual string getNome() const{return nome;}
+	unsigned int getID() {
+		return nrP;
+	}
+	bool isMarried() {
+		return married;
+	}
+	virtual void gettingmarried(Pessoa* p) {
+	}
+	void gettingsigle() {
+		married = false;
+	}
+	virtual bool nasPrefs(Pessoa* p) {/* ve se ja esta nas preferencias*/
+	}
+	virtual string getNome() const {
+		return nome;
+	}
 
 };
-
-
-
 
 #endif /* PESSOA_H_ */
