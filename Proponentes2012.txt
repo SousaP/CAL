@@ -1,5 +1,0 @@
-Prop Teste
-true
-Proj Teste
-true
-END

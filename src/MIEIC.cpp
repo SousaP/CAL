@@ -170,11 +170,13 @@ void MIEIC::EstudantesPref() {
 					if (!verificaPref(Estudantes[IDpref]->getID(),
 							Proponentes[novaPrefn]->getID())) {
 
+
 						addEdge(Estudantes[IDpref]->getID(),
 								Proponentes[novaPrefn]->getID(), peso);
 
-						if (Estudantes[IDpref]->nasPrefs(
+						if (!Estudantes[IDpref]->nasPrefs(
 								Proponentes[novaPrefn])) {
+							cout << "vai adicionar.";
 							Estudantes[IDpref]->addPref(
 									Proponentes[novaPrefn]->getProjP());
 							peso++;
