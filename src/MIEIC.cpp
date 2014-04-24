@@ -154,7 +154,7 @@ void MIEIC::EstudantesPref() {
 
 		if (IDpref >= 0 && IDpref < temp.size()) {
 			cout
-					<< "Projecto [nr] para pref por ordem? \"parar\" para terminar ";
+					<< "Projecto [nr] para pref por ordem? \"parar\" para terminar\n";
 
 			for (unsigned int c = 0; c < Proponentes.size(); c++)
 				cout << c+1 << ". " << Proponentes[c]->getProj() << endl;
@@ -176,7 +176,6 @@ void MIEIC::EstudantesPref() {
 
 						if (!Estudantes[IDpref]->nasPrefs(
 								Proponentes[novaPrefn])) {
-							cout << "vai adicionar.";
 							Estudantes[IDpref]->addPref(
 									Proponentes[novaPrefn]->getProjP());
 							peso++;
@@ -208,7 +207,7 @@ void MIEIC::ProponentesPref() {
 
 	string escolha;
 	while (temp.size() > 0 && escolha != "sair") {
-		cout << "Proponente [nr] a escolher preferencias? ";
+		cout << "\nProponente [nr] a escolher preferencias? ";
 		getline(cin, escolha);
 		unsigned int IDpref = atoi(escolha.c_str());
 		IDpref--;
@@ -234,9 +233,9 @@ void MIEIC::ProponentesPref() {
 						addEdge(Proponentes[IDpref]->getID(),
 								Estudantes[novaPrefn]->getID(), peso);
 
-						Estudante E = (*Estudantes[novaPrefn]);
-						if (Proponentes[IDpref]->nasPrefs(&E)) {
-							Proponentes[IDpref]->addPref(&E);
+						if (!Proponentes[IDpref]->nasPrefs(Estudantes[novaPrefn])) {
+							cout << "\nvai adicionar\n";
+							Proponentes[IDpref]->addPref(Estudantes[novaPrefn]);
 							peso++;
 						}
 					}

@@ -5,7 +5,7 @@ int main() {
 	string ano;
 
 	do {
-		cout << "\nAno do Mieic: ";
+		cout << "Ano do Mieic: ";
 
 		cin >> ano;
 
