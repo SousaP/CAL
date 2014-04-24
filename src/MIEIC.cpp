@@ -375,26 +375,29 @@ void MIEIC::Criar() {
 	string escolha;
 
 	do {
-		cout << "\n2. Estudante\n3. Proponente 4. Supervisor\n5. Sair \n";
+		cout << "\n1. Estudante\n2. Proponente \n3. Supervisor\n5. Sair \n";
 		cin >> escolha;
 
-		if (escolha == "2" || escolha == "Estudante"
+		if (escolha == "1" || escolha == "Estudante"
 				|| escolha == "estudante") {
 			string nomeE;
 			cout << "\nNome: ";
+
+			cin.ignore();
 			getline(cin, nomeE);
 
-			Estudante* Ep;
-			(*Ep) = Estudante(nomeE);
+			cin >> nomeE;
+			Estudante* Ep = new Estudante(nomeE);
 			Estudantes.push_back(Ep);
-			Pessoa *p;
-			(*p) = (*Ep);
+			Pessoa *p = &(*Ep);
 			PriFase.addVertex(p);
 
-		} else if (escolha == "3" || escolha == "Proponente"
+		} else if (escolha == "2" || escolha == "Proponente"
 				|| escolha == "proponente") {
 			string nomeP;
 			cout << "\nNome: ";
+
+			cin.ignore();
 			getline(cin, nomeP);
 
 			string superv;
@@ -411,16 +414,15 @@ void MIEIC::Criar() {
 			else
 				sup = false;
 
-			Proponente* Pp;
-			(*Pp) = Proponente(nomeP, sup);
+			Proponente* Pp = new Proponente(nomeP, sup);
 			Proponentes.push_back(Pp);
-			Pessoa *p;
-			(*p) = (*Pp);
+			Pessoa *p = &(*Pp);
 			PriFase.addVertex(p);
-		} else if (escolha == "4" || escolha == "Supervisor"
+		} else if (escolha == "3" || escolha == "Supervisor"
 				|| escolha == "supervisor") {
 			string nomeS;
 			cout << "\nNome: ";
+			cin.ignore();
 			getline(cin, nomeS);
 
 			string nrmax;
@@ -429,10 +431,8 @@ void MIEIC::Criar() {
 				getline(cin, nrmax);
 			} while (atoi(nrmax.c_str()) > 0);
 
-			Supervisor* Sp;
-			(*Sp) = Supervisor(nomeS, atoi(nrmax.c_str()));
-			Pessoa *p;
-			(*p) = (*Sp);
+			Supervisor* Sp = new Supervisor(nomeS, atoi(nrmax.c_str()));
+			Pessoa *p = &(*Sp);
 			PriFase.addVertex(p);
 			Supervisores.push_back(Sp);
 		}
@@ -460,6 +460,7 @@ void MIEIC::Menu() {
 
 				cout
 						<< "\nListagem de: Projecto? Estudante? Proponente? Supervisor? Sair \n";
+				cin.ignore();
 				getline(cin, list);
 
 			} while (!Listagem(list) && (list != "Sair" || list != "sair"));
