@@ -4,6 +4,7 @@
 #include <fstream>
 #include <cstring>
 #include <stdlib.h>
+#include <string>
 
 using namespace std;
 
@@ -18,7 +19,7 @@ MIEIC::MIEIC(unsigned int ano) {
 	StartSecFase();
 }
 
-MIEIC :: ~MIEIC(){
+MIEIC::~MIEIC() {
 	saveProjectos();
 	saveProponentes();
 	saveEstudantes();
@@ -464,7 +465,7 @@ void MIEIC::Menu() {
 		cout
 				<< "\n1. Criar elementos\n2. Listagem\n3. Primeira fase.\n4. Segunda Fase.\n5. Sair\n";
 		cin.ignore();
-		getline(cin,escolha);
+		getline(cin, escolha);
 
 		if (escolha == "Criar" || escolha == "criar" || escolha == "1")
 			Criar();
@@ -656,7 +657,11 @@ void MIEIC::MarrySuperv() {
 
 void MIEIC::loadProjectos() {
 	string filename = "Projectos";
-	filename += ano;
+	string anoS;
+	ostringstream convert;
+	convert << ano;
+	anoS = convert.str();
+	filename += anoS;
 	filename += ".txt";
 	ifstream myfile(filename.c_str());
 
@@ -687,7 +692,11 @@ void MIEIC::loadProjectos() {
 
 void MIEIC::loadEstudantes() {
 	string filename = "Estudantes";
-	filename += ano;
+	string anoS;
+	ostringstream convert;
+	convert << ano;
+	anoS = convert.str();
+	filename += anoS;
 	filename += ".txt";
 	ifstream myfile(filename.c_str());
 
@@ -727,7 +736,11 @@ void MIEIC::loadEstudantes() {
 
 void MIEIC::loadProponentes() {
 	string filename = "Proponentes";
-	filename += ano;
+	string anoS;
+	ostringstream convert;
+	convert << ano;
+	anoS = convert.str();
+	filename += anoS;
 	filename += ".txt";
 	ifstream myfile(filename.c_str());
 
@@ -794,7 +807,11 @@ void MIEIC::loadProponentes() {
 
 void MIEIC::loadSupervisores() {
 	string filename = "Supervisores";
-	filename += ano;
+	string anoS;
+	ostringstream convert;
+	convert << ano;
+	anoS = convert.str();
+	filename += anoS;
 	filename += ".txt";
 	ifstream myfile(filename.c_str());
 
@@ -840,7 +857,11 @@ void MIEIC::loadSupervisores() {
 
 void MIEIC::saveProjectos() {
 	string filename = "Projectos";
-	filename += ano;
+	string anoS;
+	ostringstream convert;
+	convert << ano;
+	anoS = convert.str();
+	filename += anoS;
 	filename += ".txt";
 	ofstream myfile(filename.c_str());
 
@@ -856,13 +877,18 @@ void MIEIC::saveProjectos() {
 
 void MIEIC::saveEstudantes() {
 	string filename = "Estudantes";
-	filename += ano;
+	string anoS;
+	ostringstream convert;
+	convert << ano;
+	anoS = convert.str();
+	filename += anoS;
 	filename += ".txt";
 	ofstream myfile(filename.c_str());
 
 	for (unsigned int i = 0; i < Estudantes.size(); i++) {
 		myfile << Estudantes[i]->getNome() << endl;
-		for (unsigned int j = 0; j < Estudantes[i]->getPreferencias().size(); j++){
+		for (unsigned int j = 0; j < Estudantes[i]->getPreferencias().size();
+				j++) {
 			myfile << Estudantes[i]->getPreferencias()[j]->getNome() << endl;
 		}
 		myfile << "END" << endl;
@@ -872,41 +898,52 @@ void MIEIC::saveEstudantes() {
 
 void MIEIC::saveProponentes() {
 	string filename = "Proponentes";
-	filename += ano;
+	string anoS;
+	ostringstream convert;
+	convert << ano;
+	anoS = convert.str();
+	filename += anoS;
 	filename += ".txt";
 	ofstream myfile(filename.c_str());
 
 	for (unsigned int i = 0; i < Proponentes.size(); i++) {
-			myfile << Proponentes[i]->getNome() << endl;
-			if (Proponentes[i]->getDocente() == true)
-				myfile << "true" << endl;
-			else
-				myfile << "false" << endl;
-			myfile << Proponentes[i]->getProj() << endl;
-			if (Proponentes[i]->getProjP()->getSuperv() == true)
-							myfile << "true" << endl;
-						else
-							myfile << "false" << endl;
-			for (unsigned int j = 0; j < Proponentes[i]->getPreferencias().size(); j++){
-						myfile << Proponentes[i]->getPreferencias()[j]->getNome() << endl;
-					}
-					myfile << "END" << endl;
+		myfile << Proponentes[i]->getNome() << endl;
+		if (Proponentes[i]->getDocente() == true)
+			myfile << "true" << endl;
+		else
+			myfile << "false" << endl;
+		myfile << Proponentes[i]->getProj() << endl;
+		if (Proponentes[i]->getProjP()->getSuperv() == true)
+			myfile << "true" << endl;
+		else
+			myfile << "false" << endl;
+		for (unsigned int j = 0; j < Proponentes[i]->getPreferencias().size();
+				j++) {
+			myfile << Proponentes[i]->getPreferencias()[j]->getNome() << endl;
 		}
+		myfile << "END" << endl;
+	}
 	myfile.close();
 }
 
 void MIEIC::saveSupervisores() {
 	string filename = "Proponentes";
-	filename += "" + ano;
+	string anoS;
+	ostringstream convert;
+	convert << ano;
+	anoS = convert.str();
+	filename += anoS;
 	filename += ".txt";
 	ofstream myfile(filename.c_str());
 
 	for (unsigned int i = 0; i < Supervisores.size(); i++) {
-			myfile << Supervisores[i]->getNome() << endl << Supervisores[i]->getMax() << endl;
-			for (unsigned int j = 0; j < Supervisores[i]->getPreferencias().size(); j++){
-				myfile << Supervisores[i]->getPreferencias()[j]->getNome() << endl;
-			}
-			myfile << "END" << endl;
+		myfile << Supervisores[i]->getNome() << endl
+				<< Supervisores[i]->getMax() << endl;
+		for (unsigned int j = 0; j < Supervisores[i]->getPreferencias().size();
+				j++) {
+			myfile << Supervisores[i]->getPreferencias()[j]->getNome() << endl;
 		}
-		myfile.close();
+		myfile << "END" << endl;
+	}
+	myfile.close();
 }
