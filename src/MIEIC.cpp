@@ -763,7 +763,7 @@ void MIEIC::loadProjectos() {
 		}
 
 		Projecto temp = Projecto(nome, sup);
-		Projectos.push_back(temp);
+		Projectos.push_back(&temp);
 
 	}
 	myfile.close();
@@ -793,8 +793,8 @@ void MIEIC::loadEstudantes() {
 				} else {
 					preferencia = recebido;
 					for (int i = 0; i < Projectos.size(); i++) {
-						if (Projectos[i].getNome() == preferencia) {
-							preferencias.push_back(Projectos[i]);
+						if (Projectos[i]->getNome() == preferencia) {
+							preferencias.push_back(*Projectos[i]);
 							break;
 						}
 					}
