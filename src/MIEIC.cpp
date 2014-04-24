@@ -331,6 +331,10 @@ void MIEIC::StartSecFase() {
 void MIEIC::PrimeiraFase() {
 	string escolha = "";
 
+
+	cout << "Ha " << PriFase.getNumVertex() << " elementos no grafo";
+
+
 	while (escolha != "Sair" && escolha != "sair" && escolha != "4") {
 		cout << "1. Escolhas dos Estudantes\n";
 		cout << "2. Escolhas dos Proponentes\n";
@@ -386,11 +390,11 @@ bool MIEIC::FirstFaseComplete() {
 
 	vector<Vertex<Pessoa*> *> temp = PriFase.getVertexSet();
 
-	vector<Vertex<Pessoa*> *>::iterator it = temp.begin();
+	vector<Vertex<Pessoa*> *>::const_iterator it = temp.begin();
 
 	for (; it != temp.end(); it++)
-		if ((*(*it)->getInfo()).nrPref())
-			return false;
+			if (!(*it)->getInfo()->nrPref())
+				return false;
 
 	return true;
 }
@@ -400,7 +404,7 @@ void MIEIC::Criar() {
 	string escolha;
 
 	do {
-		cout << "\n1. Estudante\n2. Proponente \n3. Supervisor\n5. Sair \n";
+		cout << "\n1. Estudante\n2. Proponente \n3. Supervisor\n4. Sair \n";
 		cin >> escolha;
 
 		if (escolha == "1" || escolha == "Estudante"
@@ -413,7 +417,7 @@ void MIEIC::Criar() {
 
 			Estudante* Ep = new Estudante(nomeE);
 			Estudantes.push_back(Ep);
-			Pessoa *p = &(*Ep);
+			Pessoa *p = Ep;
 			PriFase.addVertex(p);
 
 		} else if (escolha == "2" || escolha == "Proponente"
@@ -467,7 +471,7 @@ void MIEIC::Criar() {
 			Supervisores.push_back(Sp);
 		}
 
-	} while (escolha != "Sair" && escolha != "sair" && escolha != "5");
+	} while (escolha != "Sair" && escolha != "sair" && escolha != "4");
 }
 
 void MIEIC::Menu() {
