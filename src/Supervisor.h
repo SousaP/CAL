@@ -15,6 +15,7 @@ public:
 	Supervisor(string n, vector<Proponente*> proj, unsigned int nrmax);
 	void setNome(string nome);
 	string getNome() const;
+	unsigned int getMax() const;
 	vector<Proponente*> getPreferencias() const;
 	void setProj(const vector<Proponente*> p);
 	void addProj(Proponente* novaPref);

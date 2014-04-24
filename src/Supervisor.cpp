@@ -78,3 +78,7 @@ bool Supervisor::nasPrefs(Pessoa* p) {
 
 	return false;
 }
+
+unsigned int Supervisor::getMax() const{
+	return maxProj;
+}
