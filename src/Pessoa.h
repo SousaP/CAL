@@ -7,7 +7,7 @@ using namespace std;
 class Pessoa {
 
 protected:
-
+	Pessoa* p = NULL;
 	string nome;
 	bool married;
 
@@ -33,6 +33,7 @@ public:
 	}
 	void gettingsigle() {
 		married = false;
+		p = NULL;
 	}
 	virtual bool nasPrefs(Pessoa* p) {/* ve se ja esta nas preferencias*/
 	}

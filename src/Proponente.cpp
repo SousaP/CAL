@@ -95,4 +95,3 @@ bool Proponente::nasPrefs(Pessoa* p) {
 
 	return false;
 }
-

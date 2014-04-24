@@ -7,7 +7,6 @@
 #include "Proponente.h"
 
 class Supervisor: public Pessoa {
-	Pessoa* p;
 	unsigned int maxProj;
 	vector<Proponente*> Projectos;
 
