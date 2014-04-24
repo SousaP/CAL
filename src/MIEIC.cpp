@@ -393,7 +393,6 @@ void MIEIC::Criar() {
 			string nomeE;
 			cout << "\nNome: ";
 
-			cin.ignore();
 			getline(cin, nomeE);
 
 			cin >> nomeE;
@@ -439,7 +438,7 @@ void MIEIC::Criar() {
 			do {
 				cout << "Numero Maximo de Projectos: ";
 				getline(cin, nrmax);
-			} while (atoi(nrmax.c_str()) > 0);
+			} while (atoi(nrmax.c_str()) < 0);
 
 			Supervisor* Sp = new Supervisor(nomeS, atoi(nrmax.c_str()));
 			Pessoa *p = &(*Sp);
@@ -454,7 +453,7 @@ void MIEIC::Menu() {
 
 	string escolha = "";
 
-	while (escolha != "Sair" && escolha != "sair" && escolha != "4") {
+	while (escolha != "Sair" && escolha != "sair" && escolha != "5") {
 
 		cout
 				<< "\n1. Criar elementos\n2. Listagem\n3. Primeira fase.\n4. Segunda Fase.\n5. Sair\n";
