@@ -394,6 +394,7 @@ void MIEIC::Criar() {
 			string nomeE;
 			cout << "\nNome: ";
 
+			cin.ignore();
 			getline(cin, nomeE);
 
 			Estudante* Ep = new Estudante(nomeE);
@@ -669,12 +670,12 @@ void MIEIC::loadProjectos() {
 
 	while (myfile.good()) {
 
-		myfile >> recebido;
+		getline(myfile, recebido);
 		if (recebido != "") {
 			nome = recebido;
 		}
 
-		myfile >> recebido;
+		getline(myfile, recebido);
 		if (recebido != "") {
 			boolean = recebido;
 			if (boolean == "true")
@@ -704,13 +705,13 @@ void MIEIC::loadEstudantes() {
 
 	while (myfile.good()) {
 
-		myfile >> recebido;
+		getline(myfile, recebido);
 		if (recebido != "") {
 			nome = recebido;
 		}
 
 		while (myfile.good()) {
-			myfile >> recebido;
+			getline(myfile, recebido);
 			if (recebido != "") {
 				if (recebido == "END") {
 					break;
@@ -750,12 +751,12 @@ void MIEIC::loadProponentes() {
 
 	while (myfile.good()) {
 
-		myfile >> recebido;
+		getline(myfile, recebido);
 		if (recebido != "") {
 			nomeprop = recebido;
 		}
 
-		myfile >> recebido;
+		getline(myfile, recebido);
 		if (recebido != "") {
 			tipo = recebido;
 			if (tipo == "true")
@@ -764,12 +765,12 @@ void MIEIC::loadProponentes() {
 				doc = false;
 		}
 
-		myfile >> recebido;
+		getline(myfile, recebido);
 		if (recebido != "") {
 			nomeproj = recebido;
 		}
 
-		myfile >> recebido;
+		getline(myfile, recebido);
 		if (recebido != "") {
 			boolean = recebido;
 			if (boolean == "true")
@@ -781,7 +782,7 @@ void MIEIC::loadProponentes() {
 		Projecto proj = Projecto(nomeproj, sup);
 
 		while (myfile.good()) {
-			myfile >> recebido;
+			getline(myfile, recebido);
 			if (recebido != "") {
 				if (recebido == "END") {
 					break;
@@ -820,19 +821,19 @@ void MIEIC::loadSupervisores() {
 
 	while (myfile.good()) {
 
-		myfile >> recebido;
+		getline(myfile, recebido);
 		if (recebido != "") {
 			nome = recebido;
 		}
 
-		myfile >> recebido;
+		getline(myfile, recebido);
 		if (recebido != "") {
 			nrmax = recebido;
 			max = atoi(nrmax.c_str());
 		}
 
 		while (myfile.good()) {
-			myfile >> recebido;
+			getline(myfile, recebido);
 			if (recebido != "") {
 				if (recebido == "END") {
 					break;
@@ -911,7 +912,7 @@ void MIEIC::saveProponentes() {
 			myfile << "true" << endl;
 		else
 			myfile << "false" << endl;
-		myfile << Proponentes[i]->getProj() << endl;
+		myfile << Proponentes[i]->getProjP()->getNome() << endl;
 		if (Proponentes[i]->getProjP()->getSuperv() == true)
 			myfile << "true" << endl;
 		else
