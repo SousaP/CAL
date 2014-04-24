@@ -463,12 +463,12 @@ void MIEIC::Criar() {
 void MIEIC::Menu() {
 
 	string escolha = "";
-
+	cin.ignore();
 	while (escolha != "Sair" && escolha != "sair" && escolha != "5") {
 
 		cout
 				<< "\n1. Criar elementos\n2. Listagem\n3. Primeira fase.\n4. Segunda Fase.\n5. Sair\n";
-		cin.ignore();
+
 		getline(cin, escolha);
 
 		if (escolha == "Criar" || escolha == "criar" || escolha == "1")
