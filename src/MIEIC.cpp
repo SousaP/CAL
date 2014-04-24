@@ -28,7 +28,7 @@ MIEIC::~MIEIC() {
 
 void MIEIC::ListProjs() {
 
-	cout << "\n||||| sem LISTAGEM PROJETOS  |||||\n";
+	cout << "\n||||| LISTAGEM PROJETOS  |||||\n";
 	vector<Projecto*>::const_iterator it = Projectos.begin();
 
 	for (unsigned int i = 1; it != Projectos.end(); it++, i++)

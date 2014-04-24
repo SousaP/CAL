@@ -22,6 +22,6 @@ bool Projecto::operator ==(const Projecto &P) const {
 }
 
 ostream & operator <<(ostream &os, const Projecto &P) {
-	os << "Projecto: " << P.getSuperv() << endl;
+	os << "Projecto: " << P.getNome() << endl;
 	return os;
 }
