@@ -429,7 +429,7 @@ void MIEIC::Criar() {
 			getline(cin, ProjN);
 
 			Projecto* pj  = new Projecto(ProjN,!sup);
-
+			Projectos.push_back(pj);
 			Proponente* Pp = new Proponente(nomeP, sup,pj);
 			Proponentes.push_back(Pp);
 			Pessoa *p = &(*Pp);
