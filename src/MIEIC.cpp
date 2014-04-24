@@ -18,6 +18,13 @@ MIEIC::MIEIC(unsigned int ano) {
 	StartSecFase();
 }
 
+MIEIC :: ~MIEIC(){
+	saveProjectos();
+	saveProponentes();
+	saveEstudantes();
+	saveSupervisores();
+}
+
 void MIEIC::ListProjs() {
 
 	cout << "\n||||| sem LISTAGEM PROJETOS  |||||\n";

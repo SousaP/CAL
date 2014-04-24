@@ -23,6 +23,7 @@ class MIEIC {
 
 public:
 	MIEIC(unsigned int ano);
+	~MIEIC();
 	void loadProjectos();
 	void loadProponentes();
 	void loadEstudantes();
