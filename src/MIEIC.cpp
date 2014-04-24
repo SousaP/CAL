@@ -44,7 +44,7 @@ void MIEIC::ListPropos() {
 	vector<Proponente*>::const_iterator it = Proponentes.begin();
 
 	for (unsigned int i = 1; it != Proponentes.end(); it++, i++)
-		cout << i << ".  " << (*(*it)) << endl;
+		cout << i << ". "<< (*(*it)) << endl;
 
 	cout << "----------------------------------";
 }
@@ -55,7 +55,7 @@ void MIEIC::ListEstuds() {
 	vector<Estudante*>::const_iterator it = Estudantes.begin();
 
 	for (unsigned int i = 1; it != Estudantes.end(); it++, i++)
-		cout << i << ".  " << (*(*it)) << endl;
+		cout << i  << ". "<< (*(*it)) << endl;
 
 	cout << "----------------------------------";
 
@@ -75,13 +75,13 @@ void MIEIC::ListSupervs() {
 
 bool MIEIC::Listagem(string pessoa) {
 
-	if (pessoa == "Projectos" || pessoa == "projectos")
+	if (pessoa == "Projectos" || pessoa == "projectos" || pessoa == "1")
 		ListProjs();
-	else if (pessoa == "Proponentes" || pessoa == "proponentes")
+	else if (pessoa == "Estudantes" || pessoa == "estudantes"|| pessoa == "2")
+			ListEstuds();
+	else if (pessoa == "Proponentes" || pessoa == "proponentes"|| pessoa == "3")
 		ListPropos();
-	else if (pessoa == "Estudantes" || pessoa == "estudantes")
-		ListEstuds();
-	else if (pessoa == "Supervisores" || pessoa == "supervisores")
+	else if (pessoa == "Supervisores" || pessoa == "supervisores"|| pessoa == "4")
 		ListSupervs();
 	else
 		return false;
@@ -217,7 +217,7 @@ void MIEIC::ProponentesPref() {
 					<< "Estudantes [nr] para pref por ordem? \"parar\" para terminar\n";
 			string novaPref;
 			for (unsigned int c = 0; c < Estudantes.size(); c++)
-				cout << c+1 << ". " << (*Estudantes[c]) << endl;
+				cout << c+1 << (*Estudantes[c]) << endl;
 
 			int peso = 1;
 			do {
@@ -234,7 +234,6 @@ void MIEIC::ProponentesPref() {
 								Estudantes[novaPrefn]->getID(), peso);
 
 						if (!Proponentes[IDpref]->nasPrefs(Estudantes[novaPrefn])) {
-							cout << "\nvai adicionar\n";
 							Proponentes[IDpref]->addPref(Estudantes[novaPrefn]);
 							peso++;
 						}
@@ -332,9 +331,6 @@ void MIEIC::PrimeiraFase() {
 	string escolha = "";
 
 
-	cout << "Ha " << PriFase.getNumVertex() << " elementos no grafo";
-
-
 	while (escolha != "Sair" && escolha != "sair" && escolha != "4") {
 		cout << "1. Escolhas dos Estudantes\n";
 		cout << "2. Escolhas dos Proponentes\n";
@@ -351,11 +347,9 @@ void MIEIC::PrimeiraFase() {
 		else if (escolha == "3" || escolha == "Projectos"
 				|| escolha == "projectos")
 			if(!FirstFaseComplete())
-				cout << "Sem preferencias necessarias\n";
+				cout << "\n\n-----Sem preferencias necessarias---\n\n";
 			else
-			{
-
-			}
+				Marry();
 
 
 
@@ -497,7 +491,7 @@ void MIEIC::Menu() {
 						<< "\nListagem de: Projectos? Estudantes? Proponentes? Supervisors? Sair \n";
 				getline(cin, list);
 
-			} while (!Listagem(list) && (list != "Sair" || list != "sair"));
+			} while (!Listagem(list) && list != "Sair" && list != "sair");
 
 		}
 
@@ -548,17 +542,19 @@ void MIEIC::solteirar(int id) {
 
 void MIEIC::Marry() {
 
-	vector<Estudante*>::const_iterator itE = Estudantes.begin();
+	vector<Estudante*>::iterator itE = Estudantes.begin();
+	vector<Proponente*>::iterator itP = Proponentes.begin();
+
 
 	while (!checkIfAllMarried()) {
-		vector<Proponente*>::const_iterator itP = Proponentes.begin();
+
 		if (!(*itE)->isMarried()) {
+
 			for (; itP != Proponentes.end(); itP++) {
 				if (!(*itP)->isMarried()
 						&& verificaPref((*itE)->getID(), (*itP)->getID())) {
 					(*itP)->gettingmarried((*itE));
 					(*itE)->gettingmarried((*itP));
-
 				} else {
 					if (comparePropPref(*(*itE), *(*itP))) {
 						solteirar((*itP)->getMarry()->getID());
@@ -568,7 +564,7 @@ void MIEIC::Marry() {
 				}
 			}
 		}
-	}
+	} */
 }
 
 void MIEIC::setpropofree() {

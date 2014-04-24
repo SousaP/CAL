@@ -53,7 +53,7 @@ ostream &operator <<(ostream &os, const Proponente &P) {
 	os << "  Preferencias: ";
 	vector<Estudante*> temp = P.getPreferencias();
 	for (unsigned int i = 0; i < temp.size(); i++) {
-		os << (*temp[i]);
+		os << (*temp[i]).getNome();
 		os << ", ";
 	}
 	return os;
@@ -73,7 +73,7 @@ string Proponente::getProj() {
 	return retorno;
 }
 void Proponente::gettingmarried(Pessoa* p) {
-	(*this->p) = (*p);
+	this->p = p;
 	married = true;
 }
 

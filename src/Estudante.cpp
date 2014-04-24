@@ -58,7 +58,7 @@ ostream & operator <<(ostream &os, const Estudante &E) {
 	vector<Projecto*> temp = E.getPreferencias();
 	if (E.getPreferencias().size() == 0) return os;
 	for (unsigned int i = 0; i < temp.size(); i++) {
-		os << (*temp[i]);
+		os << (*temp[i]).getNome();
 		os << ", ";
 	}
 	return os;
@@ -73,13 +73,13 @@ bool Estudante::nrPref() {
 }
 
 void Estudante::gettingmarried(Pessoa* p) {
-	(*this->p) = (*p);
+	this->p = p;
 	married = true;
 }
 
 bool Estudante::nasPrefs(Pessoa* p) {
 
-	for (int i = 0; i < preferencias.size(); i++)
+	for (unsigned int i = 0; i < preferencias.size(); i++)
 		if (preferencias[i]->getNome() == p->getNome())
 			return true;
 
