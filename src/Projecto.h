@@ -13,7 +13,7 @@ class Projecto{
 	bool supervisor;
 
 public:
-	Projecto(){}
+	Projecto(){};
 	Projecto(string n, bool superv);
 	void setNome(string nome);
 	string getNome() const;

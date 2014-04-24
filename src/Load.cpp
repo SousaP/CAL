@@ -118,5 +118,4 @@ void AtribuicaoDeProjetos::loadSupervisores() {
 	myfile.close();
 
 }
-
 */

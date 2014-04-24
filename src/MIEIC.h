@@ -21,6 +21,7 @@ class MIEIC {
 	vector<Proponente*> Proponentes;
 	vector<Estudante*> Estudantes;
 	vector<Supervisor*> Supervisores;
+	vector<Projecto> Projectos;
 public:
 	MIEIC(unsigned int ano);
 	void loadProjectos();

@@ -5,13 +5,12 @@
 #include <cstring>
 #include <stdlib.h>
 
-
 using namespace std;
 
 MIEIC::MIEIC(unsigned int ano) {
 	priFaseOk = false;
 	this->ano = ano;
-	//loadProjectos();
+	loadProjectos();
 	loadEstudantes();
 	loadProponentes();
 	loadSupervisores();
@@ -19,113 +18,114 @@ MIEIC::MIEIC(unsigned int ano) {
 	StartSecFase();
 }
 
-void MIEIC::loadEstudantes() {
-	string temp = "Estudantes";
-	temp += ano;
-	temp += ".txt";
-	ifstream file(temp.c_str());
-	if (!file.is_open())
-		return;
+/*
+ void MIEIC::loadEstudantes() {
+ string temp = "Estudantes";
+ temp += ano;
+ temp += ".txt";
+ ifstream file(temp.c_str());
+ if (!file.is_open())
+ return;
 
-	string linha;
-	string linha2;
-	string linha3;
-	while (!file.eof()) {
-		getline(file, linha);
-		getline(file, linha2);
+ string linha;
+ string linha2;
+ string linha3;
+ while (!file.eof()) {
+ getline(file, linha);
+ getline(file, linha2);
 
-		if (linha != "" && linha2 != "") {
+ if (linha != "" && linha2 != "") {
 
-			string indice;
-			vector<Projecto> temp;
-			do {
-				istringstream ss(linha2);
-				getline(ss, indice, ',');
+ string indice;
+ vector<Projecto> temp;
+ do {
+ istringstream ss(linha2);
+ getline(ss, indice, ',');
 
-				//temp.push_back(Projectos[atoi(indice.c_str())]);
+ //temp.push_back(Projectos[atoi(indice.c_str())]);
 
-			} while (indice != "");
+ } while (indice != "");
 
-			//Estudantes.push_back(Estudantes(linha,temp));
+ //Estudantes.push_back(Estudantes(linha,temp));
 
-		}
-	}
-	file.close();
+ }
+ }
+ file.close();
 
-}
+ }
 
-void MIEIC::loadProponentes() {
-	string temp = "Proponentes";
-	temp += ano;
-	temp += ".txt";
-	ifstream file(temp.c_str());
-	if (!file.is_open())
-		return;
+ void MIEIC::loadProponentes() {
+ string temp = "Proponentes";
+ temp += ano;
+ temp += ".txt";
+ ifstream file(temp.c_str());
+ if (!file.is_open())
+ return;
 
-	string linha;
-	string linha2;
-	string linha3;
-	while (!file.eof()) {
-		getline(file, linha);
-		getline(file, linha2);
-		getline(file, linha3);
+ string linha;
+ string linha2;
+ string linha3;
+ while (!file.eof()) {
+ getline(file, linha);
+ getline(file, linha2);
+ getline(file, linha3);
 
-		if (linha != "" && linha2 != "" && linha3 != "") {
+ if (linha != "" && linha2 != "" && linha3 != "") {
 
-			string indice;
-			vector<Estudante> temp;
-			do {
-				istringstream ss(linha3);
-				getline(ss, indice, ',');
+ string indice;
+ vector<Estudante> temp;
+ do {
+ istringstream ss(linha3);
+ getline(ss, indice, ',');
 
-				//temp.push_back(Estudantes[atoi(indice.c_str())]);
+ //temp.push_back(Estudantes[atoi(indice.c_str())]);
 
-			} while (indice != "");
+ } while (indice != "");
 
-			//proponentes.push_back(Proponente(linha,temp,atoi(linha2.c_str())));
+ //proponentes.push_back(Proponente(linha,temp,atoi(linha2.c_str())));
 
-		}
-	}
-	file.close();
+ }
+ }
+ file.close();
 
-}
+ }
 
-void MIEIC::loadSupervisores() {
-	string temp = "Supervisores";
-	temp += ano;
-	temp += ".txt";
-	ifstream file(temp.c_str());
-	if (!file.is_open())
-		return;
+ void MIEIC::loadSupervisores() {
+ string temp = "Supervisores";
+ temp += ano;
+ temp += ".txt";
+ ifstream file(temp.c_str());
+ if (!file.is_open())
+ return;
 
-	string linha;
-	string linha2;
-	string linha3;
-	while (!file.eof()) {
-		getline(file, linha);
-		getline(file, linha2);
-		getline(file, linha3);
+ string linha;
+ string linha2;
+ string linha3;
+ while (!file.eof()) {
+ getline(file, linha);
+ getline(file, linha2);
+ getline(file, linha3);
 
-		if (linha != "" && linha2 != "" && linha3 != "") {
+ if (linha != "" && linha2 != "" && linha3 != "") {
 
-			string indice;
-			vector<Projecto> temp;
-			do {
-				istringstream ss(linha3);
-				getline(ss, indice, ',');
+ string indice;
+ vector<Projecto> temp;
+ do {
+ istringstream ss(linha3);
+ getline(ss, indice, ',');
 
-				//temp.push_back(projectos[atoi(indice.c_str())]);
+ //temp.push_back(projectos[atoi(indice.c_str())]);
 
-			} while (indice != "");
+ } while (indice != "");
 
-//			supervisores.push_back(Supervisores(linha,temp,atoi(linha2.c_str())));
+ //			supervisores.push_back(Supervisores(linha,temp,atoi(linha2.c_str())));
 
-		}
-	}
-	file.close();
+ }
+ }
+ file.close();
 
-}
-
+ }
+ */
 void MIEIC::ListProjs() {
 
 	cout << "\n||||| sem LISTAGEM PROJETOS  |||||\n";
@@ -228,8 +228,7 @@ void MIEIC::EstudantesPref() {
 	vector<Estudante> temp;
 
 	for (int i = 0; i < Estudantes.size(); i++)
-		if (!(*Estudantes[i]).nrPref())
-		{
+		if (!(*Estudantes[i]).nrPref()) {
 			temp.push_back((*Estudantes[i]));
 		}
 
@@ -280,62 +279,60 @@ void MIEIC::EstudantesPref() {
 void MIEIC::ProponentesPref() {
 	vector<Proponente*> temp;
 
-		for (unint i = 0; i < Proponentes.size(); i++)
-			if (!Proponentes[i]->nrPref())
-				temp.push_back(Proponentes[i]);
+	for (unint i = 0; i < Proponentes.size(); i++)
+		if (!Proponentes[i]->nrPref())
+			temp.push_back(Proponentes[i]);
 
-		for (unint a = 0; a < temp.size(); a++) {
-			cout << a << ". " << (*temp[a]) << endl;
-		}
+	for (unint a = 0; a < temp.size(); a++) {
+		cout << a << ". " << (*temp[a]) << endl;
+	}
 
-		string escolha;
-		while (temp.size() > 0 && escolha != "sair") {
-			cout << "Proponente [nr] a escolher preferencias? ";
-			getline(cin, escolha);
-			unsigned int IDpref = atoi(escolha.c_str());
-			IDpref--;
+	string escolha;
+	while (temp.size() > 0 && escolha != "sair") {
+		cout << "Proponente [nr] a escolher preferencias? ";
+		getline(cin, escolha);
+		unsigned int IDpref = atoi(escolha.c_str());
+		IDpref--;
 
-			if (IDpref >= 0 && IDpref < temp.size()) {
-				cout
-						<< "Estudantes [nr] para pref por ordem? \"parar\" para terminar ";
-				string novaPref;
-				for (int c = 0; c < Estudantes.size(); c++)
-					cout << c << ". " << (*Estudantes[c])<< endl;
+		if (IDpref >= 0 && IDpref < temp.size()) {
+			cout
+					<< "Estudantes [nr] para pref por ordem? \"parar\" para terminar ";
+			string novaPref;
+			for (int c = 0; c < Estudantes.size(); c++)
+				cout << c << ". " << (*Estudantes[c]) << endl;
 
-				int peso = 1;
-				do {
+			int peso = 1;
+			do {
 
-					getline(cin, novaPref);
-					int novaPrefn = atoi(novaPref.c_str());
-					novaPrefn--;
-					if (novaPrefn >= 0 && novaPrefn < Proponentes.size()) {
-						if (!verificaPref(Proponentes[IDpref]->getID(),
-								Proponentes[novaPrefn]->getID())) {
+				getline(cin, novaPref);
+				int novaPrefn = atoi(novaPref.c_str());
+				novaPrefn--;
+				if (novaPrefn >= 0 && novaPrefn < Proponentes.size()) {
+					if (!verificaPref(Proponentes[IDpref]->getID(),
+							Proponentes[novaPrefn]->getID())) {
 
-							addEdge(Proponentes[IDpref]->getID(),
-									Estudantes[novaPrefn]->getID(), peso);
+						addEdge(Proponentes[IDpref]->getID(),
+								Estudantes[novaPrefn]->getID(), peso);
 
-							peso++;
-						}
-
+						peso++;
 					}
 
-				} while (novaPref != "parar");
+				}
 
-			}
+			} while (novaPref != "parar");
 
 		}
+
+	}
 
 }
 
 void MIEIC::SupervisoresPref() {
 
-
 	vector<Supervisor> temp;
 
 	for (int i = 0; i < Supervisores.size(); i++)
-		if (!(*Supervisores[i]).nrPref())
-		{
+		if (!(*Supervisores[i]).nrPref()) {
 			temp.push_back((*Supervisores[i]));
 		}
 
@@ -425,25 +422,26 @@ void MIEIC::PrimeiraFase() {
 }
 
 void MIEIC::SegundaFase() {
-	if(!priFaseOk){
+	if (!priFaseOk) {
 		cout << "\n Primeira fase nao completa";
-		return;}
+		return;
+	}
 	string escolha = "";
 
-		while (escolha != "Sair" && escolha != "sair" && escolha != "4") {
-			cout << "1. Escolhas dos Supervisores\n";
-			cout << "2. Atribuir Projectos\n";
-			cout << "3. Sair";
-			getline(cin, escolha);
+	while (escolha != "Sair" && escolha != "sair" && escolha != "4") {
+		cout << "1. Escolhas dos Supervisores\n";
+		cout << "2. Atribuir Projectos\n";
+		cout << "3. Sair";
+		getline(cin, escolha);
 
-			if (escolha == "1" || escolha == "Supervisores"
-					|| escolha == "supervisores")
-				SupervisoresPref();
-			else if(escolha == "2" || escolha == "Atribuir"
-					|| escolha == "atribuir")
-				;
+		if (escolha == "1" || escolha == "Supervisores"
+				|| escolha == "supervisores")
+			SupervisoresPref();
+		else if (escolha == "2" || escolha == "Atribuir"
+				|| escolha == "atribuir")
+			;
 
-		}
+	}
 }
 
 bool MIEIC::FirstFaseComplete() {
@@ -464,8 +462,7 @@ void MIEIC::Criar() {
 	string escolha;
 
 	do {
-		cout
-				<< "\n2. Estudante\n3. Proponente 4. Supervisor\n5. Sair \n";
+		cout << "\n2. Estudante\n3. Proponente 4. Supervisor\n5. Sair \n";
 		cin >> escolha;
 
 		if (escolha == "2" || escolha == "Estudante"
@@ -501,8 +498,6 @@ void MIEIC::Criar() {
 			else
 				sup = false;
 
-
-
 			Proponente* Pp;
 			(*Pp) = Proponente(nomeP, sup);
 			Proponentes.push_back(Pp);
@@ -520,8 +515,6 @@ void MIEIC::Criar() {
 				cout << "Numero Maximo de Projectos: ";
 				getline(cin, nrmax);
 			} while (atoi(nrmax.c_str()) > 0);
-
-
 
 			Supervisor* Sp;
 			(*Sp) = Supervisor(nomeS, atoi(nrmax.c_str()));
@@ -589,20 +582,19 @@ bool MIEIC::checkIfAllMarried() {
 
 	vector<Estudante*>::const_iterator itE = Estudantes.begin();
 	for (; itE != Estudantes.end(); itE++) {
-		if(!(*itE)->isMarried()) {
+		if (!(*itE)->isMarried()) {
 			return false;
 		}
 	}
 	return true;
 }
 
-void MIEIC :: solteirar(unint id){
+void MIEIC::solteirar(unint id) {
 
 	vector<Vertex<Pessoa*> *> temp = PriFase.getVertexSet();
-	for(unint i = 0; i < temp.size(); i++)
-		if((*temp[i]).getInfo()->getID() == id)
+	for (unint i = 0; i < temp.size(); i++)
+		if ((*temp[i]).getInfo()->getID() == id)
 			(*temp[i]).getInfo()->gettingsigle();
-
 
 }
 
@@ -614,7 +606,8 @@ void MIEIC::Marry() {
 		vector<Proponente*>::const_iterator itP = Proponentes.begin();
 		if (!(*itE)->isMarried()) {
 			for (; itP != Proponentes.end(); itP++) {
-				if (!(*itP)->isMarried() && verificaPref((*itE)->getID(), (*itP)->getID())) {
+				if (!(*itP)->isMarried()
+						&& verificaPref((*itE)->getID(), (*itP)->getID())) {
 					//marry
 					//actualize itP->getMarry to E
 					//confirma cera se era o que querias:
@@ -630,8 +623,6 @@ void MIEIC::Marry() {
 						(*itP)->gettingmarried((*itE));
 						(*itE)->gettingmarried((*itP));
 
-
-
 					}
 				}
 			}
@@ -639,21 +630,21 @@ void MIEIC::Marry() {
 	}
 }
 
-void MIEIC:: setpropofree(){
+void MIEIC::setpropofree() {
 	for (int i = 0; i < Supervisores.size(); i++) {
-			Supervisores[i]->gettingsigle();
-		}
+		Supervisores[i]->gettingsigle();
+	}
 }
 
 bool MIEIC::checkIfAllMarried2() {
-/*
- * Este check faz check se os proponentes tem todos relaçao e se os Supervisores ja estao todos com as vagas preenchidas
- * */
+	/*
+	 * Este check faz check se os proponentes tem todos relaçao e se os Supervisores ja estao todos com as vagas preenchidas
+	 * */
 
 	bool prop = true;
 	vector<Proponente*>::const_iterator itP = Proponentes.begin();
 	for (; itP != Proponentes.end(); itP++) {
-		if((*itP)->getDocente() && !(*itP)->isMarried()) {
+		if ((*itP)->getDocente() && !(*itP)->isMarried()) {
 			prop = false;
 			break;
 		}
@@ -661,34 +652,30 @@ bool MIEIC::checkIfAllMarried2() {
 
 	bool Super = true;
 	vector<Supervisor*>::const_iterator itS = Supervisores.begin();
-		for (; itS != Supervisores.end(); itS++) {
-			if(!(*itS)->isMarried() || !(*itS)->fullProj()) {
-				Super = false;
-				break;
-			}
+	for (; itS != Supervisores.end(); itS++) {
+		if (!(*itS)->isMarried() || !(*itS)->fullProj()) {
+			Super = false;
+			break;
 		}
+	}
 
-	return (prop  && Super);
+	return (prop && Super);
 }
 
+void MIEIC::tryMarrySuperv(Supervisor* s) {
 
-void MIEIC :: tryMarrySuperv(Supervisor* s){
-
-	vector<Vertex<Pessoa*> *> temp =  SecFase.getVertexSet();
+	vector<Vertex<Pessoa*> *> temp = SecFase.getVertexSet();
 
 	vector<Edge<Pessoa*> > Sedges;
 
-	for(unint i = 0; i < temp.size(); i++)
-	{
-		if(temp[i]->getInfo()->getID() == s->getID())
+	for (unint i = 0; i < temp.size(); i++) {
+		if (temp[i]->getInfo()->getID() == s->getID())
 			Sedges = temp[i]->getEdges();
 	}
 
 	Pessoa* tryM;
-	for(unint c = 0; c < Sedges.size(); c++)
-	{
-		if(!Sedges[c].getDest()->isMarried())
-		{
+	for (unint c = 0; c < Sedges.size(); c++) {
+		if (!Sedges[c].getDest()->isMarried()) {
 			tryM = Sedges[c].getDest();
 
 			s->gettingmarried(tryM);
@@ -697,29 +684,24 @@ void MIEIC :: tryMarrySuperv(Supervisor* s){
 		}
 	}
 
-
 }
 
-
-void MIEIC :: MarrySuperv(){
+void MIEIC::MarrySuperv() {
 
 	vector<Supervisor*>::const_iterator itS = Supervisores.begin();
 
 	//por os proponentes solteiros porque vieram da primeira fase
 	setpropofree();
 
-
 	while (!checkIfAllMarried2()) {
 		tryMarrySuperv((*itS));
 
 		itS++;
 
-		if(itS == Supervisores.end())
+		if (itS == Supervisores.end())
 			itS = Supervisores.begin();
 
 	}
-
-
 
 }
 /*
@@ -736,3 +718,188 @@ void MIEIC :: MarrySuperv(){
  Pedro o Sousa
 
  */
+
+void MIEIC::loadProjectos() {
+	string filename = "Projectos";
+	filename += ano;
+	filename += ".txt";
+	ifstream myfile(filename.c_str());
+
+	string nome, boolean, recebido;
+	bool sup;
+
+	while (myfile.good()) {
+
+		myfile >> recebido;
+		if (recebido != "") {
+			nome = recebido;
+		}
+
+		myfile >> recebido;
+		if (recebido != "") {
+			boolean = recebido;
+			if (boolean == "true")
+				sup = true;
+			else
+				sup = false;
+		}
+
+		Projecto temp = Projecto(nome, sup);
+		Projectos.push_back(temp);
+
+	}
+	myfile.close();
+}
+
+void MIEIC::loadEstudantes() {
+	string filename = "Estudantes";
+	filename += ano;
+	filename += ".txt";
+	ifstream myfile(filename.c_str());
+
+	string nome, preferencia, recebido;
+	vector<Projecto> preferencias;
+
+	while (myfile.good()) {
+
+		myfile >> recebido;
+		if (recebido != "") {
+			nome = recebido;
+		}
+
+		while (myfile.good()) {
+			myfile >> recebido;
+			if (recebido != "") {
+				if (recebido == "END") {
+					break;
+				} else {
+					preferencia = recebido;
+					for (int i = 0; i < Projectos.size(); i++) {
+						if (Projectos[i].getNome() == preferencia) {
+							preferencias.push_back(Projectos[i]);
+							break;
+						}
+					}
+				}
+			}
+
+		}
+		Estudante temp = Estudante(nome, preferencias);
+		Estudantes.push_back(&temp);
+	}
+	myfile.close();
+
+}
+
+void MIEIC::loadProponentes() {
+	string filename = "Proponentes";
+	filename += ano;
+	filename += ".txt";
+	ifstream myfile(filename.c_str());
+
+	string nomeprop, tipo, nomeproj, preferencia, recebido, boolean;
+	bool doc, sup;
+	Projecto temp;
+	vector<Estudante> preferencias;
+
+	while (myfile.good()) {
+
+		myfile >> recebido;
+		if (recebido != "") {
+			nomeprop = recebido;
+		}
+
+		myfile >> recebido;
+		if (recebido != "") {
+			tipo = recebido;
+			if (tipo == "true")
+				doc = true;
+			else
+				doc = false;
+		}
+
+		myfile >> recebido;
+		if (recebido != "") {
+			nomeproj = recebido;
+		}
+
+		myfile >> recebido;
+		if (recebido != "") {
+			boolean = recebido;
+			if (boolean == "true")
+				sup = true;
+			else
+				sup = false;
+		}
+
+		Projecto proj = Projecto(nomeproj, sup);
+
+		while (myfile.good()) {
+			myfile >> recebido;
+			if (recebido != "") {
+				if (recebido == "END") {
+					break;
+				} else {
+					preferencia = recebido;
+					for (int i = 0; i < Estudantes.size(); i++) {
+						if (Estudantes[i]->getNome() == preferencia) {
+							preferencias.push_back(*Estudantes[i]);
+							break;
+						}
+					}
+
+				}
+
+			}
+		}
+		Proponente temp = Proponente(nomeprop, preferencias, doc, proj);
+		Proponentes.push_back(&temp);
+	}
+	myfile.close();
+}
+
+void MIEIC::loadSupervisores() {
+	string filename = "Supervisores";
+	filename += ano;
+	filename += ".txt";
+	ifstream myfile(filename.c_str());
+
+	string nome, nrmax, preferencia, recebido;
+	unsigned int max;
+	vector<Proponente*> preferencias;
+
+	while (myfile.good()) {
+
+		myfile >> recebido;
+		if (recebido != "") {
+			nome = recebido;
+		}
+
+		myfile >> recebido;
+		if (recebido != "") {
+			nrmax = recebido;
+			max = atoi(nrmax.c_str());
+		}
+
+		while (myfile.good()) {
+			myfile >> recebido;
+			if (recebido != "") {
+				if (recebido == "END") {
+					break;
+				} else {
+					preferencia = recebido;
+					for (int i = 0; i < Projectos.size(); i++) {
+						if (Proponentes[i]->getNome() == preferencia) {
+							preferencias.push_back(Proponentes[i]);
+							break;
+						}
+					}
+				}
+			}
+
+		}
+		Supervisor temp = Supervisor(nome, preferencias, max);
+		Supervisores.push_back(&temp);
+	}
+	myfile.close();
+}
