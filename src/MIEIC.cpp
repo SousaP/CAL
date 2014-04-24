@@ -926,7 +926,7 @@ void MIEIC::saveProponentes() {
 }
 
 void MIEIC::saveSupervisores() {
-	string filename = "Proponentes";
+	string filename = "Supervisores";
 	string anoS;
 	ostringstream convert;
 	convert << ano;
