@@ -423,7 +423,13 @@ void MIEIC::Criar() {
 			else
 				sup = false;
 
-			Proponente* Pp = new Proponente(nomeP, sup);
+			string ProjN;
+			cout << "Nome do projecto: ";
+			getline(cin, ProjN);
+
+			Projecto* pj  = new Projecto(ProjN,!sup);
+
+			Proponente* Pp = new Proponente(nomeP, sup,pj);
 			Proponentes.push_back(Pp);
 			Pessoa *p = &(*Pp);
 			PriFase.addVertex(p);
@@ -891,7 +897,7 @@ void MIEIC::saveProponentes() {
 
 void MIEIC::saveSupervisores() {
 	string filename = "Proponentes";
-	filename += ano;
+	filename += "" + ano;
 	filename += ".txt";
 	ofstream myfile(filename.c_str());
 

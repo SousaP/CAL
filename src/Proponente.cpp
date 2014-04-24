@@ -1,7 +1,7 @@
 #include "Proponente.h"
 
-Proponente::Proponente(string n, bool Docen) :
-		Docente(Docen), Pessoa(iD, n) {
+Proponente::Proponente(string n, bool Docen, Projecto* g) :
+		Docente(Docen), Pessoa(iD, n), guia(g) {
 	incID();
 }
 
