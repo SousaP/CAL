@@ -292,9 +292,8 @@ void MIEIC::SupervisoresPref() {
 						addEdge(Supervisores[IDpref]->getID(),
 								Proponentes[novaPrefn]->getID(), peso);
 
-						Proponente P = (*Proponentes[novaPrefn]);
-						if (Supervisores[IDpref]->nasPrefs(&P)) {
-							Supervisores[IDpref]->addProj(&P);
+						if (!Supervisores[IDpref]->nasPrefs(Proponentes[novaPrefn])) {
+							Supervisores[IDpref]->addProj(Proponentes[novaPrefn]);
 							peso++;
 						}
 					}
