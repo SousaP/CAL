@@ -1,5 +1,5 @@
-Prop teste
+Prop Teste
 true
-Proj teste
+Proj Teste
 true
 END

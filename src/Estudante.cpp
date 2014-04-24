@@ -60,6 +60,7 @@ ostream & operator <<(ostream &os, const Estudante &E) {
 	os << E.getNome();
 	os << "  Preferencias: ";
 	vector<Projecto*> temp = E.getPreferencias();
+	if (E.getPreferencias().size() == 0) return os;
 	for (unsigned int i = 0; i < temp.size(); i++) {
 		os << (*temp[i]);
 		os << ", ";

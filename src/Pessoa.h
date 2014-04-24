@@ -33,7 +33,7 @@ public:
 		p = NULL;
 	}
 	virtual bool nasPrefs(Pessoa* p) = 0;
-	virtual string getNome() const {
+	string getNome() const {
 		return nome;
 	}
 

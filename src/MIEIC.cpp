@@ -671,29 +671,33 @@ void MIEIC::loadProjectos() {
 	string nome, boolean, recebido;
 	bool sup;
 
-	if (myfile.good()) {
-		while (myfile) {
+	if (myfile.good())
+		while (!myfile.eof()) {
+			while (myfile) {
 
-			getline(myfile, recebido);
-			if (recebido != "") {
-				nome = recebido;
+				getline(myfile, recebido);
+				if (recebido != "") {
+					nome = recebido;
+				}
+
+				getline(myfile, recebido);
+				if (recebido != "") {
+					boolean = recebido;
+					if (boolean == "true")
+						sup = true;
+					else
+						sup = false;
+				}
+				if (nome != "") {
+					Projecto* temp = new Projecto(nome, sup);
+					Projectos.push_back(temp);
+				}
+				nome = "";
 			}
-
-			getline(myfile, recebido);
-			if (recebido != "") {
-				boolean = recebido;
-				if (boolean == "true")
-					sup = true;
-				else
-					sup = false;
-			}
-
-			Projecto temp = Projecto(nome, sup);
-			Projectos.push_back(&temp);
 		}
-	}
 	myfile.close();
 	cout << "Projetos done" << endl;
+	cout << Projectos.size() << endl;
 }
 
 void MIEIC::loadEstudantes() {
@@ -709,38 +713,41 @@ void MIEIC::loadEstudantes() {
 	string nome, preferencia, recebido;
 	vector<Projecto*> preferencias;
 
-	if (myfile.good()) {
+	if (myfile.good())
+		while (!myfile.eof()) {
 
-		getline(myfile, recebido);
-		if (recebido != "") {
-			nome = recebido;
-		}
-
-		while (myfile) {
 			getline(myfile, recebido);
 			if (recebido != "") {
-				if (recebido == "END") {
-					break;
-				} else {
-					preferencia = recebido;
-					for (unsigned int i = 0; i < Projectos.size(); i++) {
-						if (Projectos[i]->getNome() == preferencia) {
-							preferencias.push_back(Projectos[i]);
-							break;
+				nome = recebido;
+			}
+
+			while (myfile) {
+				getline(myfile, recebido);
+				if (recebido != "") {
+					if (recebido == "END") {
+						break;
+					} else {
+						preferencia = recebido;
+						for (unsigned int i = 0; i < Projectos.size(); i++) {
+							if (Projectos[i]->getNome() == preferencia) {
+								preferencias.push_back(Projectos[i]);
+								break;
+							}
 						}
 					}
 				}
+
 			}
-
+			if (nome != "") {
+				Estudante* temp = new Estudante(nome, preferencias);
+				Estudantes.push_back(temp);
+			}
+			nome = "";
+			preferencias.clear();
 		}
-		Estudante temp = Estudante(nome, preferencias);
-		Estudantes.push_back(&temp);
-
-	}
 	myfile.close();
 
 	cout << "Estudantes done" << endl;
-	cout << Estudantes.size() << endl;
 }
 
 void MIEIC::loadProponentes() {
@@ -758,59 +765,64 @@ void MIEIC::loadProponentes() {
 	Projecto temp;
 	vector<Estudante*> preferencias;
 
-	if (myfile.good()) {
+	if (myfile.good())
+		while (!myfile.eof()) {
 
-		getline(myfile, recebido);
-		if (recebido != "") {
-			nomeprop = recebido;
-		}
-
-		getline(myfile, recebido);
-		if (recebido != "") {
-			tipo = recebido;
-			if (tipo == "true")
-				doc = true;
-			else
-				doc = false;
-		}
-
-		getline(myfile, recebido);
-		if (recebido != "") {
-			nomeproj = recebido;
-		}
-
-		getline(myfile, recebido);
-		if (recebido != "") {
-			boolean = recebido;
-			if (boolean == "true")
-				sup = true;
-			else
-				sup = false;
-		}
-
-		Projecto proj = Projecto(nomeproj, sup);
-
-		while (myfile) {
 			getline(myfile, recebido);
 			if (recebido != "") {
-				if (recebido == "END") {
-					break;
-				} else {
-					preferencia = recebido;
-					for (unsigned int i = 0; i < Estudantes.size(); i++) {
-						if (Estudantes[i]->getNome() == preferencia) {
-							preferencias.push_back(Estudantes[i]);
-							break;
+				nomeprop = recebido;
+			}
+
+			getline(myfile, recebido);
+			if (recebido != "") {
+				tipo = recebido;
+				if (tipo == "true")
+					doc = true;
+				else
+					doc = false;
+			}
+
+			getline(myfile, recebido);
+			if (recebido != "") {
+				nomeproj = recebido;
+			}
+
+			getline(myfile, recebido);
+			if (recebido != "") {
+				boolean = recebido;
+				if (boolean == "true")
+					sup = true;
+				else
+					sup = false;
+			}
+
+			Projecto* proj = new Projecto(nomeproj, sup);
+
+			while (myfile) {
+				getline(myfile, recebido);
+				if (recebido != "") {
+					if (recebido == "END") {
+						break;
+					} else {
+						preferencia = recebido;
+						for (unsigned int i = 0; i < Estudantes.size(); i++) {
+							if (Estudantes[i]->getNome() == preferencia) {
+								preferencias.push_back(Estudantes[i]);
+								break;
+							}
 						}
+
 					}
 
 				}
-
 			}
+			if (nomeprop != "") {
+				Proponente* temp = new Proponente(nomeprop, preferencias, doc,
+						proj);
+				Proponentes.push_back(temp);
+			}
+			nomeprop = "";
 		}
-		Proponente temp = Proponente(nomeprop, preferencias, doc, &proj);
-		Proponentes.push_back(&temp);
-	}
 
 	myfile.close();
 
@@ -831,39 +843,43 @@ void MIEIC::loadSupervisores() {
 	unsigned int max;
 	vector<Proponente*> preferencias;
 
-	if (myfile.good()) {
+	if (myfile.good())
+		while (!myfile.eof()) {
 
-		getline(myfile, recebido);
-		if (recebido != "") {
-			nome = recebido;
-		}
-
-		getline(myfile, recebido);
-		if (recebido != "") {
-			nrmax = recebido;
-			max = atoi(nrmax.c_str());
-		}
-
-		while (myfile) {
 			getline(myfile, recebido);
 			if (recebido != "") {
-				if (recebido == "END") {
-					break;
-				} else {
-					preferencia = recebido;
-					for (unsigned int i = 0; i < Projectos.size(); i++) {
-						if (Proponentes[i]->getNome() == preferencia) {
-							preferencias.push_back(Proponentes[i]);
-							break;
+				nome = recebido;
+			}
+
+			getline(myfile, recebido);
+			if (recebido != "") {
+				nrmax = recebido;
+				max = atoi(nrmax.c_str());
+			}
+
+			while (myfile) {
+				getline(myfile, recebido);
+				if (recebido != "") {
+					if (recebido == "END") {
+						break;
+					} else {
+						preferencia = recebido;
+						for (unsigned int i = 0; i < Projectos.size(); i++) {
+							if (Proponentes[i]->getNome() == preferencia) {
+								preferencias.push_back(Proponentes[i]);
+								break;
+							}
 						}
 					}
 				}
-			}
 
+			}
+			if (nome != "") {
+				Supervisor* temp = new Supervisor(nome, preferencias, max);
+				Supervisores.push_back(temp);
+			}
+			nome = "";
 		}
-		Supervisor temp = Supervisor(nome, preferencias, max);
-		Supervisores.push_back(&temp);
-	}
 
 	myfile.close();
 
