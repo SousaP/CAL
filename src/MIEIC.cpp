@@ -182,11 +182,11 @@ void MIEIC::EstudantesPref() {
 void MIEIC::ProponentesPref() {
 	vector<Proponente*> temp;
 
-	for (unint i = 0; i < Proponentes.size(); i++)
+	for (unsigned int i = 0; i < Proponentes.size(); i++)
 		if (!Proponentes[i]->nrPref())
 			temp.push_back(Proponentes[i]);
 
-	for (unint a = 0; a < temp.size(); a++) {
+	for (unsigned int a = 0; a < temp.size(); a++) {
 		cout << a << ". " << (*temp[a]) << endl;
 	}
 
@@ -502,11 +502,11 @@ bool MIEIC::checkIfAllMarried() {
 	return true;
 }
 
-void MIEIC::solteirar(unint id) {
+void MIEIC::solteirar(int id) {
 
 	vector<Vertex<Pessoa*> *> temp = PriFase.getVertexSet();
-	for (unint i = 0; i < temp.size(); i++)
-		if ((*temp[i]).getInfo()->getID() == id)
+	for (unsigned int i = 0; i < temp.size(); i++)
+		if ((*temp[i]).getInfo()->getID() == (unsigned int) id)
 			(*temp[i]).getInfo()->gettingsigle();
 
 }
@@ -521,17 +521,11 @@ void MIEIC::Marry() {
 			for (; itP != Proponentes.end(); itP++) {
 				if (!(*itP)->isMarried()
 						&& verificaPref((*itE)->getID(), (*itP)->getID())) {
-					//marry
-					//actualize itP->getMarry to E
-					//confirma cera se era o que querias:
 					(*itP)->gettingmarried((*itE));
 					(*itE)->gettingmarried((*itP));
 
 				} else {
 					if (comparePropPref(*(*itE), *(*itP))) {
-						//marry E and P
-						//make itP->getMarry single
-						//actualize itP->getMarry to E
 						solteirar((*itP)->getMarry()->getID());
 						(*itP)->gettingmarried((*itE));
 						(*itE)->gettingmarried((*itP));
@@ -581,13 +575,13 @@ void MIEIC::tryMarrySuperv(Supervisor* s) {
 
 	vector<Edge<Pessoa*> > Sedges;
 
-	for (unint i = 0; i < temp.size(); i++) {
+	for (unsigned int i = 0; i < temp.size(); i++) {
 		if (temp[i]->getInfo()->getID() == s->getID())
 			Sedges = temp[i]->getEdges();
 	}
 
 	Pessoa* tryM;
-	for (unint c = 0; c < Sedges.size(); c++) {
+	for (unsigned int c = 0; c < Sedges.size(); c++) {
 		if (!Sedges[c].getDest()->isMarried()) {
 			tryM = Sedges[c].getDest();
 

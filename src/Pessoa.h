@@ -17,9 +17,7 @@ public:
 	static unsigned int iD;
 	unsigned int nrP;
 
-	virtual bool nrPref() {
-		// retorna se tem preferencias ou nao
-	}
+	virtual bool nrPref() = 0;
 	static void incID() {
 		iD++;
 	}
@@ -29,14 +27,12 @@ public:
 	bool isMarried() {
 		return married;
 	}
-	virtual void gettingmarried(Pessoa* p) {
-	}
+	virtual void gettingmarried(Pessoa* p) = 0;
 	void gettingsigle() {
 		married = false;
 		p = NULL;
 	}
-	virtual bool nasPrefs(Pessoa* p) {/* ve se ja esta nas preferencias*/
-	}
+	virtual bool nasPrefs(Pessoa* p) = 0;
 	virtual string getNome() const {
 		return nome;
 	}

@@ -74,6 +74,7 @@ bool Proponente::nrPref() {
 string Proponente::getProj() {
 	string retorno = "Projecto: ";
 	retorno += guia->getNome();
+	return retorno;
 }
 void Proponente::gettingmarried(Pessoa* p) {
 	(*this->p) = (*p);

@@ -10,7 +10,6 @@
 #include "Supervisor.h"
 #include "Graph.h"
 #include "Pessoa.h"
-typedef unsigned int unint;
 
 class MIEIC {
 	Graph<Pessoa*> PriFase;
@@ -51,7 +50,7 @@ public:
 	bool comparePropPref(Estudante e, Proponente p);
 	void Marry();
 	bool checkIfAllMarried();
-	void solteirar(unint id);
+	void solteirar(int id);
 	void MarrySuperv();
 	void StartSecFase();
 	void setpropofree();
