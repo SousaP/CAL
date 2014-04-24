@@ -26,6 +26,7 @@ public:
 	Pessoa* getMarry(){return p;}
 	void gettingmarried(Pessoa* p);
 	bool fullProj();
+	bool nasPrefs(Pessoa* p);
 
 };
 

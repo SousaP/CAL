@@ -71,3 +71,12 @@ void Supervisor :: gettingmarried(Pessoa* p){
 bool Supervisor :: fullProj(){
 	return (maxProj == Projectos.size());
 }
+
+bool Supervisor ::  nasPrefs(Pessoa* p){
+	for(int i = 0; i < Projectos.size(); i++)
+	if(Projectos[i]->getNome() == p->getNome())
+		return true;
+
+
+	return false;
+}

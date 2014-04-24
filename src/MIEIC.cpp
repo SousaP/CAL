@@ -131,10 +131,10 @@ void MIEIC::ListProjs() {
 	cout << "\n||||| sem LISTAGEM PROJETOS  |||||\n";
 	vector<Projecto*>::const_iterator it = Projectos.begin();
 
-		for (int i = 1; it != Projectos.end(); it++, i++)
-			cout << i << ".  " << (*(*it)) << endl;
+	for (int i = 1; it != Projectos.end(); it++, i++)
+		cout << i << ".  " << (*(*it)) << endl;
 
-		cout << "----------------------------------";
+	cout << "----------------------------------";
 
 }
 
@@ -269,7 +269,12 @@ void MIEIC::EstudantesPref() {
 						addEdge(Estudantes[IDpref]->getID(),
 								Proponentes[novaPrefn]->getID(), peso);
 
-						peso++;
+						if (Estudantes[IDpref]->nasPrefs(
+								Proponentes[novaPrefn])) {
+							Estudantes[IDpref]->addPref(
+									Proponentes[novaPrefn]->getProjP());
+							peso++;
+						}
 					}
 
 				}
@@ -320,7 +325,12 @@ void MIEIC::ProponentesPref() {
 						addEdge(Proponentes[IDpref]->getID(),
 								Estudantes[novaPrefn]->getID(), peso);
 
-						peso++;
+						Estudante* E;
+						(*E) = (*Estudantes[novaPrefn]);
+						if (Proponentes[IDpref]->nasPrefs(E)) {
+							Proponentes[IDpref]->addPref(E);
+							peso++;
+						}
 					}
 
 				}
@@ -373,7 +383,12 @@ void MIEIC::SupervisoresPref() {
 						addEdge(Supervisores[IDpref]->getID(),
 								Proponentes[novaPrefn]->getID(), peso);
 
-						peso++;
+						Proponente* P;
+						(*P) = (*Proponentes[novaPrefn]);
+						if (Supervisores[IDpref]->nasPrefs(P)) {
+							Supervisores[IDpref]->addProj(P);
+							peso++;
+						}
 					}
 
 				}

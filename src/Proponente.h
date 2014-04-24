@@ -10,11 +10,11 @@
 class Proponente : public Pessoa {
 	Pessoa* p;
 	bool Docente;
-	Projecto guia;
+	Projecto* guia;
 	vector<Estudante*> PrefE;
 
 public:
-	Proponente(string n,vector<Estudante*> pref,bool Docen,Projecto g);
+	Proponente(string n,vector<Estudante*> pref,bool Docen,Projecto* g);
 	Proponente(string n,bool Docen);
 	void setNome(string nome);
 	string getNome() const;
@@ -30,7 +30,8 @@ public:
 	Pessoa* getMarry(){return p;}
 	void gettingmarried(Pessoa* p);
 	bool getDocente();
-	Projecto* getProj();
+	Projecto* getProjP();
+	bool nasPrefs(Pessoa* p);
 };
 
 

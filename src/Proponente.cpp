@@ -5,7 +5,7 @@ Proponente :: Proponente(string n, bool Docen)
 	incID();
 }
 
-Proponente :: Proponente(string n,vector<Estudante*> pref,bool Docen,Projecto g)
+Proponente :: Proponente(string n,vector<Estudante*> pref,bool Docen,Projecto* g)
 : guia(g), PrefE(pref) , Docente(Docen), Pessoa(iD, n)
 {incID();}
 
@@ -71,7 +71,7 @@ bool Proponente :: nrPref(){
 
 string Proponente :: getProj(){
 	string retorno = "Projecto: ";
-	retorno += guia.getNome();
+	retorno += guia->getNome();
 }
 void Proponente :: gettingmarried(Pessoa* p){
 	(*this->p) = (*p);
@@ -83,7 +83,16 @@ return Docente;
 }
 
 
-Projecto* Proponente ::getProj(){
-	return p;
+Projecto* Proponente ::getProjP(){
+	return guia;
+}
+
+bool Proponente ::nasPrefs(Pessoa* p){
+	for(int i = 0; i < PrefE.size(); i++)
+		if(PrefE[i]->getNome() == p->getNome())
+			return true;
+
+
+		return false;
 }
 

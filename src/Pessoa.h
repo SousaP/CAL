@@ -28,6 +28,8 @@ public:
 	bool isMarried() {return married;}
 	virtual void gettingmarried(Pessoa* p){}
 	void gettingsigle(){married = false;}
+	virtual bool nasPrefs(Pessoa* p){/* ve se ja esta nas preferencias*/}
+	virtual string getNome() const{return nome;}
 
 };
 

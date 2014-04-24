@@ -81,3 +81,14 @@ void Estudante :: gettingmarried(Pessoa* p){
 	married = true;
 }
 
+bool Estudante :: nasPrefs(Pessoa* p){
+
+	for(int i = 0; i < preferencias.size(); i++)
+		if(preferencias[i]->getNome() == p->getNome())
+			return true;
+
+
+	return false;
+}
+
+
