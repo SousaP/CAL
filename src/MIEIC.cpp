@@ -396,7 +396,6 @@ void MIEIC::Criar() {
 
 			getline(cin, nomeE);
 
-			cin >> nomeE;
 			Estudante* Ep = new Estudante(nomeE);
 			Estudantes.push_back(Ep);
 			Pessoa *p = &(*Ep);
@@ -428,7 +427,7 @@ void MIEIC::Criar() {
 			cout << "Nome do projecto: ";
 			getline(cin, ProjN);
 
-			Projecto* pj  = new Projecto(ProjN,!sup);
+			Projecto* pj  = new Projecto(ProjN,sup);
 			Projectos.push_back(pj);
 			Proponente* Pp = new Proponente(nomeP, sup,pj);
 			Proponentes.push_back(Pp);
