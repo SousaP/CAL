@@ -28,6 +28,10 @@ public:
 	void loadProponentes();
 	void loadEstudantes();
 	void loadSupervisores();
+	void saveProjectos();
+	void saveProponentes();
+	void saveEstudantes();
+	void saveSupervisores();
 	void Menu();
 	bool Listagem(string pessoa);
 	void PrimeiraFase();
