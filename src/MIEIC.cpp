@@ -740,6 +740,7 @@ void MIEIC::loadEstudantes() {
 	myfile.close();
 
 	cout << "Estudantes done" << endl;
+	cout << Estudantes.size() << endl;
 }
 
 void MIEIC::loadProponentes() {
