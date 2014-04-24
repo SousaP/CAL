@@ -306,18 +306,20 @@ void MIEIC::StartPriFase() {
 
 	Pessoa* P;
 	for (unsigned int i = 0; i < Estudantes.size(); i++) {
-		(*P) = (*Estudantes[i]);
+		P = Estudantes[i];
 		PriFase.addVertex(P);
 	}
+	cout << "PriFase done" << endl;
 }
 
 void MIEIC::StartSecFase() {
 
 	Pessoa* P;
 	for (unsigned int i = 0; i < Supervisores.size(); i++) {
-		(*P) = (*Supervisores[i]);
+		P = Supervisores[i];
 		SecFase.addVertex(P);
 	}
+	cout << "SecFase done" << endl;
 }
 
 void MIEIC::PrimeiraFase() {
@@ -428,9 +430,9 @@ void MIEIC::Criar() {
 			cout << "Nome do projecto: ";
 			getline(cin, ProjN);
 
-			Projecto* pj  = new Projecto(ProjN,sup);
+			Projecto* pj = new Projecto(ProjN, sup);
 			Projectos.push_back(pj);
-			Proponente* Pp = new Proponente(nomeP, sup,pj);
+			Proponente* Pp = new Proponente(nomeP, sup, pj);
 			Proponentes.push_back(Pp);
 			Pessoa *p = &(*Pp);
 			PriFase.addVertex(p);
@@ -477,7 +479,6 @@ void MIEIC::Menu() {
 
 				cout
 						<< "\nListagem de: Projectos? Estudantes? Proponentes? Supervisors? Sair \n";
-				cin.ignore();
 				getline(cin, list);
 
 			} while (!Listagem(list) && (list != "Sair" || list != "sair"));
@@ -668,26 +669,29 @@ void MIEIC::loadProjectos() {
 	string nome, boolean, recebido;
 	bool sup;
 
-	while (myfile.good()) {
+	if (myfile.good()) {
+		while (myfile) {
 
-		getline(myfile, recebido);
-		if (recebido != "") {
-			nome = recebido;
+			getline(myfile, recebido);
+			if (recebido != "") {
+				nome = recebido;
+			}
+
+			getline(myfile, recebido);
+			if (recebido != "") {
+				boolean = recebido;
+				if (boolean == "true")
+					sup = true;
+				else
+					sup = false;
+			}
+
+			Projecto temp = Projecto(nome, sup);
+			Projectos.push_back(&temp);
 		}
-
-		getline(myfile, recebido);
-		if (recebido != "") {
-			boolean = recebido;
-			if (boolean == "true")
-				sup = true;
-			else
-				sup = false;
-		}
-
-		Projecto temp = Projecto(nome, sup);
-		Projectos.push_back(&temp);
 	}
 	myfile.close();
+	cout << "Projetos done" << endl;
 }
 
 void MIEIC::loadEstudantes() {
@@ -703,21 +707,21 @@ void MIEIC::loadEstudantes() {
 	string nome, preferencia, recebido;
 	vector<Projecto*> preferencias;
 
-	while (myfile.good()) {
+	if (myfile.good()) {
 
 		getline(myfile, recebido);
 		if (recebido != "") {
 			nome = recebido;
 		}
 
-		while (myfile.good()) {
+		while (myfile) {
 			getline(myfile, recebido);
 			if (recebido != "") {
 				if (recebido == "END") {
 					break;
 				} else {
 					preferencia = recebido;
-					for (int i = 0; i < Projectos.size(); i++) {
+					for (unsigned int i = 0; i < Projectos.size(); i++) {
 						if (Projectos[i]->getNome() == preferencia) {
 							preferencias.push_back(Projectos[i]);
 							break;
@@ -729,9 +733,11 @@ void MIEIC::loadEstudantes() {
 		}
 		Estudante temp = Estudante(nome, preferencias);
 		Estudantes.push_back(&temp);
+
 	}
 	myfile.close();
 
+	cout << "Estudantes done" << endl;
 }
 
 void MIEIC::loadProponentes() {
@@ -749,7 +755,7 @@ void MIEIC::loadProponentes() {
 	Projecto temp;
 	vector<Estudante*> preferencias;
 
-	while (myfile.good()) {
+	if (myfile.good()) {
 
 		getline(myfile, recebido);
 		if (recebido != "") {
@@ -781,7 +787,7 @@ void MIEIC::loadProponentes() {
 
 		Projecto proj = Projecto(nomeproj, sup);
 
-		while (myfile.good()) {
+		while (myfile) {
 			getline(myfile, recebido);
 			if (recebido != "") {
 				if (recebido == "END") {
@@ -802,7 +808,10 @@ void MIEIC::loadProponentes() {
 		Proponente temp = Proponente(nomeprop, preferencias, doc, &proj);
 		Proponentes.push_back(&temp);
 	}
+
 	myfile.close();
+
+	cout << "Proponentes done" << endl;
 }
 
 void MIEIC::loadSupervisores() {
@@ -819,7 +828,7 @@ void MIEIC::loadSupervisores() {
 	unsigned int max;
 	vector<Proponente*> preferencias;
 
-	while (myfile.good()) {
+	if (myfile.good()) {
 
 		getline(myfile, recebido);
 		if (recebido != "") {
@@ -832,7 +841,7 @@ void MIEIC::loadSupervisores() {
 			max = atoi(nrmax.c_str());
 		}
 
-		while (myfile.good()) {
+		while (myfile) {
 			getline(myfile, recebido);
 			if (recebido != "") {
 				if (recebido == "END") {
@@ -852,7 +861,10 @@ void MIEIC::loadSupervisores() {
 		Supervisor temp = Supervisor(nome, preferencias, max);
 		Supervisores.push_back(&temp);
 	}
+
 	myfile.close();
+
+	cout << "Supervisores done" << endl;
 }
 
 void MIEIC::saveProjectos() {
