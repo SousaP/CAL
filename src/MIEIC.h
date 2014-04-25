@@ -15,6 +15,7 @@ class MIEIC {
 	Graph<Pessoa*> PriFase;
 	Graph<Pessoa*> SecFase;
 	bool priFaseOk;
+	bool secFaseOk;
 	unsigned int ano;
 	vector<Proponente*> Proponentes;
 	vector<Estudante*> Estudantes;
@@ -48,7 +49,7 @@ public:
 	void SupervisoresPref();
 	void StartPriFase();
 	bool addEdge(int iDFont, int iDDist, int peso, int grafo);
-	bool verificaPref(int idFont, int idDist);
+	bool verificaPref(int idFont, int idDist,int grafo);
 	bool comparePropPref(Estudante e, Proponente p);
 	void Marry();
 	bool checkIfAllMarried();
@@ -60,6 +61,8 @@ public:
 	void tryMarrySuperv(Supervisor* s);
 	unsigned int nrPref(Vertex<Pessoa*> *p, string nome);
 	void showWedd();
+	void showSupervProjs();
+
 };
 
 #endif /* MIEIC_H_ */

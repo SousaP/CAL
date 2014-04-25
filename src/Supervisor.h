@@ -22,12 +22,8 @@ public:
 	void removeProj(Proponente* p);
 	bool operator ==(const Supervisor &S) const;
 	friend ostream & operator <<(ostream &os, Supervisor &S);
-	Pessoa* getMarry() {
-		return p;
-	}
-	bool nrPref() {
-		return false;
-	}
+	Pessoa* getMarry();
+	bool nrPref();
 	void gettingmarried(Pessoa* p);
 	bool fullProj();
 	bool nasPrefs(Pessoa* p);

@@ -10,6 +10,7 @@ using namespace std;
 
 MIEIC::MIEIC(unsigned int ano) {
 	priFaseOk = false;
+	secFaseOk = false;
 	this->ano = ano;
 	loadProjectos();
 	loadEstudantes();
@@ -145,9 +146,16 @@ bool MIEIC::addEdge(int iDFont, int iDDist, int peso, int grafo) {
 		return SecFase.addEdge(font, dest, peso);
 }
 
-bool MIEIC::verificaPref(int idFont, int idDist) {
+bool MIEIC::verificaPref(int idFont, int idDist, int grafo) {
 
-	vector<Vertex<Pessoa*> *> temp = PriFase.getVertexSet();
+	vector<Vertex<Pessoa*> *> temp;
+
+	if (grafo == 1)
+		temp = PriFase.getVertexSet();
+	else if (grafo == 2)
+		temp = SecFase.getVertexSet();
+	else
+		return false;
 
 	vector<Vertex<Pessoa*> *>::iterator it = temp.begin();
 
@@ -204,14 +212,13 @@ void MIEIC::EstudantesPref() {
 				if ((unsigned int) novaPrefn >= 0
 						&& (unsigned int) novaPrefn < Proponentes.size()) {
 					if (!verificaPref(temp[IDpref]->getID(),
-							Proponentes[novaPrefn]->getID())) {
+							Proponentes[novaPrefn]->getID(), 1)) {
 
 						if (!addEdge(temp[IDpref]->getID(),
 								Proponentes[novaPrefn]->getID(), peso, 1))
 							cout << "\n\n ERRO AO ADICIONAR PREFERENCIAS \n\n";
 
-						if (!temp[IDpref]->nasPrefs(
-								Proponentes[novaPrefn])) {
+						if (!temp[IDpref]->nasPrefs(Proponentes[novaPrefn])) {
 							temp[IDpref]->addPref(
 									Proponentes[novaPrefn]->getProjP());
 							peso++;
@@ -264,14 +271,13 @@ void MIEIC::ProponentesPref() {
 				if ((unsigned int) novaPrefn >= 0
 						&& (unsigned int) novaPrefn < Estudantes.size()) {
 					if (!verificaPref(temp[IDpref]->getID(),
-							Estudantes[novaPrefn]->getID())) {
+							Estudantes[novaPrefn]->getID(), 1)) {
 
 						if (!addEdge(temp[IDpref]->getID(),
 								Estudantes[novaPrefn]->getID(), peso, 1))
 							cout << "\n\n ERRO AO ADICIONAR PREFERENCIAS \n\n";
 
-						if (!temp[IDpref]->nasPrefs(
-								Estudantes[novaPrefn])) {
+						if (!temp[IDpref]->nasPrefs(Estudantes[novaPrefn])) {
 							temp[IDpref]->addPref(Estudantes[novaPrefn]);
 							peso++;
 						}
@@ -322,19 +328,18 @@ void MIEIC::SupervisoresPref() {
 				getline(cin, novaPref);
 				int novaPrefn = atoi(novaPref.c_str());
 				novaPrefn--;
+
 				if ((unsigned int) novaPrefn >= 0
 						&& (unsigned int) novaPrefn < Proponentes.size()) {
-					if (!verificaPref(temp[IDpref]->getID(),
-							Proponentes[novaPrefn]->getID())) {
 
+					if (!verificaPref(temp[IDpref]->getID(),
+							Proponentes[novaPrefn]->getID(), 2)) {
 						if (!addEdge(temp[IDpref]->getID(),
 								Proponentes[novaPrefn]->getID(), peso, 2))
 							cout << "\n\n ERRO AO ADICIONAR PREFERENCIAS \n\n";
 
-						if (!temp[IDpref]->nasPrefs(
-								Proponentes[novaPrefn])) {
-							temp[IDpref]->addProj(
-									Proponentes[novaPrefn]);
+						if (!temp[IDpref]->nasPrefs(Proponentes[novaPrefn])) {
+							temp[IDpref]->addProj(Proponentes[novaPrefn]);
 							peso++;
 						}
 					}
@@ -373,7 +378,7 @@ void MIEIC::StartPriFase() {
 
 				if (Proponentes[c]->getProjP()->getNome() == temp[d]->getNome())
 					if (!addEdge(Estudantes[i]->getID(),
-							Proponentes[c]->getID(), (d + 1),1))
+							Proponentes[c]->getID(), (d + 1), 1))
 						cout << "\n\n ERRO AO ADICIONAR PREFERENCIAS \n\n";
 
 			}
@@ -384,7 +389,7 @@ void MIEIC::StartPriFase() {
 
 				if (tempE[d]->getNome() == Estudantes[i]->getNome())
 					if (!addEdge(Proponentes[c]->getID(),
-							Estudantes[i]->getID(), (d + 1),1))
+							Estudantes[i]->getID(), (d + 1), 1))
 						cout << "\n\n ERRO AO ADICIONAR PREFERENCIAS \n\n";
 
 			}
@@ -403,9 +408,9 @@ void MIEIC::StartSecFase() {
 	}
 
 	for (unsigned int i = 0; i < Proponentes.size(); i++) {
-			P = Proponentes[i];
-			SecFase.addVertex(P);
-		}
+		P = Proponentes[i];
+		SecFase.addVertex(P);
+	}
 }
 
 unsigned int MIEIC::nrPref(Vertex<Pessoa*> *p, string nome) {
@@ -419,16 +424,19 @@ unsigned int MIEIC::nrPref(Vertex<Pessoa*> *p, string nome) {
 }
 
 void MIEIC::showWedd() {
-	if(!priFaseOk)
+	if (!priFaseOk)
 		return;
 
-	vector<Vertex<Pessoa*> *> temp = PriFase.getVertexSet();
+	vector<Vertex<Pessoa*> *> temp;
+
+	temp = PriFase.getVertexSet();
+
 	vector<Vertex<Pessoa*> *>::const_iterator it = temp.begin();
 
 	cout << "\n CASAMENTOS \n";
 	for (; it != temp.end(); it++) {
-		cout << "\n " << (*it)->getInfo()->getNome() << " esta casado com "
-				<< (*it)->getInfo()->getPartner()->getNome();
+		cout << "\n " << (*it)->getInfo()->getNomeClass() << " esta casado com "
+				<< (*it)->getInfo()->getPartner()->getNomeClass();
 		cout << " sendo esta a sua "
 				<< nrPref((*it), (*it)->getInfo()->getPartner()->getNome())
 				<< "a opcao\n";
@@ -467,6 +475,28 @@ void MIEIC::PrimeiraFase() {
 	}
 }
 
+void MIEIC::showSupervProjs() {
+	if (!secFaseOk)
+		return;
+
+	vector<Vertex<Pessoa*> *> temp;
+
+	temp = SecFase.getVertexSet();
+
+	vector<Vertex<Pessoa*> *>::const_iterator it = temp.begin();
+
+	cout << "\n CASAMENTOS \n";
+	for (; it != temp.end(); it++) {
+		if ((*it)->getInfo()->isMarried()) {
+			cout << "\n " << (*it)->getInfo()->getNomeClass()
+					<< " esta casado com "
+					<< (*it)->getInfo()->getPartner()->getNomeClass() << endl;
+		}
+	}
+	cout << "\n----------------\n";
+
+}
+
 void MIEIC::SegundaFase() {
 	if (!priFaseOk) {
 		cout << "\n Primeira fase nao completa";
@@ -477,16 +507,19 @@ void MIEIC::SegundaFase() {
 	while (escolha != "Sair" && escolha != "sair" && escolha != "4") {
 		cout << "1. Escolhas dos Supervisores\n";
 		cout << "2. Atribuir Projectos\n";
-		cout << "3. Sair";
+		cout << "3. Ver Projectos dos Supervisores\n";
+		cout << "4. Sair";
 		getline(cin, escolha);
 
 		if (escolha == "1" || escolha == "Supervisores"
 				|| escolha == "supervisores")
 			SupervisoresPref();
 		else if (escolha == "2" || escolha == "Atribuir"
-				|| escolha == "atribuir") {
-
-		}
+				|| escolha == "atribuir")
+			MarrySuperv();
+		else if (escolha == "3" || escolha == "Casamento"
+				|| escolha == "casamentos")
+			showSupervProjs();
 
 	}
 }
@@ -561,7 +594,7 @@ void MIEIC::Criar() {
 				cout << "\n ERRO AO ADICIONAR AO GRAFO 1\n";
 
 			if (!SecFase.addVertex(p))
-							cout << "\n ERRO AO ADICIONAR AO GRAFO 2\n";
+				cout << "\n ERRO AO ADICIONAR AO GRAFO 2\n";
 		} else if (escolha == "3" || escolha == "Supervisor"
 				|| escolha == "supervisor") {
 			string nomeS;
@@ -668,7 +701,7 @@ void MIEIC::Marry() {
 
 			for (; itP != Proponentes.end(); itP++) {
 				if (!(*itP)->isMarried()
-						&& verificaPref((*itE)->getID(), (*itP)->getID())) {
+						&& verificaPref((*itE)->getID(), (*itP)->getID(), 1)) {
 					(*itP)->gettingmarried((*itE));
 					(*itE)->gettingmarried((*itP));
 				} else {
@@ -686,8 +719,8 @@ void MIEIC::Marry() {
 }
 
 void MIEIC::setpropofree() {
-	for (unsigned int i = 0; i < Supervisores.size(); i++) {
-		Supervisores[i]->gettingsigle();
+	for (unsigned int i = 0; i < Proponentes.size(); i++) {
+		Proponentes[i]->gettingsigle();
 	}
 }
 
@@ -696,25 +729,21 @@ bool MIEIC::checkIfAllMarried2() {
 	 * Este check faz check se os proponentes tem todos relaçao e se os Supervisores ja estao todos com as vagas preenchidas
 	 * */
 
-	bool prop = true;
-	vector<Proponente*>::const_iterator itP = Proponentes.begin();
-	for (; itP != Proponentes.end(); itP++) {
-		if ((*itP)->getDocente() && !(*itP)->isMarried()) {
-			prop = false;
-			break;
-		}
-	}
-
-	bool Super = true;
+	vector<Proponente*> pref;
 	vector<Supervisor*>::const_iterator itS = Supervisores.begin();
 	for (; itS != Supervisores.end(); itS++) {
-		if (!(*itS)->isMarried() || !(*itS)->fullProj()) {
-			Super = false;
-			break;
+		pref = (*itS)->getPreferencias();
+		if (!(*itS)->fullProj()) {
+
+			for (unsigned int i = 0; i < pref.size(); i++) {
+				if (!pref[i]->isMarried())
+					return false;
+			}
+
 		}
 	}
 
-	return (prop && Super);
+	return true;
 }
 
 void MIEIC::tryMarrySuperv(Supervisor* s) {
@@ -736,6 +765,7 @@ void MIEIC::tryMarrySuperv(Supervisor* s) {
 			s->gettingmarried(tryM);
 			tryM->gettingmarried(s);
 
+			return;
 		}
 	}
 
@@ -743,7 +773,7 @@ void MIEIC::tryMarrySuperv(Supervisor* s) {
 
 void MIEIC::MarrySuperv() {
 
-	vector<Supervisor*>::const_iterator itS = Supervisores.begin();
+	vector<Supervisor*>::iterator itS = Supervisores.begin();
 
 //por os proponentes solteiros porque vieram da primeira fase
 	setpropofree();
@@ -758,6 +788,7 @@ void MIEIC::MarrySuperv() {
 
 	}
 
+	secFaseOk = true;
 }
 
 void MIEIC::loadProjectos() {

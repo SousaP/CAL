@@ -59,7 +59,7 @@ ostream &operator <<(ostream &os, Supervisor &S) {
 }
 
 void Supervisor::gettingmarried(Pessoa* p) {
-	(*this->p) = (*p);
+	this->p = p;
 	married = true;
 }
 
@@ -68,7 +68,7 @@ bool Supervisor::fullProj() {
 }
 
 bool Supervisor::nasPrefs(Pessoa* p) {
-	for (int i = 0; i < Projectos.size(); i++)
+	for (unsigned int i = 0; i < Projectos.size(); i++)
 		if (Projectos[i]->getNome() == p->getNome())
 			return true;
 
@@ -85,3 +85,13 @@ string Supervisor::getNomeClass(){
 		return e;
 }
 
+Pessoa* Supervisor::getMarry() {
+		return p;
+	}
+
+bool Supervisor::nrPref() {
+	if (Projectos.size() == 0)
+			return false;
+		else
+			return true;
+	}
