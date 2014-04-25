@@ -115,7 +115,6 @@ bool MIEIC::addEdge(int iDFont, int iDDist, int peso) {
 	Pessoa* dest;
 
 	for (; it != temp.end(); it++) {
-		cout << "\na percorrer ID: " << (*it)->getInfo()->getID();
 		if ((*it)->getInfo()->getID() == (unsigned int) iDFont)
 			font = (*it)->getInfo();
 
