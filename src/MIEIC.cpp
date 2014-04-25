@@ -73,16 +73,16 @@ void MIEIC::ListSupervs() {
 
 }
 
-void MIEIC::ListGrafo(){
+void MIEIC::ListGrafo() {
 
 	cout << "\n||||| GRAFO |||||\n";
 	vector<Vertex<Pessoa*> *> temp = PriFase.getVertexSet();
-		vector<Vertex<Pessoa*> *>::const_iterator it = temp.begin();
+	vector<Vertex<Pessoa*> *>::const_iterator it = temp.begin();
 
-		for (unsigned int i = 1; it != temp.end(); it++, i++)
-			cout << i << ".  " << (*it)->getInfo()->getNomeClass() << "\n";
+	for (unsigned int i = 1; it != temp.end(); it++, i++)
+		cout << i << ".  " << (*it)->getInfo()->getNomeClass() << "\n";
 
-		cout << "----------------------------------";
+	cout << "----------------------------------";
 }
 
 bool MIEIC::Listagem(string pessoa) {
@@ -186,8 +186,6 @@ void MIEIC::EstudantesPref() {
 						&& (unsigned int) novaPrefn < Proponentes.size()) {
 					if (!verificaPref(Estudantes[IDpref]->getID(),
 							Proponentes[novaPrefn]->getID())) {
-
-
 
 						if (!addEdge(Estudantes[IDpref]->getID(),
 								Proponentes[novaPrefn]->getID(), peso))
@@ -334,6 +332,7 @@ void MIEIC::SupervisoresPref() {
 void MIEIC::StartPriFase() {
 
 	Pessoa* P;
+
 	for (unsigned int i = 0; i < Estudantes.size(); i++) {
 		P = Estudantes[i];
 		PriFase.addVertex(P);
@@ -343,6 +342,36 @@ void MIEIC::StartPriFase() {
 		P = Proponentes[i];
 		PriFase.addVertex(P);
 	}
+
+	vector<Projecto*> temp;
+	vector<Estudante*> tempE;
+	for (unsigned int i = 0; i < Estudantes.size(); i++) {
+		temp = Estudantes[i]->getPreferencias();
+		for (unsigned int c = 0; c < Proponentes.size(); c++) {
+
+			for (unsigned int d = 0; d < temp.size(); d++) {
+
+				if (Proponentes[c]->getProjP()->getNome() == temp[d]->getNome())
+					if (!addEdge(Estudantes[i]->getID(),
+							Proponentes[c]->getID(), (d + 1)))
+						cout << "\n\n ERRO AO ADICIONAR PREFERENCIAS \n\n";
+
+			}
+
+			tempE = Proponentes[c]->getPreferencias();
+
+			for (unsigned int d = 0; d < tempE.size(); d++) {
+
+				if (tempE[d]->getNome() == Estudantes[i]->getNome())
+					if (!addEdge(Proponentes[c]->getID(),
+							Estudantes[i]->getID(), (d + 1)))
+						cout << "\n\n ERRO AO ADICIONAR PREFERENCIAS \n\n";
+
+			}
+
+		}
+	}
+
 }
 
 void MIEIC::StartSecFase() {
@@ -354,31 +383,31 @@ void MIEIC::StartSecFase() {
 	}
 }
 
-unsigned int MIEIC::nrPref(Vertex<Pessoa*> *p, string nome){
+unsigned int MIEIC::nrPref(Vertex<Pessoa*> *p, string nome) {
 	vector<Edge<Pessoa*> > temp = p->getEdges();
 
-	for(unsigned int pos = 0; pos < temp.size(); pos++)
-		if(temp[pos].getDest()->getNome() == nome)
+	for (unsigned int pos = 0; pos < temp.size(); pos++)
+		if (temp[pos].getDest()->getNome() == nome)
 			return (pos + 1);
 
 	return 0;
 }
 
-void MIEIC:: showWedd(){
+void MIEIC::showWedd() {
 
 	vector<Vertex<Pessoa*> *> temp = PriFase.getVertexSet();
 	vector<Vertex<Pessoa*> *>::const_iterator it = temp.begin();
 
-
 	cout << "\n CASAMENTOS \n";
-		for (; it != temp.end(); it++) {
-			cout << "\n " <<(*it)->getInfo()->getNome() <<  " esta casado com "
-					<< (*it)->getInfo()->getPartner()->getNome();
-			cout << " sendo esta a sua " << nrPref((*it),(*it)->getInfo()->getPartner()->getNome()) <<
-					" opcao\n";
-		}
+	for (; it != temp.end(); it++) {
+		cout << "\n " << (*it)->getInfo()->getNome() << " esta casado com "
+				<< (*it)->getInfo()->getPartner()->getNome();
+		cout << " sendo esta a sua "
+				<< nrPref((*it), (*it)->getInfo()->getPartner()->getNome())
+				<< " opcao\n";
+	}
 
-		cout << "\n----------------\n";
+	cout << "\n----------------\n";
 }
 
 void MIEIC::PrimeiraFase() {
@@ -404,8 +433,8 @@ void MIEIC::PrimeiraFase() {
 				cout << "\n\n-----Sem preferencias necessarias---\n\n";
 			else
 				Marry();
-		}
-		else if(escolha == "4" || escolha == "casamentos" ||escolha == "Casamentos")
+		} else if (escolha == "4" || escolha == "casamentos"
+				|| escolha == "Casamentos")
 			showWedd();
 
 	}
@@ -436,8 +465,6 @@ void MIEIC::SegundaFase() {
 }
 
 bool MIEIC::FirstFaseComplete() {
-
-
 
 	vector<Vertex<Pessoa*> *> temp = PriFase.getVertexSet();
 
@@ -520,8 +547,8 @@ void MIEIC::Criar() {
 
 			Supervisor* Sp = new Supervisor(nomeS, atoi(nrmax.c_str()));
 			Pessoa *p = &(*Sp);
-			if(!PriFase.addVertex(p))
-			cout << "\n ERRO AO ADICIONAR AO GRAFO \n";
+			if (!PriFase.addVertex(p))
+				cout << "\n ERRO AO ADICIONAR AO GRAFO \n";
 			Supervisores.push_back(Sp);
 		}
 
@@ -686,7 +713,7 @@ void MIEIC::MarrySuperv() {
 
 	vector<Supervisor*>::const_iterator itS = Supervisores.begin();
 
-	//por os proponentes solteiros porque vieram da primeira fase
+//por os proponentes solteiros porque vieram da primeira fase
 	setpropofree();
 
 	while (!checkIfAllMarried2()) {
