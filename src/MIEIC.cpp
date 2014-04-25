@@ -73,17 +73,31 @@ void MIEIC::ListSupervs() {
 
 }
 
+void MIEIC::ListGrafo(){
+
+	cout << "\n||||| GRAFO |||||\n";
+	vector<Vertex<Pessoa*> *> temp = PriFase.getVertexSet();
+		vector<Vertex<Pessoa*> *>::const_iterator it = temp.begin();
+
+		for (unsigned int i = 1; it != temp.end(); it++, i++)
+			cout << i << ".  " << (*it)->getInfo()->getNomeClass() << "\n";
+
+		cout << "----------------------------------";
+}
+
 bool MIEIC::Listagem(string pessoa) {
 
-	if (pessoa == "Projectos" || pessoa == "projectos" || pessoa == "1")
+	if (pessoa == "Grafo" || pessoa == "grafo" || pessoa == "1")
+		ListGrafo();
+	else if (pessoa == "Projectos" || pessoa == "projectos" || pessoa == "2")
 		ListProjs();
-	else if (pessoa == "Estudantes" || pessoa == "estudantes" || pessoa == "2")
+	else if (pessoa == "Estudantes" || pessoa == "estudantes" || pessoa == "3")
 		ListEstuds();
 	else if (pessoa == "Proponentes" || pessoa == "proponentes"
-			|| pessoa == "3")
+			|| pessoa == "4")
 		ListPropos();
 	else if (pessoa == "Supervisores" || pessoa == "supervisores"
-			|| pessoa == "4")
+			|| pessoa == "5")
 		ListSupervs();
 	else
 		return false;
@@ -340,14 +354,42 @@ void MIEIC::StartSecFase() {
 	}
 }
 
+unsigned int MIEIC::nrPref(Vertex<Pessoa*> *p, string nome){
+	vector<Edge<Pessoa*> > temp = p->getEdges();
+
+	for(unsigned int pos = 0; pos < temp.size(); pos++)
+		if(temp[pos].getDest()->getNome() == nome)
+			return (pos + 1);
+
+	return 0;
+}
+
+void MIEIC:: showWedd(){
+
+	vector<Vertex<Pessoa*> *> temp = PriFase.getVertexSet();
+	vector<Vertex<Pessoa*> *>::const_iterator it = temp.begin();
+
+
+	cout << "\n CASAMENTOS \n";
+		for (; it != temp.end(); it++) {
+			cout << "\n " <<(*it)->getInfo()->getNome() <<  " esta casado com "
+					<< (*it)->getInfo()->getPartner()->getNome();
+			cout << " sendo esta a sua " << nrPref((*it),(*it)->getInfo()->getPartner()->getNome()) <<
+					" opcao\n";
+		}
+
+		cout << "\n----------------\n";
+}
+
 void MIEIC::PrimeiraFase() {
 	string escolha = "";
 
-	while (escolha != "Sair" && escolha != "sair" && escolha != "4") {
+	while (escolha != "Sair" && escolha != "sair" && escolha != "5") {
 		cout << "1. Escolhas dos Estudantes\n";
 		cout << "2. Escolhas dos Proponentes\n";
 		cout << "3. Atribuir Projectos\n";
-		cout << "4. Sair";
+		cout << "4. Ver Casamentos\n";
+		cout << "5. Sair";
 		getline(cin, escolha);
 
 		if (escolha == "1" || escolha == "Estudantes"
@@ -363,6 +405,8 @@ void MIEIC::PrimeiraFase() {
 			else
 				Marry();
 		}
+		else if(escolha == "4" || escolha == "casamentos" ||escolha == "Casamentos")
+			showWedd();
 
 	}
 }
@@ -392,6 +436,8 @@ void MIEIC::SegundaFase() {
 }
 
 bool MIEIC::FirstFaseComplete() {
+
+
 
 	vector<Vertex<Pessoa*> *> temp = PriFase.getVertexSet();
 
@@ -502,7 +548,7 @@ void MIEIC::Menu() {
 			do {
 
 				cout
-						<< "\nListagem de: Projectos? Estudantes? Proponentes? Supervisors? Sair \n";
+						<< "\nListagem de: Grafo? Projectos? Estudantes? Proponentes? Supervisors? Sair \n";
 				getline(cin, list);
 
 			} while (!Listagem(list) && list != "Sair" && list != "sair");

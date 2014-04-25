@@ -31,6 +31,7 @@ public:
 	void gettingmarried(Pessoa* p);
 	bool fullProj();
 	bool nasPrefs(Pessoa* p);
+	string getNomeClass();
 
 };
 

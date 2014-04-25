@@ -92,3 +92,9 @@ bool Proponente::nasPrefs(Pessoa* p) {
 
 	return false;
 }
+
+string Proponente::getNomeClass(){
+	string e = " (Proponente) ";
+		e += nome;
+		return e;
+}

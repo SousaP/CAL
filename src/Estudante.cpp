@@ -85,3 +85,11 @@ bool Estudante::nasPrefs(Pessoa* p) {
 
 	return false;
 }
+
+string Estudante::getNomeClass(){
+	string e = " (Estudante) ";
+	e += nome;
+	return e;
+
+}
+

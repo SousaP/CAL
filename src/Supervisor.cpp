@@ -78,3 +78,10 @@ bool Supervisor::nasPrefs(Pessoa* p) {
 unsigned int Supervisor::getMax() const{
 	return maxProj;
 }
+
+string Supervisor::getNomeClass(){
+	string e = " (Proponente) ";
+		e += nome;
+		return e;
+}
+

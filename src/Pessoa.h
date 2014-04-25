@@ -16,26 +16,16 @@ public:
 	Pessoa(unsigned int n, string nome);
 	static unsigned int iD;
 	unsigned int nrP;
-
 	virtual bool nrPref() = 0;
-	static void incID() {
-		iD++;
-	}
-	unsigned int getID() {
-		return nrP;
-	}
-	bool isMarried() {
-		return married;
-	}
+	static void incID();
+	unsigned int getID();
+	bool isMarried();
 	virtual void gettingmarried(Pessoa* p) = 0;
-	void gettingsigle() {
-		married = false;
-		p = NULL;
-	}
+	void gettingsigle();
 	virtual bool nasPrefs(Pessoa* p) = 0;
-	string getNome() const {
-		return nome;
-	}
+	string getNome() const;
+	Pessoa* getPartner();
+	virtual string getNomeClass() = 0;
 
 };
 

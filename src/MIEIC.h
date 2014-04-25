@@ -40,6 +40,7 @@ public:
 	void ListPropos();
 	void ListEstuds();
 	void ListSupervs();
+	void ListGrafo();
 	bool FirstFaseComplete();
 	void Criar();
 	void EstudantesPref();
@@ -57,6 +58,8 @@ public:
 	void setpropofree();
 	bool checkIfAllMarried2();
 	void tryMarrySuperv(Supervisor* s);
+	unsigned int nrPref(Vertex<Pessoa*> *p, string nome);
+	void showWedd();
 };
 
 #endif /* MIEIC_H_ */

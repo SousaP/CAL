@@ -32,6 +32,7 @@ public:
 	bool getDocente();
 	Projecto* getProjP();
 	bool nasPrefs(Pessoa* p);
+	string getNomeClass();
 };
 
 #endif /* PROPONENTE_H_ */

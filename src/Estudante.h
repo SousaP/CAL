@@ -28,6 +28,7 @@ public:
 	Pessoa* getMarry(){return p;}
 	void gettingmarried(Pessoa* p);
 	bool nasPrefs(Pessoa* p);
+	string getNomeClass();
 };
 
 

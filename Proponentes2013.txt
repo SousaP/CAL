@@ -1,6 +1,0 @@
-nomeP
-true
-amoes
-true
-nomeE
-END
