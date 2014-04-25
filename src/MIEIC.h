@@ -58,6 +58,8 @@ public:
 	void StartSecFase();
 	void setpropofree();
 	bool checkIfAllMarried2();
+	bool preferencesOccupied(string nomeProj);
+	bool checkPreferences();
 	void tryMarrySuperv(Supervisor* s);
 	unsigned int nrPref(Vertex<Pessoa*> *p, string nome);
 	void showWedd();

@@ -690,6 +690,37 @@ void MIEIC::solteirar(int id) {
 
 }
 
+bool MIEIC::preferencesOccupied(string nomeProj) {
+	vector<Proponente*>::const_iterator itP = Proponentes.begin();
+	for (; itP != Proponentes.end(); itP++) {
+		if ((*itP)->getProjP()->getNome() == nomeProj && (*itP)->isMarried())
+			return true;
+	}
+	return false;
+}
+
+bool MIEIC::checkPreferences() {
+
+	vector<Estudante*> temp;
+
+	vector<Estudante*>::const_iterator itE = Estudantes.begin();
+	for (; itE != Estudantes.end(); itE++) {
+		if (!(*itE)->isMarried()) {
+			temp.push_back(*itE);
+		}
+	}
+
+	vector<Estudante*>::const_iterator itT = temp.begin();
+	for (; itE != temp.end(); itT++) {
+		for (unsigned int i = 0; i < (*itT)->getPreferencias().size(); i++) {
+			if (!preferencesOccupied((*itT)->getPreferencias()[i]->getNome()))
+				return false;
+		}
+	}
+
+	return true;
+}
+
 void MIEIC::Marry() {
 
 	vector<Estudante*>::iterator itE = Estudantes.begin();
