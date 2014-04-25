@@ -75,9 +75,18 @@ void MIEIC::ListSupervs() {
 
 void MIEIC::ListGrafo() {
 
-	cout << "\n||||| GRAFO |||||\n";
+	cout << "\n||||| GRAFO 1 |||||\n";
 	vector<Vertex<Pessoa*> *> temp = PriFase.getVertexSet();
 	vector<Vertex<Pessoa*> *>::const_iterator it = temp.begin();
+
+	for (unsigned int i = 1; it != temp.end(); it++, i++)
+		cout << i << ".  " << (*it)->getInfo()->getNomeClass() << "\n";
+
+	cout << "----------------------------------";
+
+	cout << "\n||||| GRAFO 2 |||||\n";
+	temp = SecFase.getVertexSet();
+	it = temp.begin();
 
 	for (unsigned int i = 1; it != temp.end(); it++, i++)
 		cout << i << ".  " << (*it)->getInfo()->getNomeClass() << "\n";
@@ -106,9 +115,17 @@ bool MIEIC::Listagem(string pessoa) {
 
 }
 
-bool MIEIC::addEdge(int iDFont, int iDDist, int peso) {
+bool MIEIC::addEdge(int iDFont, int iDDist, int peso, int grafo) {
 
-	vector<Vertex<Pessoa*> *> temp = PriFase.getVertexSet();
+	vector<Vertex<Pessoa*> *> temp;
+
+	if (grafo == 1)
+		temp = PriFase.getVertexSet();
+	else if (grafo == 2)
+		temp = SecFase.getVertexSet();
+	else
+		return false;
+
 	vector<Vertex<Pessoa*> *>::iterator it = temp.begin();
 
 	Pessoa* font;
@@ -122,7 +139,10 @@ bool MIEIC::addEdge(int iDFont, int iDDist, int peso) {
 			dest = (*it)->getInfo();
 	}
 
-	return PriFase.addEdge(font, dest, peso);
+	if (grafo == 1)
+		return PriFase.addEdge(font, dest, peso);
+	else
+		return SecFase.addEdge(font, dest, peso);
 }
 
 bool MIEIC::verificaPref(int idFont, int idDist) {
@@ -149,15 +169,15 @@ void MIEIC::EstudantesPref() {
 
 	cout << "\n PREFERENCIAS DOS ESTUDANTES \n";
 
-	vector<Estudante> temp;
+	vector<Estudante*> temp;
 
 	for (unsigned int i = 0; i < Estudantes.size(); i++)
 		if (!(*Estudantes[i]).nrPref()) {
-			temp.push_back((*Estudantes[i]));
+			temp.push_back(Estudantes[i]);
 		}
 
 	for (unsigned int a = 0; a < temp.size(); a++) {
-		cout << a + 1 << ". " << temp[a] << endl;
+		cout << a + 1 << ". " << (*temp[a]) << endl;
 	}
 
 	string escolha;
@@ -169,12 +189,12 @@ void MIEIC::EstudantesPref() {
 		IDpref--;
 
 		if (IDpref >= 0 && IDpref < temp.size()) {
-			cout
-					<< "Projecto [nr] para pref por ordem? \"parar\" para terminar\n";
 
 			for (unsigned int c = 0; c < Proponentes.size(); c++)
 				cout << c + 1 << ". " << Proponentes[c]->getProj() << endl;
 
+			cout
+					<< "Projecto [nr] para pref por ordem? \"parar\" para terminar\n";
 			int peso = 1;
 			do {
 
@@ -183,16 +203,16 @@ void MIEIC::EstudantesPref() {
 				novaPrefn--;
 				if ((unsigned int) novaPrefn >= 0
 						&& (unsigned int) novaPrefn < Proponentes.size()) {
-					if (!verificaPref(Estudantes[IDpref]->getID(),
+					if (!verificaPref(temp[IDpref]->getID(),
 							Proponentes[novaPrefn]->getID())) {
 
-						if (!addEdge(Estudantes[IDpref]->getID(),
-								Proponentes[novaPrefn]->getID(), peso))
+						if (!addEdge(temp[IDpref]->getID(),
+								Proponentes[novaPrefn]->getID(), peso, 1))
 							cout << "\n\n ERRO AO ADICIONAR PREFERENCIAS \n\n";
 
-						if (!Estudantes[IDpref]->nasPrefs(
+						if (!temp[IDpref]->nasPrefs(
 								Proponentes[novaPrefn])) {
-							Estudantes[IDpref]->addPref(
+							temp[IDpref]->addPref(
 									Proponentes[novaPrefn]->getProjP());
 							peso++;
 						}
@@ -229,12 +249,12 @@ void MIEIC::ProponentesPref() {
 		IDpref--;
 
 		if (IDpref >= 0 && IDpref < temp.size()) {
-			cout
-					<< "Estudantes [nr] para pref por ordem? \"parar\" para terminar\n";
+
 			string novaPref;
 			for (unsigned int c = 0; c < Estudantes.size(); c++)
 				cout << c + 1 << (*Estudantes[c]) << endl;
-
+			cout
+					<< "Estudantes [nr] para pref por ordem? \"parar\" para terminar\n";
 			int peso = 1;
 			do {
 
@@ -242,17 +262,17 @@ void MIEIC::ProponentesPref() {
 				int novaPrefn = atoi(novaPref.c_str());
 				novaPrefn--;
 				if ((unsigned int) novaPrefn >= 0
-						&& (unsigned int) novaPrefn < Proponentes.size()) {
-					if (!verificaPref(Proponentes[IDpref]->getID(),
-							Proponentes[novaPrefn]->getID())) {
+						&& (unsigned int) novaPrefn < Estudantes.size()) {
+					if (!verificaPref(temp[IDpref]->getID(),
+							Estudantes[novaPrefn]->getID())) {
 
-						if (!addEdge(Proponentes[IDpref]->getID(),
-								Estudantes[novaPrefn]->getID(), peso))
+						if (!addEdge(temp[IDpref]->getID(),
+								Estudantes[novaPrefn]->getID(), peso, 1))
 							cout << "\n\n ERRO AO ADICIONAR PREFERENCIAS \n\n";
 
-						if (!Proponentes[IDpref]->nasPrefs(
+						if (!temp[IDpref]->nasPrefs(
 								Estudantes[novaPrefn])) {
-							Proponentes[IDpref]->addPref(Estudantes[novaPrefn]);
+							temp[IDpref]->addPref(Estudantes[novaPrefn]);
 							peso++;
 						}
 					}
@@ -270,15 +290,15 @@ void MIEIC::ProponentesPref() {
 
 void MIEIC::SupervisoresPref() {
 
-	vector<Supervisor> temp;
+	vector<Supervisor*> temp;
 
 	for (unsigned int i = 0; i < Supervisores.size(); i++)
-		if (!(*Supervisores[i]).nrPref()) {
-			temp.push_back((*Supervisores[i]));
+		if (!Supervisores[i]->nrPref()) {
+			temp.push_back(Supervisores[i]);
 		}
 
 	for (unsigned int a = 0; a < temp.size(); a++) {
-		cout << a << ". " << temp[a] << endl;
+		cout << a + 1 << ". " << (*temp[a]) << endl;
 	}
 
 	string escolha;
@@ -289,12 +309,13 @@ void MIEIC::SupervisoresPref() {
 		IDpref--;
 
 		if (IDpref >= 0 && IDpref < temp.size()) {
-			cout
-					<< "Projecto [nr] para pref por ordem? \"parar\" para terminar ";
+
 			string novaPref;
 			for (unsigned int c = 0; c < Proponentes.size(); c++)
-				cout << c << ". " << Proponentes[c]->getProj() << endl;
+				cout << c + 1 << ". " << Proponentes[c]->getProj() << endl;
 
+			cout
+					<< "Projecto [nr] para pref por ordem? \"parar\" para terminar ";
 			int peso = 1;
 			do {
 
@@ -303,16 +324,16 @@ void MIEIC::SupervisoresPref() {
 				novaPrefn--;
 				if ((unsigned int) novaPrefn >= 0
 						&& (unsigned int) novaPrefn < Proponentes.size()) {
-					if (!verificaPref(Supervisores[IDpref]->getID(),
+					if (!verificaPref(temp[IDpref]->getID(),
 							Proponentes[novaPrefn]->getID())) {
 
-						if (addEdge(Supervisores[IDpref]->getID(),
-								Proponentes[novaPrefn]->getID(), peso))
+						if (!addEdge(temp[IDpref]->getID(),
+								Proponentes[novaPrefn]->getID(), peso, 2))
 							cout << "\n\n ERRO AO ADICIONAR PREFERENCIAS \n\n";
 
-						if (!Supervisores[IDpref]->nasPrefs(
+						if (!temp[IDpref]->nasPrefs(
 								Proponentes[novaPrefn])) {
-							Supervisores[IDpref]->addProj(
+							temp[IDpref]->addProj(
 									Proponentes[novaPrefn]);
 							peso++;
 						}
@@ -321,7 +342,7 @@ void MIEIC::SupervisoresPref() {
 				}
 
 			} while (novaPref != "parar");
-
+			return;
 		}
 
 	}
@@ -352,7 +373,7 @@ void MIEIC::StartPriFase() {
 
 				if (Proponentes[c]->getProjP()->getNome() == temp[d]->getNome())
 					if (!addEdge(Estudantes[i]->getID(),
-							Proponentes[c]->getID(), (d + 1)))
+							Proponentes[c]->getID(), (d + 1),1))
 						cout << "\n\n ERRO AO ADICIONAR PREFERENCIAS \n\n";
 
 			}
@@ -363,7 +384,7 @@ void MIEIC::StartPriFase() {
 
 				if (tempE[d]->getNome() == Estudantes[i]->getNome())
 					if (!addEdge(Proponentes[c]->getID(),
-							Estudantes[i]->getID(), (d + 1)))
+							Estudantes[i]->getID(), (d + 1),1))
 						cout << "\n\n ERRO AO ADICIONAR PREFERENCIAS \n\n";
 
 			}
@@ -380,6 +401,11 @@ void MIEIC::StartSecFase() {
 		P = Supervisores[i];
 		SecFase.addVertex(P);
 	}
+
+	for (unsigned int i = 0; i < Proponentes.size(); i++) {
+			P = Proponentes[i];
+			SecFase.addVertex(P);
+		}
 }
 
 unsigned int MIEIC::nrPref(Vertex<Pessoa*> *p, string nome) {
@@ -393,6 +419,8 @@ unsigned int MIEIC::nrPref(Vertex<Pessoa*> *p, string nome) {
 }
 
 void MIEIC::showWedd() {
+	if(!priFaseOk)
+		return;
 
 	vector<Vertex<Pessoa*> *> temp = PriFase.getVertexSet();
 	vector<Vertex<Pessoa*> *>::const_iterator it = temp.begin();
@@ -403,7 +431,7 @@ void MIEIC::showWedd() {
 				<< (*it)->getInfo()->getPartner()->getNome();
 		cout << " sendo esta a sua "
 				<< nrPref((*it), (*it)->getInfo()->getPartner()->getNome())
-				<< " opcao\n";
+				<< "a opcao\n";
 	}
 
 	cout << "\n----------------\n";
@@ -465,12 +493,12 @@ void MIEIC::SegundaFase() {
 
 bool MIEIC::FirstFaseComplete() {
 
-	vector<Vertex<Pessoa*> *> temp = PriFase.getVertexSet();
+	for (unsigned int i = 0; i < Proponentes.size(); i++)
+		if (!Proponentes[i]->nrPref())
+			return false;
 
-	vector<Vertex<Pessoa*> *>::const_iterator it = temp.begin();
-
-	for (; it != temp.end(); it++)
-		if (!(*it)->getInfo()->nrPref())
+	for (unsigned int i = 0; i < Estudantes.size(); i++)
+		if (!Estudantes[i]->nrPref())
 			return false;
 
 	return true;
@@ -530,7 +558,10 @@ void MIEIC::Criar() {
 			Proponentes.push_back(Pp);
 			Pessoa *p = &(*Pp);
 			if (!PriFase.addVertex(p))
-				cout << "\n ERRO AO ADICIONAR AO GRAFO \n";
+				cout << "\n ERRO AO ADICIONAR AO GRAFO 1\n";
+
+			if (!SecFase.addVertex(p))
+							cout << "\n ERRO AO ADICIONAR AO GRAFO 2\n";
 		} else if (escolha == "3" || escolha == "Supervisor"
 				|| escolha == "supervisor") {
 			string nomeS;
@@ -546,7 +577,7 @@ void MIEIC::Criar() {
 
 			Supervisor* Sp = new Supervisor(nomeS, atoi(nrmax.c_str()));
 			Pessoa *p = &(*Sp);
-			if (!PriFase.addVertex(p))
+			if (!SecFase.addVertex(p))
 				cout << "\n ERRO AO ADICIONAR AO GRAFO \n";
 			Supervisores.push_back(Sp);
 		}
@@ -642,7 +673,7 @@ void MIEIC::Marry() {
 					(*itE)->gettingmarried((*itP));
 				} else {
 					if (comparePropPref(*(*itE), *(*itP))) {
-						//solteirar((*itP)->getMarry()->getID());
+						solteirar((*itP)->getMarry()->getID());
 						(*itP)->gettingmarried((*itE));
 						(*itE)->gettingmarried((*itP));
 					}
@@ -650,6 +681,8 @@ void MIEIC::Marry() {
 			}
 		}
 	}
+
+	priFaseOk = true;
 }
 
 void MIEIC::setpropofree() {

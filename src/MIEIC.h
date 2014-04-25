@@ -47,7 +47,7 @@ public:
 	void ProponentesPref();
 	void SupervisoresPref();
 	void StartPriFase();
-	bool addEdge(int iDFont, int iDDist, int peso);
+	bool addEdge(int iDFont, int iDDist, int peso, int grafo);
 	bool verificaPref(int idFont, int idDist);
 	bool comparePropPref(Estudante e, Proponente p);
 	void Marry();

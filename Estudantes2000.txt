@@ -1,3 +1,0 @@
-NomeE
-camoes
-END

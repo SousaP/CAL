@@ -1,6 +1,0 @@
-nomeP
-true
-camoes
-true
-NomeE
-END

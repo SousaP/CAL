@@ -80,7 +80,7 @@ unsigned int Supervisor::getMax() const{
 }
 
 string Supervisor::getNomeClass(){
-	string e = " (Proponente) ";
+	string e = " (Supervisor) ";
 		e += nome;
 		return e;
 }
