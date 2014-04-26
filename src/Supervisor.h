@@ -9,6 +9,7 @@
 class Supervisor: public Pessoa {
 	unsigned int maxProj;
 	vector<Proponente*> Projectos;
+	vector<Pessoa*> Casamentos;
 
 public:
 	Supervisor(string n, unsigned int nrmax);
@@ -28,6 +29,8 @@ public:
 	bool fullProj();
 	bool nasPrefs(Pessoa* p);
 	string getNomeClass();
+	string getCasamentos();
+	void setFree();
 
 };
 

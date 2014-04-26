@@ -59,12 +59,12 @@ ostream &operator <<(ostream &os, Supervisor &S) {
 }
 
 void Supervisor::gettingmarried(Pessoa* p) {
-	this->p = p;
 	married = true;
+	Casamentos.push_back(p);
 }
 
 bool Supervisor::fullProj() {
-	return (maxProj == Projectos.size());
+	return (maxProj == Casamentos.size());
 }
 
 bool Supervisor::nasPrefs(Pessoa* p) {
@@ -84,6 +84,25 @@ string Supervisor::getNomeClass(){
 		e += nome;
 		return e;
 }
+
+string Supervisor::getCasamentos(){
+	string s ="";
+
+	for(int i = 0; i < Casamentos.size(); i++)
+	{
+		s += " ";
+		s += Casamentos[i]->getNome();
+		s += " ,";
+	}
+
+	return s;
+}
+
+void Supervisor::setFree(){
+	married = false;
+	Casamentos.clear();
+}
+
 
 Pessoa* Supervisor::getMarry() {
 		return p;

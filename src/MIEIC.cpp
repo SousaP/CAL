@@ -437,7 +437,7 @@ void MIEIC::StartSecFase() {
 
 				if (Proponentes[c]->getProjP()->getNome() == temp[d]->getNome())
 					if (!addEdge(Supervisores[i]->getID(),
-							Proponentes[c]->getID(), (d + 1), 1))
+							Proponentes[c]->getID(), (d + 1), 2))
 						cout << "\n\n ERRO AO ADICIONAR PREFERENCIAS \n\n";
 
 			}
@@ -515,21 +515,18 @@ void MIEIC::PrimeiraFase() {
 void MIEIC::showSupervProjs() {
 	if (!secFaseOk)
 		return;
-
-	vector<Vertex<Pessoa*> *> temp;
-
-	temp = SecFase.getVertexSet();
-
-	vector<Vertex<Pessoa*> *>::const_iterator it = temp.begin();
+	vector<Supervisor *>::const_iterator it = Supervisores.begin();
 
 	cout << "\n CASAMENTOS \n";
-	for (; it != temp.end(); it++) {
-		if ((*it)->getInfo()->isMarried()) {
-			cout << "\n " << (*it)->getInfo()->getNomeClass()
-					<< " esta casado com "
-					<< (*it)->getInfo()->getPartner()->getNomeClass() << endl;
+	for (; it != Supervisores.end(); it++) {
+		if ((*it)->isMarried()) {
+			cout << "\n " << (*it)->getNomeClass()
+					<< " esta a supervisionar: "
+					 << (*it)->getCasamentos()
+
+					<< endl;
 		} else
-			cout << "\n " << (*it)->getInfo()->getNomeClass()
+			cout << "\n " << (*it)->getNomeClass()
 					<< " esta solteiro\n";
 	}
 	cout << "\n----------------\n";
@@ -837,6 +834,7 @@ bool MIEIC::checkIfAllMarried2() {
 	vector<Supervisor*>::const_iterator itS = Supervisores.begin();
 	for (; itS != Supervisores.end(); itS++) {
 		pref = (*itS)->getPreferencias();
+
 		if (!(*itS)->fullProj()) {
 
 			for (unsigned int i = 0; i < pref.size(); i++) {
@@ -881,6 +879,10 @@ void MIEIC::MarrySuperv() {
 
 //por os proponentes solteiros porque vieram da primeira fase
 	setpropofree();
+
+	//para o caso de ja ter feito um marry antes
+	for(unsigned int i = 0; i< Supervisores.size(); i++)
+		Supervisores[i]->setFree();
 
 	while (!checkIfAllMarried2()) {
 		tryMarrySuperv((*itS));
