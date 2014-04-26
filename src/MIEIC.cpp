@@ -853,6 +853,9 @@ void MIEIC::MarrySuperv() {
 	secFaseOk = true;
 }
 
+/*
+ * Funções de load e save dos dados
+ */
 void MIEIC::loadProjectos() {
 	string filename = "Projectos";
 	string anoS;

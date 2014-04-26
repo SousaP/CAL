@@ -4,6 +4,9 @@
 #include "string"
 using namespace std;
 
+/*
+ * Classe mãe das classes Estudante, Supervisor e Proponente
+ */
 class Pessoa {
 
 protected:
