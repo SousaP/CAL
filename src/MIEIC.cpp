@@ -128,7 +128,6 @@ bool MIEIC::Listagem(string pessoa) {
 
 }
 
-
 bool MIEIC::addEdge(int iDFont, int iDDist, int peso, int grafo) {
 
 	vector<Vertex<Pessoa*> *> temp;
@@ -437,25 +436,25 @@ unsigned int MIEIC::nrPref(Vertex<Pessoa*> *p, string nome) {
 }
 
 void MIEIC::showWedd() {
-	if (!priFaseOk)
-		return;
+//	if (!priFaseOk)
+	//	return;
 
-	vector<Vertex<Pessoa*> *> temp;
-
-	temp = PriFase.getVertexSet();
+	vector<Vertex<Pessoa*> *> temp = PriFase.getVertexSet();
 
 	vector<Vertex<Pessoa*> *>::const_iterator it = temp.begin();
 
 	cout << "\n CASAMENTOS \n";
 	for (; it != temp.end(); it++) {
-		if((*it)->getInfo()->isMarried()){
-		cout << "\n " << (*it)->getInfo()->getNomeClass() << " esta casado com "
-				<< (*it)->getInfo()->getPartner()->getNomeClass();
-		cout << " sendo esta a sua "
-				<< nrPref((*it), (*it)->getInfo()->getPartner()->getNome())
-				<< "a opcao\n";}
-		else
-			cout << "\n " << (*it)->getInfo()->getNomeClass() << " esta solteiro \n";
+		if ((*it)->getInfo()->isMarried()) {
+			cout << "\n " << (*it)->getInfo()->getNomeClass()
+					<< " esta casado com "
+					<< (*it)->getInfo()->getPartner()->getNomeClass();
+			cout << " sendo esta a sua "
+					<< nrPref((*it), (*it)->getInfo()->getPartner()->getNome())
+					<< "a opcao\n";
+		} else
+			cout << "\n " << (*it)->getInfo()->getNomeClass()
+					<< " esta solteiro \n";
 	}
 
 	cout << "\n----------------\n";
@@ -508,6 +507,8 @@ void MIEIC::showSupervProjs() {
 					<< " esta casado com "
 					<< (*it)->getInfo()->getPartner()->getNomeClass() << endl;
 		}
+		else
+			cout << "\n " << (*it)->getInfo()->getNomeClass()<< " esta solteiro\n";
 	}
 	cout << "\n----------------\n";
 
@@ -700,7 +701,7 @@ bool MIEIC::checkStudents() {
 	vector<Estudante*>::const_iterator itE = Estudantes.begin();
 	for (; itE != Estudantes.end(); itE++) {
 		if (!(*itE)->isMarried()) {
-			if(!checkPropns())
+			if (!checkPropns())
 				return false;
 		}
 	}
@@ -714,12 +715,12 @@ bool MIEIC::checkStudents() {
 
 bool MIEIC::checkPropns() {
 	vector<Proponente*>::const_iterator itE = Proponentes.begin();
-		for (; itE != Proponentes.end(); itE++) {
-			if (!(*itE)->isMarried()) {
-				return false;
-			}
+	for (; itE != Proponentes.end(); itE++) {
+		if (!(*itE)->isMarried()) {
+			return false;
 		}
-		return true;
+	}
+	return true;
 }
 
 /*
