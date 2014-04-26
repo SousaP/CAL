@@ -8,6 +8,9 @@
 
 using namespace std;
 
+/*
+ * Construtor da classe MIEIC, trata do carregamento dos dados guardados em ficheiros de texto
+ */
 MIEIC::MIEIC(unsigned int ano) {
 	priFaseOk = false;
 	secFaseOk = false;
@@ -20,6 +23,9 @@ MIEIC::MIEIC(unsigned int ano) {
 	StartSecFase();
 }
 
+/*
+ * Destrutor da classe, guarda todos as alterações feitas aos elementos da estrutura em ficheiros de texto
+ */
 MIEIC::~MIEIC() {
 	saveProjectos();
 	saveProponentes();
@@ -27,6 +33,9 @@ MIEIC::~MIEIC() {
 	saveSupervisores();
 }
 
+/*
+ * Seguem-se várias funções que apresentam listas de todos os elementos do programa
+ */
 void MIEIC::ListProjs() {
 
 	cout << "\n||||| LISTAGEM PROJETOS  |||||\n";
@@ -95,6 +104,9 @@ void MIEIC::ListGrafo() {
 	cout << "----------------------------------";
 }
 
+/*
+ * Gere a apresentação das listagens
+ */
 bool MIEIC::Listagem(string pessoa) {
 
 	if (pessoa == "Grafo" || pessoa == "grafo" || pessoa == "1")
@@ -115,6 +127,7 @@ bool MIEIC::Listagem(string pessoa) {
 	return true;
 
 }
+
 
 bool MIEIC::addEdge(int iDFont, int iDDist, int peso, int grafo) {
 
@@ -537,6 +550,9 @@ bool MIEIC::FirstFaseComplete() {
 	return true;
 }
 
+/*
+ * Menu de criação de elementos (Proponentes, estudantes, supervisores e projectos)
+ */
 void MIEIC::Criar() {
 
 	string escolha;
@@ -618,6 +634,9 @@ void MIEIC::Criar() {
 	} while (escolha != "Sair" && escolha != "sair" && escolha != "4");
 }
 
+/*
+ * Menu principal
+ */
 void MIEIC::Menu() {
 
 	string escolha = "";
@@ -670,6 +689,9 @@ bool MIEIC::comparePropPref(Estudante e, Proponente p) {
 	return false;
 }
 
+/*
+ * Verifica se todos os estudantes têm um projecto atribuido
+ */
 bool MIEIC::checkIfAllMarried() {
 
 	vector<Estudante*>::const_iterator itE = Estudantes.begin();
@@ -681,6 +703,9 @@ bool MIEIC::checkIfAllMarried() {
 	return true;
 }
 
+/*
+ * Elimina a ligação de um elemento do grafo a outro elemento
+ */
 void MIEIC::solteirar(int id) {
 
 	vector<Vertex<Pessoa*> *> temp = PriFase.getVertexSet();
@@ -690,6 +715,9 @@ void MIEIC::solteirar(int id) {
 
 }
 
+/*
+ * Verifica se um proponente com um projeto de nome nomeProj já está ligado a um estudante
+ */
 bool MIEIC::preferencesOccupied(string nomeProj) {
 	vector<Proponente*>::const_iterator itP = Proponentes.begin();
 	for (; itP != Proponentes.end(); itP++) {
@@ -699,6 +727,9 @@ bool MIEIC::preferencesOccupied(string nomeProj) {
 	return false;
 }
 
+/*
+ * Verifica se todos os projetos preferidos pelos estudantes que ainda não têm projecto atribuido ja estão ocupadas
+ */
 bool MIEIC::checkPreferences() {
 
 	vector<Estudante*> temp;

@@ -11,6 +11,10 @@
 #include "Graph.h"
 #include "Pessoa.h"
 
+/*
+ * A classe MIEIC gere os dois grafos bem como os processos de atribuição de projectos e os várioa elementos da estrutura
+ * (Proponentes, estudantes, supervisores e projectos)
+ */
 class MIEIC {
 	Graph<Pessoa*> PriFase;
 	Graph<Pessoa*> SecFase;
