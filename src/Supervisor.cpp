@@ -49,10 +49,10 @@ bool Supervisor::operator ==(const Supervisor &S) const {
 ostream &operator <<(ostream &os, Supervisor &S) {
 	os << "Nome: ";
 	os << S.getNome();
-	os << "  Supervisando: ";
+	os << " Preferencias: ";
 	vector<Proponente*> temp = S.getPreferencias();
 	for (unsigned int i = 0; i < temp.size(); i++) {
-		os << (*temp[i]);
+		os << (*temp[i]).getProj();
 		os << ", ";
 	}
 	return os;

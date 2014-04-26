@@ -414,15 +414,37 @@ void MIEIC::StartPriFase() {
 void MIEIC::StartSecFase() {
 
 	Pessoa* P;
-	for (unsigned int i = 0; i < Supervisores.size(); i++) {
-		P = Supervisores[i];
-		SecFase.addVertex(P);
-	}
 
 	for (unsigned int i = 0; i < Proponentes.size(); i++) {
 		P = Proponentes[i];
 		SecFase.addVertex(P);
 	}
+
+	for (unsigned int i = 0; i < Supervisores.size(); i++) {
+		P = Supervisores[i];
+		SecFase.addVertex(P);
+
+	}
+
+
+	vector<Proponente*> temp;
+	for (unsigned int i = 0; i < Supervisores.size(); i++) {
+
+		temp = Supervisores[i]->getPreferencias();
+		for (unsigned int c = 0; c < Proponentes.size(); c++) {
+
+			for (unsigned int d = 0; d < temp.size(); d++) {
+
+				if (Proponentes[c]->getProjP()->getNome() == temp[d]->getNome())
+					if (!addEdge(Supervisores[i]->getID(),
+							Proponentes[c]->getID(), (d + 1), 1))
+						cout << "\n\n ERRO AO ADICIONAR PREFERENCIAS \n\n";
+
+			}
+		}
+
+	}
+
 }
 
 unsigned int MIEIC::nrPref(Vertex<Pessoa*> *p, string nome) {
@@ -469,7 +491,7 @@ void MIEIC::PrimeiraFase() {
 		cout << "3. Atribuir Projectos\n";
 		cout << "4. Ver Casamentos\n";
 		cout << "5. Sair";
-		getline(cin, escolha);
+		cin >> escolha;
 
 		if (escolha == "1" || escolha == "Estudantes"
 				|| escolha == "estudantes")
@@ -506,9 +528,9 @@ void MIEIC::showSupervProjs() {
 			cout << "\n " << (*it)->getInfo()->getNomeClass()
 					<< " esta casado com "
 					<< (*it)->getInfo()->getPartner()->getNomeClass() << endl;
-		}
-		else
-			cout << "\n " << (*it)->getInfo()->getNomeClass()<< " esta solteiro\n";
+		} else
+			cout << "\n " << (*it)->getInfo()->getNomeClass()
+					<< " esta solteiro\n";
 	}
 	cout << "\n----------------\n";
 
