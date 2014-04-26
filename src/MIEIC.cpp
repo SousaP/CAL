@@ -448,11 +448,14 @@ void MIEIC::showWedd() {
 
 	cout << "\n CASAMENTOS \n";
 	for (; it != temp.end(); it++) {
+		if((*it)->getInfo()->isMarried()){
 		cout << "\n " << (*it)->getInfo()->getNomeClass() << " esta casado com "
 				<< (*it)->getInfo()->getPartner()->getNomeClass();
 		cout << " sendo esta a sua "
 				<< nrPref((*it), (*it)->getInfo()->getPartner()->getNome())
-				<< "a opcao\n";
+				<< "a opcao\n";}
+		else
+			cout << "\n " << (*it)->getInfo()->getNomeClass() << " esta solteiro \n";
 	}
 
 	cout << "\n----------------\n";
@@ -783,7 +786,7 @@ void MIEIC::Marry() {
 					(*itP)->gettingmarried((*itE));
 					(*itE)->gettingmarried((*itP));
 				} else {
-					if (comparePropPref(*(*itE), *(*itP))) {
+					if (comparePropPref((*(*itE)), (*(*itP)))) {
 						solteirar((*itP)->getMarry()->getID());
 						(*itP)->gettingmarried((*itE));
 						(*itE)->gettingmarried((*itP));
@@ -1035,6 +1038,7 @@ void MIEIC::loadProponentes() {
 				Proponentes.push_back(temp);
 			}
 			nomeprop = "";
+			preferencias.clear();
 		}
 
 	myfile.close();
@@ -1092,6 +1096,7 @@ void MIEIC::loadSupervisores() {
 				Supervisores.push_back(temp);
 			}
 			nome = "";
+			preferencias.clear();
 		}
 
 	myfile.close();
