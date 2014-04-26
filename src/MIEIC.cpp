@@ -697,13 +697,13 @@ void MIEIC::Menu() {
 	}
 }
 
-bool MIEIC::comparePropPref(Estudante e, Proponente p) {
+bool MIEIC::comparePropPref(Estudante *e, Proponente *p) {
 
-	vector<Estudante*> prefTemp = p.getPreferencias();
+	vector<Estudante*> prefTemp = p->getPreferencias();
 	vector<Estudante*>::const_iterator itP = prefTemp.begin();
 
 	for (; itP != prefTemp.end(); itP++) {
-		if ((*itP)->getMarry()->getID() == e.getID())
+		if ((*itP)->getMarry()->getID() == e->getID())
 			return true;
 		if ((*itP)->getID() == (*itP)->getMarry()->getID()) {
 			return false;
@@ -717,10 +717,23 @@ bool MIEIC::comparePropPref(Estudante e, Proponente p) {
  */
 bool MIEIC::checkStudents() {
 
+	vector <Proponente*> temp;
+	vector <Projecto*> pref;
 	vector<Estudante*>::const_iterator itE = Estudantes.begin();
 	for (; itE != Estudantes.end(); itE++) {
 		if (!(*itE)->isMarried()) {
-			if (!checkPropns())
+			//if (!checkPropns())
+
+			pref = (*itE)->getPreferencias();
+
+			for(unsigned int i = 0; i < Proponentes.size(); i++)
+				for(unsigned int c = 0; c < pref.size(); c++)
+				if(Proponentes[i]->getProjP()->getNome() == pref[c]->getNome())
+					temp.push_back(Proponentes[i]);
+
+
+			for(unsigned int d = 0; d < temp.size(); d++)
+				if(!temp[d]->isMarried())
 				return false;
 		}
 	}
@@ -791,6 +804,7 @@ bool MIEIC::checkPreferences() {
 	return true;
 }
 
+
 void MIEIC::Marry() {
 
 	vector<Estudante*>::iterator itE = Estudantes.begin();
@@ -805,8 +819,9 @@ void MIEIC::Marry() {
 						&& verificaPref((*itE)->getID(), (*itP)->getID(), 1)) {
 					(*itP)->gettingmarried((*itE));
 					(*itE)->gettingmarried((*itP));
+					break;
 				} else {
-					if (comparePropPref((*(*itE)), (*(*itP)))) {
+					if (comparePropPref((*itE), (*itP))) {
 						solteirar((*itP)->getMarry()->getID());
 						(*itP)->gettingmarried((*itE));
 						(*itE)->gettingmarried((*itP));
@@ -814,6 +829,10 @@ void MIEIC::Marry() {
 				}
 			}
 		}
+
+		itE++;
+		if(itE == Estudantes.end())
+			itE = Estudantes.begin();
 	}
 
 	priFaseOk = true;
