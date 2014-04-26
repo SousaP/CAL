@@ -703,9 +703,9 @@ bool MIEIC::comparePropPref(Estudante *e, Proponente *p) {
 	vector<Estudante*>::const_iterator itP = prefTemp.begin();
 
 	for (; itP != prefTemp.end(); itP++) {
-		if ((*itP)->getMarry()->getID() == e->getID())
+		if ((*itP)->getID() == e->getID())
 			return true;
-		if ((*itP)->getID() == (*itP)->getMarry()->getID()) {
+		if ((*itP)->getID() == p->getMarry()->getID()) {
 			return false;
 		}
 	}
