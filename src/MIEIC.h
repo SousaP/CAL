@@ -56,7 +56,8 @@ public:
 	bool verificaPref(int idFont, int idDist,int grafo);
 	bool comparePropPref(Estudante e, Proponente p);
 	void Marry();
-	bool checkIfAllMarried();
+	bool checkStudents();
+	bool checkPropns();
 	void solteirar(int id);
 	void MarrySuperv();
 	void StartSecFase();

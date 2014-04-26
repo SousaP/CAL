@@ -692,15 +692,31 @@ bool MIEIC::comparePropPref(Estudante e, Proponente p) {
 /*
  * Verifica se todos os estudantes têm um projecto atribuido
  */
-bool MIEIC::checkIfAllMarried() {
+bool MIEIC::checkStudents() {
 
 	vector<Estudante*>::const_iterator itE = Estudantes.begin();
 	for (; itE != Estudantes.end(); itE++) {
 		if (!(*itE)->isMarried()) {
-			return false;
+			if(!checkPropns())
+				return false;
 		}
 	}
+
 	return true;
+}
+
+/*
+ * Verifica se todos os projetos estão atribuidos
+ */
+
+bool MIEIC::checkPropns() {
+	vector<Proponente*>::const_iterator itE = Proponentes.begin();
+		for (; itE != Proponentes.end(); itE++) {
+			if (!(*itE)->isMarried()) {
+				return false;
+			}
+		}
+		return true;
 }
 
 /*
@@ -757,7 +773,7 @@ void MIEIC::Marry() {
 	vector<Estudante*>::iterator itE = Estudantes.begin();
 	vector<Proponente*>::iterator itP = Proponentes.begin();
 
-	while (!checkIfAllMarried()) {
+	while (!checkStudents()) {
 
 		if (!(*itE)->isMarried()) {
 
