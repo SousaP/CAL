@@ -88,7 +88,7 @@ string Supervisor::getNomeClass(){
 string Supervisor::getCasamentos(){
 	string s ="";
 
-	for(int i = 0; i < Casamentos.size(); i++)
+	for(unsigned int i = 0; i < Casamentos.size(); i++)
 	{
 		s += " ";
 		s += Casamentos[i]->getNome();

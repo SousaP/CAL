@@ -828,8 +828,9 @@ void MIEIC::Marry() {
 		if (!(*itE)->isMarried()) {
 
 			for (; itP != Proponentes.end(); itP++) {
-				if (!verificaPref((*itE)->getID(), (*itP)->getID(), 1))
-					;
+				if (!verificaPref((*itE)->getID(), (*itP)->getID(), 1)) {
+
+				}
 				else if (!(*itP)->isMarried()) {
 					(*itP)->gettingmarried((*itE));
 					(*itE)->gettingmarried((*itP));

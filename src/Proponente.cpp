@@ -86,7 +86,7 @@ Projecto* Proponente::getProjP() {
 }
 
 bool Proponente::nasPrefs(Pessoa* p) {
-	for (int i = 0; i < PrefE.size(); i++)
+	for (unsigned int i = 0; i < PrefE.size(); i++)
 		if (PrefE[i]->getNome() == p->getNome())
 			return true;
 
