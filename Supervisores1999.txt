@@ -1,5 +1,0 @@
-nomeS
-1
-nomeP1
-nomeP2
-END

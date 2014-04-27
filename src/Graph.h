@@ -114,6 +114,7 @@ public:
 	bool removeVertex(const T &in);
 	bool addEdge(const T &sourc, const T &dest, double w);
 	bool removeEdge(const T &sourc, const T &dest);
+	void clone(Graph<T> &g);
 };
 
 template<class T>
@@ -202,5 +203,27 @@ bool Graph<T>::removeEdge(const T &sourc, const T &dest) {
 		return false;
 	return vS->removeEdgeTo(vD);
 }
+
+template <class T>
+void Graph<T>::clone(Graph<T> &gr) {
+	typename vector<Vertex<T>*>::const_iterator it= vertexSet.begin();
+	typename vector<Vertex<T>*>::const_iterator ite= vertexSet.end();
+
+	// 1. clone vertices
+	for (; it !=ite; it++) {
+		gr.addVertex((*it)->getInfo());
+		gr.vertexSet[gr.getNumVertex()-1]->visited = false;
+	}
+
+	// 2. clone edges
+	for (it=vertexSet.begin(); it !=ite; it++) {
+		typename vector<Edge<T> >::iterator edgeIt= ((*it)->adj).begin();
+		typename vector<Edge<T> >::iterator edgeIte= ((*it)->adj).end();
+		for (; edgeIt !=edgeIte; edgeIt++) {
+			gr.addEdge((*it)->getInfo(), edgeIt->dest->getInfo(), edgeIt->weight);
+		}
+	}
+}
+
 
 #endif /* GRAPH_H_ */
