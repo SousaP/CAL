@@ -736,8 +736,6 @@ bool MIEIC::checkStudents() {
 	vector<Estudante*>::const_iterator itE = Estudantes.begin();
 	for (; itE != Estudantes.end(); itE++) {
 		if (!(*itE)->isMarried()) {
-			//if (!checkPropns())
-
 			pref = (*itE)->getPreferencias();
 
 			for (unsigned int i = 0; i < Proponentes.size(); i++)
@@ -752,20 +750,6 @@ bool MIEIC::checkStudents() {
 		}
 	}
 
-	return true;
-}
-
-/*
- * Verifica se todos os projetos estão atribuidos
- */
-
-bool MIEIC::checkPropns() {
-	vector<Proponente*>::const_iterator itE = Proponentes.begin();
-	for (; itE != Proponentes.end(); itE++) {
-		if (!(*itE)->isMarried()) {
-			return false;
-		}
-	}
 	return true;
 }
 
