@@ -70,6 +70,8 @@ public:
 	unsigned int nrPref(Vertex<Pessoa*> *p, string nome);
 	void showWedd();
 	void showSupervProjs();
+	Graph<Pessoa*> PriGraph();
+	Graph<Pessoa*> SecGraph();
 
 };
 

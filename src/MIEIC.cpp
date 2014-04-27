@@ -1287,3 +1287,18 @@ void MIEIC::savePrimeiraFase() {
 
 	myfile.close();
 }
+
+
+Graph<Pessoa*> MIEIC::PriGraph(){
+	Graph<Pessoa*> retorno;
+	PriFase.clone(retorno);
+
+	return retorno;
+}
+
+Graph<Pessoa*> MIEIC::SecGraph(){
+	Graph<Pessoa*> retorno;
+	SecFase.clone(retorno);
+
+	return retorno;
+}
