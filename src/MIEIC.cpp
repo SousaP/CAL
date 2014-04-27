@@ -308,29 +308,35 @@ void MIEIC::ProponentesPref() {
 
 void MIEIC::SupervisoresPref() {
 
-	vector<Supervisor*> temp;
+	vector<Supervisor*> tempS;
 
 	for (unsigned int i = 0; i < Supervisores.size(); i++)
 		if (!Supervisores[i]->nrPref()) {
-			temp.push_back(Supervisores[i]);
+			tempS.push_back(Supervisores[i]);
 		}
 
-	for (unsigned int a = 0; a < temp.size(); a++) {
-		cout << a + 1 << ". " << (*temp[a]) << endl;
+	for (unsigned int a = 0; a < tempS.size(); a++) {
+		cout << a + 1 << ". " << (*tempS[a]) << endl;
 	}
 
 	string escolha;
-	while (temp.size() > 0 && escolha != "sair") {
+	while (tempS.size() > 0 && escolha != "sair") {
 		cout << "Supervisor [nr] a escolher preferencias? ";
 		getline(cin, escolha);
 		unsigned int IDpref = atoi(escolha.c_str());
 		IDpref--;
 
-		if (IDpref >= 0 && IDpref < temp.size()) {
+		if (IDpref >= 0 && IDpref < tempS.size()) {
 
 			string novaPref;
+			vector<Proponente*> tempP;
+
 			for (unsigned int c = 0; c < Proponentes.size(); c++)
-				cout << c + 1 << ". " << Proponentes[c]->getProj() << endl;
+				if (Proponentes[c]->getDocente())
+					tempP.push_back(Proponentes[c]);
+
+			for (unsigned int c = 0; c < tempP.size(); c++)
+				cout << c + 1 << ". " << tempP[c]->getProj() << endl;
 
 			cout
 					<< "Projecto [nr] para pref por ordem? \"parar\" para terminar ";
@@ -342,16 +348,16 @@ void MIEIC::SupervisoresPref() {
 				novaPrefn--;
 
 				if ((unsigned int) novaPrefn >= 0
-						&& (unsigned int) novaPrefn < Proponentes.size()) {
+						&& (unsigned int) novaPrefn < tempP.size()) {
 
-					if (!verificaPref(temp[IDpref]->getID(),
-							Proponentes[novaPrefn]->getID(), 2)) {
-						if (!addEdge(temp[IDpref]->getID(),
-								Proponentes[novaPrefn]->getID(), peso, 2))
+					if (!verificaPref(tempS[IDpref]->getID(),
+							tempP[novaPrefn]->getID(), 2)) {
+						if (!addEdge(tempS[IDpref]->getID(),
+								tempP[novaPrefn]->getID(), peso, 2))
 							cout << "\n\n ERRO AO ADICIONAR PREFERENCIAS \n\n";
 
-						if (!temp[IDpref]->nasPrefs(Proponentes[novaPrefn])) {
-							temp[IDpref]->addProj(Proponentes[novaPrefn]);
+						if (!tempS[IDpref]->nasPrefs(tempP[novaPrefn])) {
+							tempS[IDpref]->addProj(tempP[novaPrefn]);
 							peso++;
 						}
 					}
@@ -612,7 +618,7 @@ void MIEIC::Criar() {
 			} while (superv != "S" && superv != "s" && superv != "n"
 					&& superv != "N");
 
-			if (superv != "S" || superv != "s")
+			if (superv == "S" || superv == "s")
 				sup = true;
 			else
 				sup = false;
@@ -707,7 +713,7 @@ bool MIEIC::comparePropPref(Estudante *e, Proponente *p) {
 
 	for (unsigned int i = 0; i < prefTemp.size(); i++)
 		if (prefTemp[i]->getID() == p->getMarry()->getID())
-			if ((i+1) == nrPref(oldmarry, p->getMarry()->getNome()))
+			if ((i + 1) == nrPref(oldmarry, p->getMarry()->getNome()))
 				return false;
 
 	for (; itP != prefTemp.end(); itP++) {
