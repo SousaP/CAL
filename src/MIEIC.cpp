@@ -701,21 +701,9 @@ void MIEIC::Menu() {
 }
 
 bool MIEIC::comparePropPref(Estudante *e, Proponente *p) {
+
 	vector<Estudante*> prefTemp = p->getPreferencias();
 	vector<Estudante*>::const_iterator itP = prefTemp.begin();
-
-	/*vector<Vertex<Pessoa*> *> temp = PriFase.getVertexSet();
-	Vertex<Pessoa*> *oldmarry;
-
-	for (unsigned int i = 0; i < temp.size(); i++)
-		if ((*temp[i]).getInfo()->getID() == p->getID())
-			oldmarry = temp[i];
-
-	for (unsigned int i = 0; i < prefTemp.size(); i++)
-		if (prefTemp[i]->getID() == p->getMarry()->getID())
-			if ((i + 1) == nrPref(oldmarry, p->getMarry()->getID()))
-				return false;
-*/
 	for (; itP != prefTemp.end(); itP++) {
 		if ((*itP)->getID() == e->getID())
 			return true;
@@ -853,22 +841,6 @@ void MIEIC::Marry() {
 				}
 
 			}
-			/*
-			 for (; itP != Proponentes.end(); itP++) {
-			 if (!verificaPref((*itE)->getID(), (*itP)->getID(), 1)) {
-
-			 } else if (!(*itP)->isMarried()) {
-			 (*itP)->gettingmarried((*itE));
-			 (*itE)->gettingmarried((*itP));
-			 break;
-			 } else if (comparePropPref((*itE), (*itP))) {
-			 solteirar((*itP)->getMarry()->getID());
-			 (*itP)->gettingmarried((*itE));
-			 (*itE)->gettingmarried((*itP));
-			 break;
-			 }
-			 } */
-
 		}
 
 		itE++;
