@@ -72,6 +72,7 @@ public:
 	void showSupervProjs();
 	Graph<Pessoa*> PriGraph();
 	Graph<Pessoa*> SecGraph();
+	vector<Proponente* > getProp(unsigned int id);
 
 };
 

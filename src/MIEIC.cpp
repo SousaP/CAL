@@ -456,7 +456,7 @@ unsigned int MIEIC::nrPref(Vertex<Pessoa*> *p, unsigned int id) {
 	vector<Edge<Pessoa*> > temp = p->getEdges();
 
 	for (unsigned int pos = 0; pos < temp.size(); pos++)
-		if (temp[pos].getDest()->getID()== id)
+		if (temp[pos].getDest()->getID() == id)
 			return temp[pos].getweight();
 
 	return 0;
@@ -711,11 +711,11 @@ bool MIEIC::comparePropPref(Estudante *e, Proponente *p) {
 		if ((*temp[i]).getInfo()->getID() == p->getID())
 			oldmarry = temp[i];
 
-	for (unsigned int i = 0; i < prefTemp.size(); i++){
+	for (unsigned int i = 0; i < prefTemp.size(); i++)
 		if (prefTemp[i]->getID() == p->getMarry()->getID())
 			if ((i + 1) == nrPref(oldmarry, p->getMarry()->getID()))
 				return false;
-	}
+
 	for (; itP != prefTemp.end(); itP++) {
 		if ((*itP)->getID() == e->getID())
 			return true;
@@ -724,6 +724,29 @@ bool MIEIC::comparePropPref(Estudante *e, Proponente *p) {
 	}
 
 	return false;
+}
+
+vector<Proponente*> MIEIC::getProp(unsigned int id) {
+
+	vector<Proponente*> temp;
+	vector<Projecto*> pref;
+	vector<Estudante*>::const_iterator itE = Estudantes.begin();
+	for (; itE != Estudantes.end(); itE++) {
+
+		if ((*itE)->getID() == id) {
+			pref = (*itE)->getPreferencias();
+
+			for (unsigned int i = 0; i < Proponentes.size(); i++)
+				for (unsigned int c = 0; c < pref.size(); c++)
+					if (Proponentes[i]->getProjP()->getNome()
+							== pref[c]->getNome())
+						temp.push_back(Proponentes[i]);
+
+			return temp;
+		}
+
+	}
+
 }
 
 /*
@@ -807,25 +830,43 @@ void MIEIC::Marry() {
 	vector<Estudante*>::iterator itE = Estudantes.begin();
 	vector<Proponente*>::iterator itP = Proponentes.begin();
 
+
+	vector<Proponente*> pref;
 	while (!checkStudents()) {
 
 		if (!(*itE)->isMarried()) {
 
-			for (; itP != Proponentes.end(); itP++) {
-				if (!verificaPref((*itE)->getID(), (*itP)->getID(), 1)) {
+			pref = getProp((*itE)->getID());
 
-				}
-				else if (!(*itP)->isMarried()) {
-					(*itP)->gettingmarried((*itE));
-					(*itE)->gettingmarried((*itP));
+			for (unsigned int i = 0; i < pref.size(); i++) {
+
+				if (!pref[i]->isMarried()) {
+					pref[i]->gettingmarried((*itE));
+					(*itE)->gettingmarried(pref[i]);
 					break;
-				} else if (comparePropPref((*itE), (*itP))) {
-					solteirar((*itP)->getMarry()->getID());
-					(*itP)->gettingmarried((*itE));
-					(*itE)->gettingmarried((*itP));
+				} else if (comparePropPref((*itE), pref[i])) {
+					solteirar(pref[i]->getMarry()->getID());
+					(pref[i])->gettingmarried((*itE));
+					(*itE)->gettingmarried(pref[i]);
 					break;
 				}
+
 			}
+			/*
+			 for (; itP != Proponentes.end(); itP++) {
+			 if (!verificaPref((*itE)->getID(), (*itP)->getID(), 1)) {
+
+			 } else if (!(*itP)->isMarried()) {
+			 (*itP)->gettingmarried((*itE));
+			 (*itE)->gettingmarried((*itP));
+			 break;
+			 } else if (comparePropPref((*itE), (*itP))) {
+			 solteirar((*itP)->getMarry()->getID());
+			 (*itP)->gettingmarried((*itE));
+			 (*itE)->gettingmarried((*itP));
+			 break;
+			 }
+			 } */
 
 		}
 
