@@ -67,7 +67,7 @@ public:
 	bool preferencesOccupied(string nomeProj);
 	bool checkPreferences();
 	void tryMarrySuperv(Supervisor* s);
-	unsigned int nrPref(Vertex<Pessoa*> *p, string nome);
+	unsigned int nrPref(Vertex<Pessoa*> *p, unsigned int id);
 	void showWedd();
 	void showSupervProjs();
 	Graph<Pessoa*> PriGraph();

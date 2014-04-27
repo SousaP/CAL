@@ -452,11 +452,11 @@ void MIEIC::StartSecFase() {
 
 }
 
-unsigned int MIEIC::nrPref(Vertex<Pessoa*> *p, string nome) {
+unsigned int MIEIC::nrPref(Vertex<Pessoa*> *p, unsigned int id) {
 	vector<Edge<Pessoa*> > temp = p->getEdges();
 
 	for (unsigned int pos = 0; pos < temp.size(); pos++)
-		if (temp[pos].getDest()->getNome() == nome)
+		if (temp[pos].getDest()->getID()== id)
 			return temp[pos].getweight();
 
 	return 0;
@@ -477,7 +477,7 @@ void MIEIC::showWedd() {
 					<< " esta casado com "
 					<< (*it)->getInfo()->getPartner()->getNomeClass();
 			cout << " sendo esta a sua "
-					<< nrPref((*it), (*it)->getInfo()->getPartner()->getNome())
+					<< nrPref((*it), (*it)->getInfo()->getPartner()->getID())
 					<< "a opcao\n";
 		} else
 			cout << "\n " << (*it)->getInfo()->getNomeClass()
@@ -711,11 +711,11 @@ bool MIEIC::comparePropPref(Estudante *e, Proponente *p) {
 		if ((*temp[i]).getInfo()->getID() == p->getID())
 			oldmarry = temp[i];
 
-	for (unsigned int i = 0; i < prefTemp.size(); i++)
+	for (unsigned int i = 0; i < prefTemp.size(); i++){
 		if (prefTemp[i]->getID() == p->getMarry()->getID())
-			if ((i + 1) == nrPref(oldmarry, p->getMarry()->getNome()))
+			if ((i + 1) == nrPref(oldmarry, p->getMarry()->getID()))
 				return false;
-
+	}
 	for (; itP != prefTemp.end(); itP++) {
 		if ((*itP)->getID() == e->getID())
 			return true;
@@ -1261,7 +1261,7 @@ void MIEIC::savePrimeiraFase() {
 					<< " esta casado com "
 					<< (*it)->getInfo()->getPartner()->getNomeClass();
 			cout << " sendo esta a sua "
-					<< nrPref((*it), (*it)->getInfo()->getPartner()->getNome())
+					<< nrPref((*it), (*it)->getInfo()->getPartner()->getID())
 					<< "a opcao\n";
 		} else
 			cout << "\n " << (*it)->getInfo()->getNomeClass()
