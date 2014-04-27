@@ -451,7 +451,7 @@ unsigned int MIEIC::nrPref(Vertex<Pessoa*> *p, string nome) {
 
 	for (unsigned int pos = 0; pos < temp.size(); pos++)
 		if (temp[pos].getDest()->getNome() == nome)
-			return (pos + 1);
+			return temp[pos].getweight();
 
 	return 0;
 }
@@ -695,9 +695,20 @@ void MIEIC::Menu() {
 }
 
 bool MIEIC::comparePropPref(Estudante *e, Proponente *p) {
-
 	vector<Estudante*> prefTemp = p->getPreferencias();
 	vector<Estudante*>::const_iterator itP = prefTemp.begin();
+
+	vector<Vertex<Pessoa*> *> temp = PriFase.getVertexSet();
+	Vertex<Pessoa*> *oldmarry;
+
+	for (unsigned int i = 0; i < temp.size(); i++)
+		if ((*temp[i]).getInfo()->getID() == p->getID())
+			oldmarry = temp[i];
+
+	for (unsigned int i = 0; i < prefTemp.size(); i++)
+		if (prefTemp[i]->getID() == p->getMarry()->getID())
+			if ((i+1) == nrPref(oldmarry, p->getMarry()->getNome()))
+				return false;
 
 	for (; itP != prefTemp.end(); itP++) {
 		if ((*itP)->getID() == e->getID())
@@ -705,9 +716,6 @@ bool MIEIC::comparePropPref(Estudante *e, Proponente *p) {
 		else if ((*itP)->getID() == p->getMarry()->getID())
 			return false;
 	}
-
-
-
 
 	return false;
 }

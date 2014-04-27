@@ -80,6 +80,7 @@ public:
 	friend class Graph<T> ;
 	friend class Vertex<T> ;
 	T getDest();
+	double getweight();
 };
 
 template<class T>
@@ -90,6 +91,12 @@ Edge<T>::Edge(Vertex<T> *d, double w) :
 template<class T>
 T Edge<T>::getDest() {
 	return dest->getInfo();
+}
+
+
+template<class T>
+double Edge<T>::getweight() {
+	return weight;
 }
 
 /*
