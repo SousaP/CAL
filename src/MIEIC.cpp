@@ -736,11 +736,12 @@ vector<Proponente*> MIEIC::getProp(unsigned int id) {
 		if ((*itE)->getID() == id) {
 			pref = (*itE)->getPreferencias();
 
+			for (unsigned int c = 0; c < pref.size(); c++)
 			for (unsigned int i = 0; i < Proponentes.size(); i++)
-				for (unsigned int c = 0; c < pref.size(); c++)
 					if (Proponentes[i]->getProjP()->getNome()
 							== pref[c]->getNome())
 						temp.push_back(Proponentes[i]);
+
 
 			return temp;
 		}
