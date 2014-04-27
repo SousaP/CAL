@@ -704,7 +704,7 @@ bool MIEIC::comparePropPref(Estudante *e, Proponente *p) {
 	vector<Estudante*> prefTemp = p->getPreferencias();
 	vector<Estudante*>::const_iterator itP = prefTemp.begin();
 
-	vector<Vertex<Pessoa*> *> temp = PriFase.getVertexSet();
+	/*vector<Vertex<Pessoa*> *> temp = PriFase.getVertexSet();
 	Vertex<Pessoa*> *oldmarry;
 
 	for (unsigned int i = 0; i < temp.size(); i++)
@@ -715,7 +715,7 @@ bool MIEIC::comparePropPref(Estudante *e, Proponente *p) {
 		if (prefTemp[i]->getID() == p->getMarry()->getID())
 			if ((i + 1) == nrPref(oldmarry, p->getMarry()->getID()))
 				return false;
-
+*/
 	for (; itP != prefTemp.end(); itP++) {
 		if ((*itP)->getID() == e->getID())
 			return true;
@@ -743,10 +743,10 @@ vector<Proponente*> MIEIC::getProp(unsigned int id) {
 						temp.push_back(Proponentes[i]);
 
 
-			return temp;
 		}
 
 	}
+	return temp;
 
 }
 
