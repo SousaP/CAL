@@ -37,6 +37,7 @@ public:
 	void saveProponentes();
 	void saveEstudantes();
 	void saveSupervisores();
+	void savePrimeiraFase();
 	void Menu();
 	bool Listagem(string pessoa);
 	void PrimeiraFase();

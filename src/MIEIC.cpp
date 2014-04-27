@@ -1248,3 +1248,36 @@ void MIEIC::saveSupervisores() {
 	}
 	myfile.close();
 }
+
+void MIEIC::savePrimeiraFase() {
+	string filename = "PrimeiraFase";
+	string anoS;
+	ostringstream convert;
+	convert << ano;
+	anoS = convert.str();
+	filename += anoS;
+	filename += ".txt";
+	ofstream myfile(filename.c_str());
+
+	vector<Vertex<Pessoa*> *> temp = PriFase.getVertexSet();
+
+	vector<Vertex<Pessoa*> *>::const_iterator it = temp.begin();
+
+	cout << "\n CASAMENTOS \n";
+	for (; it != temp.end(); it++) {
+		if ((*it)->getInfo()->isMarried()) {
+			cout << "\n " << (*it)->getInfo()->getNomeClass()
+					<< " esta casado com "
+					<< (*it)->getInfo()->getPartner()->getNomeClass();
+			cout << " sendo esta a sua "
+					<< nrPref((*it), (*it)->getInfo()->getPartner()->getNome())
+					<< "a opcao\n";
+		} else
+			cout << "\n " << (*it)->getInfo()->getNomeClass()
+					<< " esta solteiro \n";
+	}
+
+	cout << "\n----------------\n";
+
+	myfile.close();
+}
