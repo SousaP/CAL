@@ -7,7 +7,6 @@
 #include <vector>
 #include "Projecto.h"
 
-using namespace std;
 
 class Estudante: public Pessoa {
 	vector<Projecto*> preferencias;

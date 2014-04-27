@@ -6,7 +6,6 @@
 #include <vector>
 #include "Pessoa.h"
 
-using namespace std;
 
 class Projecto {
 	string nome;

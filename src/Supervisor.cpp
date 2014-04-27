@@ -55,6 +55,9 @@ ostream &operator <<(ostream &os, Supervisor &S) {
 		os << (*temp[i]).getProj();
 		os << ", ";
 	}
+	os << "   MAX:  ";
+	os << S.getMax();
+
 	return os;
 }
 

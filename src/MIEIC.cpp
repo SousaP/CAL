@@ -440,7 +440,7 @@ void MIEIC::StartSecFase() {
 
 			for (unsigned int d = 0; d < temp.size(); d++) {
 
-				if (Proponentes[c]->getProjP()->getNome() == temp[d]->getNome())
+				if (Proponentes[c]->getID() == temp[d]->getID())
 					if (!addEdge(Supervisores[i]->getID(),
 							Proponentes[c]->getID(), (d + 1), 2))
 						cout << "\n\n ERRO AO ADICIONAR PREFERENCIAS \n\n";
@@ -1273,15 +1273,14 @@ void MIEIC::savePrimeiraFase() {
 	myfile.close();
 }
 
-
-Graph<Pessoa*> MIEIC::PriGraph(){
+Graph<Pessoa*> MIEIC::PriGraph() {
 	Graph<Pessoa*> retorno;
 	PriFase.clone(retorno);
 
 	return retorno;
 }
 
-Graph<Pessoa*> MIEIC::SecGraph(){
+Graph<Pessoa*> MIEIC::SecGraph() {
 	Graph<Pessoa*> retorno;
 	SecFase.clone(retorno);
 
