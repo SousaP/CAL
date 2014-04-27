@@ -426,7 +426,6 @@ void MIEIC::StartSecFase() {
 
 	}
 
-
 	vector<Proponente*> temp;
 	for (unsigned int i = 0; i < Supervisores.size(); i++) {
 
@@ -520,14 +519,12 @@ void MIEIC::showSupervProjs() {
 	cout << "\n CASAMENTOS \n";
 	for (; it != Supervisores.end(); it++) {
 		if ((*it)->isMarried()) {
-			cout << "\n " << (*it)->getNomeClass()
-					<< " esta a supervisionar: "
-					 << (*it)->getCasamentos()
+			cout << "\n " << (*it)->getNomeClass() << " esta a supervisionar: "
+					<< (*it)->getCasamentos()
 
 					<< endl;
 		} else
-			cout << "\n " << (*it)->getNomeClass()
-					<< " esta solteiro\n";
+			cout << "\n " << (*it)->getNomeClass() << " esta solteiro\n";
 	}
 	cout << "\n----------------\n";
 
@@ -705,10 +702,13 @@ bool MIEIC::comparePropPref(Estudante *e, Proponente *p) {
 	for (; itP != prefTemp.end(); itP++) {
 		if ((*itP)->getID() == e->getID())
 			return true;
-		if ((*itP)->getID() == p->getMarry()->getID()) {
+		else if ((*itP)->getID() == p->getMarry()->getID())
 			return false;
-		}
 	}
+
+
+
+
 	return false;
 }
 
@@ -717,8 +717,8 @@ bool MIEIC::comparePropPref(Estudante *e, Proponente *p) {
  */
 bool MIEIC::checkStudents() {
 
-	vector <Proponente*> temp;
-	vector <Projecto*> pref;
+	vector<Proponente*> temp;
+	vector<Projecto*> pref;
 	vector<Estudante*>::const_iterator itE = Estudantes.begin();
 	for (; itE != Estudantes.end(); itE++) {
 		if (!(*itE)->isMarried()) {
@@ -726,15 +726,15 @@ bool MIEIC::checkStudents() {
 
 			pref = (*itE)->getPreferencias();
 
-			for(unsigned int i = 0; i < Proponentes.size(); i++)
-				for(unsigned int c = 0; c < pref.size(); c++)
-				if(Proponentes[i]->getProjP()->getNome() == pref[c]->getNome())
-					temp.push_back(Proponentes[i]);
+			for (unsigned int i = 0; i < Proponentes.size(); i++)
+				for (unsigned int c = 0; c < pref.size(); c++)
+					if (Proponentes[i]->getProjP()->getNome()
+							== pref[c]->getNome())
+						temp.push_back(Proponentes[i]);
 
-
-			for(unsigned int d = 0; d < temp.size(); d++)
-				if(!temp[d]->isMarried())
-				return false;
+			for (unsigned int d = 0; d < temp.size(); d++)
+				if (!temp[d]->isMarried())
+					return false;
 		}
 	}
 
@@ -804,7 +804,6 @@ bool MIEIC::checkPreferences() {
 	return true;
 }
 
-
 void MIEIC::Marry() {
 
 	vector<Estudante*>::iterator itE = Estudantes.begin();
@@ -815,23 +814,24 @@ void MIEIC::Marry() {
 		if (!(*itE)->isMarried()) {
 
 			for (; itP != Proponentes.end(); itP++) {
-				if (!(*itP)->isMarried()
-						&& verificaPref((*itE)->getID(), (*itP)->getID(), 1)) {
+				if (!verificaPref((*itE)->getID(), (*itP)->getID(), 1))
+					;
+				else if (!(*itP)->isMarried()) {
 					(*itP)->gettingmarried((*itE));
 					(*itE)->gettingmarried((*itP));
 					break;
-				} else {
-					if (comparePropPref((*itE), (*itP))) {
-						solteirar((*itP)->getMarry()->getID());
-						(*itP)->gettingmarried((*itE));
-						(*itE)->gettingmarried((*itP));
-					}
+				} else if (comparePropPref((*itE), (*itP))) {
+					solteirar((*itP)->getMarry()->getID());
+					(*itP)->gettingmarried((*itE));
+					(*itE)->gettingmarried((*itP));
+					break;
 				}
 			}
+
 		}
 
 		itE++;
-		if(itE == Estudantes.end())
+		if (itE == Estudantes.end())
 			itE = Estudantes.begin();
 	}
 
@@ -900,7 +900,7 @@ void MIEIC::MarrySuperv() {
 	setpropofree();
 
 	//para o caso de ja ter feito um marry antes
-	for(unsigned int i = 0; i< Supervisores.size(); i++)
+	for (unsigned int i = 0; i < Supervisores.size(); i++)
 		Supervisores[i]->setFree();
 
 	while (!checkIfAllMarried2()) {
