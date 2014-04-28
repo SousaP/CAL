@@ -229,7 +229,7 @@ void MIEIC::EstudantesPref() {
 	string novaPref;
 	while (temp.size() > 0 && escolha != "sair") {
 		cout << "Estudante [nr] a escolher preferencias? ";
-		getline(cin, escolha);
+		cin >> escolha;
 		unsigned int IDpref = atoi(escolha.c_str());
 		IDpref--;
 
@@ -243,7 +243,7 @@ void MIEIC::EstudantesPref() {
 			int peso = 1;
 			do {
 
-				getline(cin, novaPref);
+				cin >> novaPref;
 				int novaPrefn = atoi(novaPref.c_str());
 				novaPrefn--;
 				if ((unsigned int) novaPrefn >= 0
@@ -291,7 +291,7 @@ void MIEIC::ProponentesPref() {
 	string escolha;
 	while (temp.size() > 0 && escolha != "sair") {
 		cout << "\nProponente [nr] a escolher preferencias? ";
-		getline(cin, escolha);
+		cin >> escolha;
 		unsigned int IDpref = atoi(escolha.c_str());
 		IDpref--;
 
@@ -305,7 +305,7 @@ void MIEIC::ProponentesPref() {
 			int peso = 1;
 			do {
 
-				getline(cin, novaPref);
+				cin >> novaPref;
 				int novaPrefn = atoi(novaPref.c_str());
 				novaPrefn--;
 				if ((unsigned int) novaPrefn >= 0
@@ -353,7 +353,7 @@ void MIEIC::SupervisoresPref() {
 	string escolha;
 	while (tempS.size() > 0 && escolha != "sair") {
 		cout << "Supervisor [nr] a escolher preferencias? ";
-		getline(cin, escolha);
+		cin >> escolha;
 		unsigned int IDpref = atoi(escolha.c_str());
 		IDpref--;
 
@@ -374,7 +374,7 @@ void MIEIC::SupervisoresPref() {
 			int peso = 1;
 			do {
 
-				getline(cin, novaPref);
+				cin >> novaPref;
 				int novaPrefn = atoi(novaPref.c_str());
 				novaPrefn--;
 
@@ -600,7 +600,7 @@ void MIEIC::SegundaFase() {
 		cout << "2. Atribuir Projectos\n";
 		cout << "3. Ver Projectos dos Supervisores\n";
 		cout << "4. Sair";
-		getline(cin, escolha);
+		cin >> escolha;
 
 		if (escolha == "1" || escolha == "Supervisores"
 				|| escolha == "supervisores")
@@ -672,7 +672,7 @@ void MIEIC::Criar() {
 			do {
 				cout << "Precisa de um Docente para supervisionar?(S/N) ";
 
-				getline(cin, superv);
+				cin >> superv;
 			} while (superv != "S" && superv != "s" && superv != "n"
 					&& superv != "N");
 
@@ -705,7 +705,7 @@ void MIEIC::Criar() {
 			string nrmax;
 			do {
 				cout << "Numero Maximo de Projectos: ";
-				getline(cin, nrmax);
+				cin >> nrmax;
 			} while (atoi(nrmax.c_str()) < 0);
 
 			Supervisor* Sp = new Supervisor(nomeS, atoi(nrmax.c_str()));
@@ -742,7 +742,7 @@ void MIEIC::Menu() {
 
 				cout
 						<< "\nListagem de: Grafo? Projectos? Estudantes? Proponentes? Supervisors? Sair \n";
-				getline(cin, list);
+				cin >> list;
 
 			} while (!Listagem(list) && list != "Sair" && list != "sair");
 
