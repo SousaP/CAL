@@ -683,6 +683,7 @@ void MIEIC::Criar() {
 
 			string ProjN;
 			cout << "Nome do projecto: ";
+			cin.ignore();
 			getline(cin, ProjN);
 
 			Projecto* pj = new Projecto(ProjN, sup);
