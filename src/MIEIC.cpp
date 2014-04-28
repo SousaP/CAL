@@ -758,6 +758,10 @@ void MIEIC::Menu() {
 	}
 }
 
+
+/*
+ * Ve se o proponente prefere o casamento atual ou o possivel casamento com o estudante "e"
+ */
 bool MIEIC::comparePropPref(Estudante *e, Proponente *p) {
 
 	vector<Estudante*> prefTemp = p->getPreferencias();
@@ -772,6 +776,9 @@ bool MIEIC::comparePropPref(Estudante *e, Proponente *p) {
 	return false;
 }
 
+/*
+ * retorna as preferencias do estudante com o id recebido
+ */
 vector<Proponente*> MIEIC::getProp(unsigned int id) {
 
 	vector<Proponente*> temp;
@@ -871,6 +878,9 @@ bool MIEIC::checkPreferences() {
 	return true;
 }
 
+/*
+ * Funçao base para gerar os casamentos da primeira fase
+ */
 void MIEIC::Marry() {
 
 	vector<Estudante*>::iterator itE = Estudantes.begin();
@@ -907,6 +917,9 @@ void MIEIC::Marry() {
 	priFaseOk = true;
 }
 
+/*
+ * poe os proponentes solteiros depois da primeira fase
+ */
 void MIEIC::setpropofree() {
 	for (unsigned int i = 0; i < Proponentes.size(); i++) {
 		Proponentes[i]->gettingsigle();
@@ -936,6 +949,9 @@ bool MIEIC::checkIfAllMarried2() {
 	return true;
 }
 
+/*
+ * tenta arranjar projetos para o Supervisor s
+ */
 void MIEIC::tryMarrySuperv(Supervisor* s) {
 
 	vector<Vertex<Pessoa*> *> temp = SecFase.getVertexSet();
@@ -963,6 +979,9 @@ void MIEIC::tryMarrySuperv(Supervisor* s) {
 
 }
 
+/*
+ * Funçao base para a distribuiçao de projetos para os supervisores
+ */
 void MIEIC::MarrySuperv() {
 
 	vector<Supervisor*>::iterator itS = Supervisores.begin();
