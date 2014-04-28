@@ -11,7 +11,7 @@ using namespace std;
 
 template<class T> class Edge;
 template<class T> class Graph;
-
+const int INT_INFINITY = std::numeric_limits<int>::max();
 /*
  * ================================================================================================
  * Vertice
@@ -30,6 +30,14 @@ public:
 	T getInfo();
 	vector<Edge<T> > getEdges();
 };
+
+template <class T>
+struct vertex_greater_than {
+    bool operator()(Vertex<T> * a, Vertex<T> * b) const {
+        return a->getDist() > b->getDist();
+    }
+};
+
 
 template<class T>
 vector<Edge<T> > Vertex<T>::getEdges() {
@@ -93,7 +101,6 @@ T Edge<T>::getDest() {
 	return dest->getInfo();
 }
 
-
 template<class T>
 double Edge<T>::getweight() {
 	return weight;
@@ -115,6 +122,7 @@ public:
 	bool addEdge(const T &sourc, const T &dest, double w);
 	bool removeEdge(const T &sourc, const T &dest);
 	void clone(Graph<T> &g);
+	void dijkstraShortestPath(const T &s);
 };
 
 template<class T>
@@ -204,26 +212,75 @@ bool Graph<T>::removeEdge(const T &sourc, const T &dest) {
 	return vS->removeEdgeTo(vD);
 }
 
-template <class T>
+template<class T>
 void Graph<T>::clone(Graph<T> &gr) {
-	typename vector<Vertex<T>*>::const_iterator it= vertexSet.begin();
-	typename vector<Vertex<T>*>::const_iterator ite= vertexSet.end();
+	typename vector<Vertex<T>*>::const_iterator it = vertexSet.begin();
+	typename vector<Vertex<T>*>::const_iterator ite = vertexSet.end();
 
 	// 1. clone vertices
-	for (; it !=ite; it++) {
+	for (; it != ite; it++) {
 		gr.addVertex((*it)->getInfo());
-		gr.vertexSet[gr.getNumVertex()-1]->visited = false;
+		gr.vertexSet[gr.getNumVertex() - 1]->visited = false;
 	}
 
 	// 2. clone edges
-	for (it=vertexSet.begin(); it !=ite; it++) {
-		typename vector<Edge<T> >::iterator edgeIt= ((*it)->adj).begin();
-		typename vector<Edge<T> >::iterator edgeIte= ((*it)->adj).end();
-		for (; edgeIt !=edgeIte; edgeIt++) {
-			gr.addEdge((*it)->getInfo(), edgeIt->dest->getInfo(), edgeIt->weight);
+	for (it = vertexSet.begin(); it != ite; it++) {
+		typename vector<Edge<T> >::iterator edgeIt = ((*it)->adj).begin();
+		typename vector<Edge<T> >::iterator edgeIte = ((*it)->adj).end();
+		for (; edgeIt != edgeIte; edgeIt++) {
+			gr.addEdge((*it)->getInfo(), edgeIt->dest->getInfo(),
+					edgeIt->weight);
 		}
 	}
 }
 
+template<class T>
+void Graph<T>::dijkstraShortestPath(const T &s) {
+
+	for (unsigned int i = 0; i < vertexSet.size(); i++) {
+		vertexSet[i]->path = NULL;
+		vertexSet[i]->dist = INT_INFINITY;
+		vertexSet[i]->processing = false;
+	}
+
+	Vertex<T>* v = getVertex(s);
+	v->dist = 0;
+
+	vector<Vertex<T>*> pq;
+	pq.push_back(v);
+
+	make_heap(pq.begin(), pq.end(), vertex_greater_than<T>());
+
+	while (!pq.empty()) {
+
+		/*
+		 v = pq.front();
+		 pop_heap(pq.begin(), pq.end());
+		 pq.pop_back();
+		 */
+
+		pop_heap(pq.begin(), pq.end(), vertex_greater_than<T>());
+		v = pq.back();
+		pq.pop_back();
+
+		for (unsigned int i = 0; i < v->adj.size(); i++) {
+			Vertex<T>* w = v->adj[i].dest;
+
+			if (v->dist + v->adj[i].weight < w->dist) {
+
+				w->dist = v->dist + v->adj[i].weight;
+				w->path = v;
+
+				//se já estiver na lista, apenas a actualiza
+				if (!w->processing) {
+					w->processing = true;
+					pq.push_back(w);
+				}
+
+				make_heap(pq.begin(), pq.end(), vertex_greater_than<T>());
+			}
+		}
+	}
+}
 
 #endif /* GRAPH_H_ */
