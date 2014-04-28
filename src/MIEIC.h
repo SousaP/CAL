@@ -10,6 +10,7 @@
 #include "Supervisor.h"
 #include "Graph.h"
 #include "Pessoa.h"
+#include "graphviewer.h"
 
 /*
  * A classe MIEIC gere os dois grafos bem como os processos de atribuição de projectos e os várioa elementos da estrutura
@@ -25,6 +26,7 @@ class MIEIC {
 	vector<Estudante*> Estudantes;
 	vector<Supervisor*> Supervisores;
 	vector<Projecto*> Projectos;
+	GraphViewer *gv;
 
 public:
 	MIEIC(unsigned int ano);
@@ -73,6 +75,7 @@ public:
 	Graph<Pessoa*> PriGraph();
 	Graph<Pessoa*> SecGraph();
 	vector<Proponente* > getProp(unsigned int id);
+	void showgraph();
 
 };
 

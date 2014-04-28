@@ -102,6 +102,8 @@ void MIEIC::ListGrafo() {
 		cout << i << ".  " << (*it)->getInfo()->getNomeClass() << "\n";
 
 	cout << "----------------------------------";
+
+	showgraph();
 }
 
 /*
@@ -565,7 +567,7 @@ void MIEIC::SegundaFase() {
 
 bool MIEIC::FirstFaseComplete() {
 
-	if(Proponentes.size() < Estudantes.size())
+	if (Proponentes.size() < Estudantes.size())
 		return false;
 
 	for (unsigned int i = 0; i < Proponentes.size(); i++)
@@ -728,11 +730,10 @@ vector<Proponente*> MIEIC::getProp(unsigned int id) {
 			pref = (*itE)->getPreferencias();
 
 			for (unsigned int c = 0; c < pref.size(); c++)
-			for (unsigned int i = 0; i < Proponentes.size(); i++)
+				for (unsigned int i = 0; i < Proponentes.size(); i++)
 					if (Proponentes[i]->getProjP()->getNome()
 							== pref[c]->getNome())
 						temp.push_back(Proponentes[i]);
-
 
 		}
 
@@ -821,7 +822,6 @@ void MIEIC::Marry() {
 
 	vector<Estudante*>::iterator itE = Estudantes.begin();
 	vector<Proponente*>::iterator itP = Proponentes.begin();
-
 
 	vector<Proponente*> pref;
 	while (!checkStudents()) {
@@ -1303,3 +1303,28 @@ Graph<Pessoa*> MIEIC::SecGraph() {
 
 	return retorno;
 }
+
+void MIEIC::showgraph() {
+	gv = new GraphViewer(600, 600, false);
+	gv->defineEdgeColor("blue");
+	gv->defineVertexColor("yellow");
+
+	vector<Vertex<Pessoa*> *> temp1;
+	temp1 = PriFase.getVertexSet();
+
+	//adiciona os vertices
+	for (unsigned int i = 0; i < temp1.size(); i++)
+		if (!gv->addNode(temp1[i]->getInfo()->getID()))
+			cout << "Erro ao adicionar á visualizaçao";
+
+	//adiciona arestas
+	vector<Edge<Pessoa*> > edges;
+	for (unsigned int i = 0; i < temp1.size(); i++) {
+		edges = temp1[i]->getEdges();
+		for (unsigned int c = 0; c < edges.size(); c++)
+		if (!gv->addEdge(edges[c].getweight(),temp1[i]->getInfo()->getID(),edges[c].getDest()->getID(),EdgeType::UNDIRECTED))
+					cout << "Erro ao adicionar á visualizaçao2";
+	}
+
+}
+
