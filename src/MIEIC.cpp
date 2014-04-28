@@ -1317,6 +1317,7 @@ void MIEIC::showgraph() {
 		if (!gv->addNode(temp1[i]->getInfo()->getID()))
 			cout << "Erro ao adicionar á visualizaçao";
 
+	gv->rearrange();
 	//adiciona arestas
 	vector<Edge<Pessoa*> > edges;
 	for (unsigned int i = 0; i < temp1.size(); i++) {
@@ -1325,6 +1326,7 @@ void MIEIC::showgraph() {
 		if (!gv->addEdge(edges[c].getweight(),temp1[i]->getInfo()->getID(),edges[c].getDest()->getID(),EdgeType::UNDIRECTED))
 					cout << "Erro ao adicionar á visualizaçao2";
 	}
+	gv->rearrange();
 
 }
 
