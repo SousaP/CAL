@@ -103,7 +103,7 @@ void MIEIC::ListGrafo() {
 
 	cout << "----------------------------------";
 
-	showgraph();
+	//showgraph();
 }
 
 /*
@@ -895,8 +895,10 @@ void MIEIC::tryMarrySuperv(Supervisor* s) {
 	}
 
 	Pessoa* tryM;
+	vector <Proponente*> pref = s->getPreferencias();
+	for(unsigned int d = 0; d < pref.size(); d++)
 	for (unsigned int c = 0; c < Sedges.size(); c++) {
-		if (!Sedges[c].getDest()->isMarried()) {
+		if (!Sedges[c].getDest()->isMarried() && pref[d]->getID() == Sedges[c].getDest()->getID()) {
 			tryM = Sedges[c].getDest();
 
 			s->gettingmarried(tryM);
