@@ -34,7 +34,7 @@ MIEIC::~MIEIC() {
 }
 
 /*
- * Seguem-se várias funções que apresentam listas de todos os elementos do programa
+ * Função que apresenta a lista de todos os Projetos
  */
 void MIEIC::ListProjs() {
 
@@ -48,6 +48,9 @@ void MIEIC::ListProjs() {
 
 }
 
+/*
+ * Função que apresenta a lista de todos os Proponentes
+ */
 void MIEIC::ListPropos() {
 
 	cout << "\n||||| LISTAGEM PROPONENTES  |||||\n";
@@ -59,6 +62,9 @@ void MIEIC::ListPropos() {
 	cout << "----------------------------------";
 }
 
+/*
+ * Função que apresenta a lista de todos os Estudantes
+ */
 void MIEIC::ListEstuds() {
 
 	cout << "\n||||| LISTAGEM ESTUDANTES |||||\n";
@@ -71,6 +77,9 @@ void MIEIC::ListEstuds() {
 
 }
 
+/*
+ * Função que apresenta a lista de todos os Supervisores
+ */
 void MIEIC::ListSupervs() {
 
 	cout << "\n||||| LISTAGEM SUPERVISORES |||||\n";
@@ -83,6 +92,9 @@ void MIEIC::ListSupervs() {
 
 }
 
+/*
+ * Função que apresenta a no Standard Output os grafos existentes na classe MIEIC
+ */
 void MIEIC::ListGrafo() {
 
 	cout << "\n||||| GRAFO 1 |||||\n";
@@ -130,6 +142,10 @@ bool MIEIC::Listagem(string pessoa) {
 
 }
 
+/*
+ * Adiciona uma Edge ao grafo cujo número é passado pelo parâmetro "grafo", com o peso dado pelo parâmetro "peso" e com
+ * o destino e fonte que também são passados como parâmtros
+ */
 bool MIEIC::addEdge(int iDFont, int iDDist, int peso, int grafo) {
 
 	vector<Vertex<Pessoa*> *> temp;
@@ -160,6 +176,10 @@ bool MIEIC::addEdge(int iDFont, int iDDist, int peso, int grafo) {
 		return SecFase.addEdge(font, dest, peso);
 }
 
+/*
+ * Verifica se o vertex com id=idDist, presente no grafo com o número do parâmetro "grafo"
+ * está presente nas preferências do vertex com id=idFonte
+ */
 bool MIEIC::verificaPref(int idFont, int idDist, int grafo) {
 
 	vector<Vertex<Pessoa*> *> temp;
@@ -187,6 +207,9 @@ bool MIEIC::verificaPref(int idFont, int idDist, int grafo) {
 	return false;
 }
 
+/*
+ * Adiciona preferencias dos Estudantes em relação aos projetos segundo comandos do utilizador
+ */
 void MIEIC::EstudantesPref() {
 
 	cout << "\n PREFERENCIAS DOS ESTUDANTES \n";
@@ -249,6 +272,9 @@ void MIEIC::EstudantesPref() {
 
 }
 
+/*
+ * Adiciona preferencias dos Proponentes em relação aos Estudantes segundo comandos do utilizador
+ */
 void MIEIC::ProponentesPref() {
 
 	cout << "\n PREFERENCIAS DOS PROPONENTES \n";
@@ -308,6 +334,9 @@ void MIEIC::ProponentesPref() {
 
 }
 
+/*
+ * Adiciona preferencias dos Supervisores em relação aos projetos segundo comandos do utilizador
+ */
 void MIEIC::SupervisoresPref() {
 
 	vector<Supervisor*> tempS;
@@ -374,6 +403,9 @@ void MIEIC::SupervisoresPref() {
 
 }
 
+/*
+ * Função principal e gestora da primeira fase a qual consiste em atribuir projetos aos Estudantes
+ */
 void MIEIC::StartPriFase() {
 
 	Pessoa* P;
@@ -419,6 +451,9 @@ void MIEIC::StartPriFase() {
 
 }
 
+/*
+ * Função principal e gestora da segunda fase a qual consiste em atribuir projetos aos Supervisores
+ */
 void MIEIC::StartSecFase() {
 
 	Pessoa* P;
@@ -454,6 +489,9 @@ void MIEIC::StartSecFase() {
 
 }
 
+/*
+ * Função que retorna o peso da Edge(preferência) com o número id passado como parâmetro
+ */
 unsigned int MIEIC::nrPref(Vertex<Pessoa*> *p, unsigned int id) {
 	vector<Edge<Pessoa*> > temp = p->getEdges();
 
@@ -464,6 +502,9 @@ unsigned int MIEIC::nrPref(Vertex<Pessoa*> *p, unsigned int id) {
 	return 0;
 }
 
+/*
+ * Apresenta no standard output todos os casamentos realizados entre projects/proponentes e estudantes
+ */
 void MIEIC::showWedd() {
 //	if (!priFaseOk)
 	//	return;
@@ -489,6 +530,9 @@ void MIEIC::showWedd() {
 	cout << "\n----------------\n";
 }
 
+/*
+ * Menu da primeira fase
+ */
 void MIEIC::PrimeiraFase() {
 	string escolha = "";
 
@@ -519,6 +563,9 @@ void MIEIC::PrimeiraFase() {
 	}
 }
 
+/*
+ * Apresenta no standard output todos os casamentos realizados entre projects/proponentes e supervisores
+ */
 void MIEIC::showSupervProjs() {
 	if (!secFaseOk)
 		return;
@@ -538,6 +585,9 @@ void MIEIC::showSupervProjs() {
 
 }
 
+/*
+ * Menu da segunda fase
+ */
 void MIEIC::SegundaFase() {
 	if (!priFaseOk) {
 		cout << "\n Primeira fase nao completa";
@@ -565,6 +615,9 @@ void MIEIC::SegundaFase() {
 	}
 }
 
+/*
+ * Verifica se a primeira fase está completa
+ */
 bool MIEIC::FirstFaseComplete() {
 
 	if (Proponentes.size() < Estudantes.size())
