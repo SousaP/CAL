@@ -565,6 +565,9 @@ void MIEIC::SegundaFase() {
 
 bool MIEIC::FirstFaseComplete() {
 
+	if(Proponentes.size() < Estudantes.size())
+		return false;
+
 	for (unsigned int i = 0; i < Proponentes.size(); i++)
 		if (!Proponentes[i]->nrPref())
 			return false;
