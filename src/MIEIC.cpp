@@ -730,7 +730,7 @@ void MIEIC::Menu() {
 		cout
 				<< "\n1. Criar elementos\n2. Listagem\n3. Primeira fase.\n4. Segunda Fase.\n5. Sair\n";
 
-		getline(cin, escolha);
+		cin >> escolha;
 
 		if (escolha == "Criar" || escolha == "criar" || escolha == "1")
 			Criar();
